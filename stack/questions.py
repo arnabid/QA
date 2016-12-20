@@ -73,20 +73,17 @@ def largestArea(bars, n):
             """keep popping till you find a smaller bar or stack is empty,
             and bar[i] starts from the last popped index
             """
+            temp = None
             while stack and bars[i] <= stack[-1][0]:
                 temp = stack.pop()
                 ans = max(ans, (i-temp[1])*temp[0])
-                if not stack:
-                    break
             stack.append((bars[i], temp[1]))
 
     # pop the remaining items in stack
-    i = n
     while stack:
         temp = stack.pop()
-        ans = max(ans, (i-temp[1])*temp[0])
+        ans = max(ans, (n-temp[1])*temp[0])
     return (ans)
-
 
 
 """
