@@ -9,10 +9,10 @@ Created on Mon Oct 17 07:58:38 2016
 Design a stack to support the folllowing operations:
 push, pop, min/max/average??
 
-You have an empty sequence, and you will be given  queries. Each query is one of these three types:
-1 x  -Push the element x into the stack.
-2    -Delete the element present at the top of the stack.
-3    -Print the maximum element in the stack.
+Each query is of the form:
+1 x  -Push x into the stack.
+2    -Pop from the stack.
+3    -Print the maximum item present in the stack.
 """
 
 # find max in the stack
@@ -31,9 +31,9 @@ if __name__ == '__main__':
                 stackm.append(q[1])
                 
         elif q[0] == 2: # pop
-            v = stack.pop()
-            if v == stackm[-1]:
+            if stack[-1] == stackm[-1]:
                 stackm.pop()
+            stack.pop()
         else: # return max element in the stack
             print (stackm[-1])
  
@@ -53,7 +53,7 @@ if __name__ == '__main__':
             v = stack.pop()
             total -= v
             n -= 1
-        else: # return average of lements in the stack
+        else: # return average of elements in the stack
             print (total/float(n))
 
 """
@@ -133,11 +133,12 @@ if __name__ == '__main__':
     n = len(arr)
     
     stack, lastpushed = [], 0
-    ans = True
+    valid = True
     for i in xrange(n):
         if arr[i] > lastpushed:
             stack.extend(xrange(lastpushed+1, arr[i]+1))
             lastpushed = arr[i]
         if arr[i] != stack.pop():
-            ans = False
+            valid = False
             break
+    print (valid)
