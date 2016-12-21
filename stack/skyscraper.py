@@ -16,12 +16,14 @@ if __name__ == '__main__':
     arr = map(int, raw_input().strip().split(" "))
     
     stack, total = [arr[0]], 0
-    dic = Counter({arr[0]:1})
+    dic = Counter(stack)
     for i in xrange(1,n):
         dic[arr[i]] += 1
+        # add to stack if bar is less than equal to last seen
         if arr[i] <= stack[-1]:
             stack.append(arr[i])
         else:
+            # pop till you see a bar of equal or greater height
             while stack and arr[i] > stack[-1]:
                 if dic[stack[-1]] > 1:
                     total += dic[stack[-1]]*(dic[stack[-1]]-1)
