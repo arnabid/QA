@@ -96,23 +96,21 @@ if __name__ == '__main__':
     
     ans, stack = 0, [(plants[0],0)]
     for plant in plants[1:]:
-        temp = stack[-1]
-        if plant > temp[0]:
+        if plant > stack[-1][0]:
             stack.append((plant, 1))
             ans = max(ans, 1)
         else:
-            pr = temp[1]
-            while stack and plant <= temp[0]:
+            # pop till a smaller plant is found; find the max number
+            # of days these popped plants survived
+            maxday = 0
+            while stack and plant <= stack[-1][0]:
+                maxday = max(maxday, stack[-1][1])
                 stack.pop()
-                pr = max(pr, temp[1])
-                if not stack:
-                    break
-                temp = stack[-1]
             if not stack:
                 stack.append((plant, 0))
             else:
-                stack.append((plant, pr+1))
-                ans = max(ans, pr+1)
+                stack.append((plant, maxday+1))
+                ans = max(ans, maxday+1)
     print (ans)
 
 
