@@ -89,29 +89,37 @@ def largestArea(bars, n):
 """
 Poisonous plants question
 https://www.hackerrank.com/challenges/poisonous-plants
+status = [...,(i,j),...]
+The status of each plant after the program finishes is expressed as a tuple (i,j)
+i -> 0/1 : dead/alive
+j -> day plant dies
 """
 if __name__ == '__main__':
     n = int(raw_input())
     plants = map(int, raw_input().strip().split(" "))
     
-    ans, stack = 0, [(plants[0],0)]
-    for plant in plants[1:]:
-        if plant > stack[-1][0]:
-            stack.append((plant, 1))
+    ans, stack, status = 0, [(plants[0],0)], [(1,0)]
+    for i in xrange(1,n):
+        if plants[i] > stack[-1][0]:
+            stack.append((plants[i], 1))
+            status.append((0,1))
             ans = max(ans, 1)
         else:
             # pop till a smaller plant is found; find the max number
             # of days these popped plants survived
             maxday = 0
-            while stack and plant <= stack[-1][0]:
+            while stack and plants[i] <= stack[-1][0]:
                 maxday = max(maxday, stack[-1][1])
                 stack.pop()
             if not stack:
-                stack.append((plant, 0))
+                stack.append((plants[i], 0))
+                status.append((1,0))
             else:
-                stack.append((plant, maxday+1))
+                stack.append((plants[i], maxday+1))
+                status.append((0,maxday+1))
                 ans = max(ans, maxday+1)
     print (ans)
+    print (status)
 
 
 """
