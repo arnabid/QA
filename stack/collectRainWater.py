@@ -10,9 +10,10 @@ Find the amount of water collected on the top of bars
 
 def findwater(bars, n):
     leftmax = [0]
-    # leftmax[i] - stores the max bar seen so far to the left of i excluding i
+    # leftmax[i] - stores the max bar seen to the left of i excluding i
+    # no water will be collected on bars[0] and bars[n-1]
 
-    for i in xrange(1,n):
+    for i in xrange(1,n-1):
         leftmax.append(max(leftmax[i-1], bars[i-1]))
 
     rmax, total = bars[-1], 0
