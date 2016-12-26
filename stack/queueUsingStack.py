@@ -15,17 +15,21 @@ tail: return the item at the end of the queue
 
 Input format:
 1 x -> add x to the queue
-2 -1-> get the item from the queue
-3 -1-> return the head of the queue
-4 -1-> return the tail of the queue
-*** requires more testing ***
+2 -> get the item from the queue
+3 -> return the head of the queue
+4 -> return the tail of the queue
 """
 
 if __name__ == '__main__':
     T = int(raw_input())
     eq, dq = [], []
     for _ in xrange(T):
-        x, y = map(int, raw_input().strip().split(" "))
+        s = raw_input().strip()
+        x, y = None, None
+        if len(s) == 1:
+            x = int(s[0])
+        else:
+            x, y = map(int, s.split(" "))
         if x == 1:
             eq.append(y)
         elif x == 2:
