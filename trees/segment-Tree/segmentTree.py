@@ -32,6 +32,18 @@ def updateRecur(st, ss, se, i, diff, si):
         updateRecur(st, ss, mid, i, diff, 2*si+1)
         updateRecur(st, mid+1, se, i, diff, 2*si+2)
 
+def updateRange(st, ss, se, qs, qe, diff, si):
+    if qe < ss or qs > se:
+        return st[si]
+    
+    if ss == se:
+        st[si] += diff
+    else:
+        mid = ss + (se-ss)/2
+        st[si] = updateRange(st, ss, mid, qs, qe, diff, 2*si+1) \
+        + updateRange(st, mid+1, se, qs, qe, diff, 2*si+2)
+    return st[si]
+
 def update(i, diff):
     si = index[i]
     while si != 0:
@@ -69,17 +81,20 @@ if __name__ == '__main__':
     print (st)
     
     # update arr[i] to new_val; get the index and new value from stdin
-    i, new_val = map(int, raw_input().strip().split(" "))
-    diff = new_val - arr[i]
-    arr[i] = new_val
-    #update(i, diff)
-    updateRecur(st, 0, n-1, i, diff, 0)
-    
-    print (arr)
-    print (st)
-    
-    # find the sum of arr[qs:qe];
-    qs, qe = map(int, raw_input().strip().split(" "))
+#    i, new_val = map(int, raw_input().strip().split(" "))
+#    diff = new_val - arr[i]
+#    arr[i] = new_val
+#    #update(i, diff)
+#    updateRecur(st, 0, n-1, i, diff, 0)
+#    
+#    print (arr)
+#    print (st)
+#    
+#    # find the sum of arr[qs:qe];
+#    qs, qe = map(int, raw_input().strip().split(" "))
+#    print (sumRange(st, 0, n-1, qs, qe, 0))
+    qs, qe, diff = map(int, raw_input().strip().split(" "))
+    updateRange(st, 0, n-1, qs, qe, diff, 0)
     print (sumRange(st, 0, n-1, qs, qe, 0))
     
     
