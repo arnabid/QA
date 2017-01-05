@@ -26,23 +26,25 @@ def sumRange(st, ss, se, qs, qe, si):
 def updateRecur(st, ss, se, i, diff, si):
     if i < ss or i > se:
         return
-    st[si] += diff
-    if ss != se:
-        mid = ss + (se-ss)/2
-        updateRecur(st, ss, mid, i, diff, 2*si+1)
-        updateRecur(st, mid+1, se, i, diff, 2*si+2)
+    if ss == se:
+        st[si] += diff
+        return
+    mid = ss + (se-ss)/2
+    updateRecur(st, ss, mid, i, diff, 2*si+1)
+    updateRecur(st, mid+1, se, i, diff, 2*si+2)
 
 def updateRange(st, ss, se, qs, qe, diff, si):
     if qe < ss or qs > se:
-        return st[si]
+        return
     
     if ss == se:
         st[si] += diff
-    else:
-        mid = ss + (se-ss)/2
-        st[si] = updateRange(st, ss, mid, qs, qe, diff, 2*si+1) \
-        + updateRange(st, mid+1, se, qs, qe, diff, 2*si+2)
-    return st[si]
+        return
+
+    mid = ss + (se-ss)/2
+    updateRange(st, ss, mid, qs, qe, diff, 2*si+1)
+    updateRange(st, mid+1, se, qs, qe, diff, 2*si+2)
+    st[si] = st[2*si+1] + st[2*si+2]
 
 def update(i, diff):
     si = index[i]
@@ -52,13 +54,15 @@ def update(i, diff):
     st[si] += diff
 
 def buildST(arr, st, ss, se, si):
+
     if ss == se: # child node
         st[si] = arr[ss]
         index[ss] = si
     else:
         mid = ss + (se-ss)/2
-        st[si] = buildST(arr, st, ss, mid, 2*si+1) + buildST(arr, st, mid+1, se, 2*si+2)
-    return st[si]
+        buildST(arr, st, ss, mid, 2*si+1)
+        buildST(arr, st, mid+1, se, 2*si+2)
+        st[si] = st[2*si+1] + st[2*si+2]
     
 
 if __name__ == '__main__':
@@ -79,20 +83,21 @@ if __name__ == '__main__':
     buildST(arr, st, 0, n-1, 0)
     print (index)
     print (st)
+
+    # find the sum of arr[qs:qe]
+    qs, qe = map(int, raw_input().strip().split(" "))
+    print (sumRange(st, 0, n-1, qs, qe, 0))
     
     # update arr[i] to new_val; get the index and new value from stdin
-#    i, new_val = map(int, raw_input().strip().split(" "))
-#    diff = new_val - arr[i]
-#    arr[i] = new_val
-#    #update(i, diff)
-#    updateRecur(st, 0, n-1, i, diff, 0)
-#    
-#    print (arr)
-#    print (st)
-#    
-#    # find the sum of arr[qs:qe];
-#    qs, qe = map(int, raw_input().strip().split(" "))
-#    print (sumRange(st, 0, n-1, qs, qe, 0))
+    i, new_val = map(int, raw_input().strip().split(" "))
+    diff = new_val - arr[i]
+    arr[i] = new_val
+    #update(i, diff)
+    updateRecur(st, 0, n-1, i, diff, 0)
+    print (arr)
+    print (st)
+
+    # update all the values ib a range
     qs, qe, diff = map(int, raw_input().strip().split(" "))
     updateRange(st, 0, n-1, qs, qe, diff, 0)
     print (sumRange(st, 0, n-1, qs, qe, 0))
