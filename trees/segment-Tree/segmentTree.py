@@ -4,10 +4,7 @@ Created on Thu Dec 29 15:26:54 2016
 
 @author: arnab
 """
-"""
-can variables defined in main be accessed in other 
-functions even when they are not passed as arguments
-"""
+
 import math
 from collections import Counter
 
@@ -97,7 +94,7 @@ if __name__ == '__main__':
     print (arr)
     print (st)
 
-    # update all the values ib a range
+    # update all the values in a range
     qs, qe, diff = map(int, raw_input().strip().split(" "))
     updateRange(st, 0, n-1, qs, qe, diff, 0)
     print (sumRange(st, 0, n-1, qs, qe, 0))
