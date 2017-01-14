@@ -19,6 +19,9 @@ returns the min number of steps to reach end of array
 returns -1 if end is not reachable
 """
 def BFSsol(arr, start):
+    if arr[start] == 0:
+        return -1
+
     n = len(arr)
     q = Queue.Queue()
     q.put(start)
@@ -40,6 +43,9 @@ def BFSsol(arr, start):
 
 
 def DFSsol(arr, start):
+    if arr[start] == 0:
+        return -1
+
     n = len(arr)
     visited = Counter()
     
@@ -55,16 +61,42 @@ def DFSsol(arr, start):
         return False
     
     return dfs(start)
+
+
+def DPsol(arr, start):
+    if arr[start] == 0:
+        return -1
+    
+    n = len(arr)
+    if start == n-1:
+        return 0
+
+    steps = [float('inf')] * n
+    steps[start] = 0
+    
+    lv = start #last visited
+    for i in xrange(start, n-1):
+        if steps[i] == float('inf'):
+            return -1
+        
+        for w in xrange(lv+1, min(n, i+arr[i]+1)):
+            steps[w] = min(steps[w], steps[i]+1)
+            if w == n-1:
+                return steps[w]
+        lv = max(lv, min(n-1,i+arr[i]))
+    return -1
+    
     
 
 if __name__ == '__main__':
     #arr = map(int, raw_input().strip().split(" "))
     #start = 0
     
-    # Testing consistency of BFS and DFS
-    arr = [random.randint(0,3) for _ in xrange(0,10)]
+    # Testing consistency of BFS, DFS, DP
+    arr = [random.randint(0,6) for _ in xrange(0,100)]
     start = random.randint(0,9)
     
     
-    print (DFSsol(arr, start))
+    print (DPsol(arr, start))
     print (BFSsol(arr, start))
+    print (DFSsol(arr, start))
