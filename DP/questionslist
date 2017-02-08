@@ -1,0 +1,39 @@
+List of questions
+=================
+
+break the chain in 3 pieces to get min cost
+min coins to get a given value
+max subset in a set with the condition that no two elements are adjacent
+max square sub-matrix in a grid
+least cost path from top to bottom in a pyramid(can either take one step left/right)
+grid path problems from top left to bottom right
+count the number of decodings of a given encoded string
+number of distinct binary strings of length n without consecutive ones
+Find if a subset exists in a set of N non-negative integers that sum up to k.
+
+todo
+====
+
+max rectangular sub-matrix in a grid
+minimum number of jumps to reach end of the array
+candy problem
+matrix chain mutiplication
+paranthesize an arithmetic expression to maximize its value
+
+
+Notes on DP
+===========
+To solve the original problem of size n, we solve smaller problems of
+the same type, but of smaller sizes.
+
+optimal substructure: optimal solutions to a problem incorporate/use
+optimal solutions to related subproblems, which we may solve independently.
+
+dynamic programming applies when the subproblems overlap—that is, 
+when subproblems share subsubproblems. 
+
+A dynamic-programming algorithm solves each subsubproblem just once and then saves its answer in a table, thereby avoiding the work of recomputing the answer every time it solves each subsubproblem.
+
+A dynamic-programming approach runs in polynomial
+time when the number of distinct subproblems involved is polynomial in the input
+size and we can solve each such subproblem in polynomial time.
