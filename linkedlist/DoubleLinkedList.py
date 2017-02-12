@@ -10,6 +10,7 @@ Created on Sun Feb 12 08:30:12 2017
  head could be None as well for empty list
  Return the head node of the updated list
  Node is defined below.
+ reference: https://www.hackerrank.com/challenges/insert-a-node-into-a-sorted-doubly-linked-list
 """
  
 class Node(object):
