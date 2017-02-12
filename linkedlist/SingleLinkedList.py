@@ -30,66 +30,86 @@ class SingleLinkedList(object):
         return self.size
     
     def search(self, key):
+        """ returns first node with val = key; null otherwise """
         curr = self.head
         while curr and curr.val != key:
             curr = curr.next
-        if curr is None:
-            raise ValueError("key searched is not in list.")
         return curr
 
     def insert(self, data):
+        """ inserts node at front of the linked list O(1) """
         tmp = Node(data)
         tmp.next = self.head
         self.head = tmp
         self.size += 1
     
     def delete(self, key):
+        """ deletes the first node with val = key """
+        
+        tmp = self.head
+        
+        """ if the first node has val = key """
+        if tmp and tmp.val == key:
+            self.head = tmp.next
+            tmp = None
+            return
+
         prev = None
-        curr = self.head
-        while curr and curr.val != key:
-            prev = curr
-            curr = curr.next
-        if curr is None:
-            raise ValueError("key to be deleted is not in list")
-        if prev is None:
-            self.head = curr.next
-        else:
-            prev.next = curr.next
+        while tmp and tmp.val != key:
+            prev = tmp
+            tmp = tmp.next
+        
+        """ node with val = key not found """
+        if tmp is None:
+            return
+            
+        prev.next = tmp.next
+        tmp = None
         self.size -= 1
-        curr.next = None
 
     def removeNthFromEnd(self, n):
-        # Assume n is always valid
-        prev,curr,front = self.head,self.head,self.head
+        """ if n is valid, the linked list is altered otherwise no-op """
+        prev,curr,front = None,self.head,self.head
+        
+        if front is None:
+            return
+
         for i in xrange(1,n):
             front = front.next
+            if front is None:
+                return
         
         while front.next:
             front = front.next
             prev = curr
             curr = curr.next
+
         if curr == self.head:
             self.head = curr.next
-        else:
-            prev.next = curr.next
-        curr.next = None
+            curr = None
+            return
+        prev.next = curr.next
+        curr = None
 
     def getHead(self):
+        """ returns the first node """
         return self.head
     
     def getTail(self):
+        """ returns the last node """
         tmp = self.head
         while tmp.next:
             tmp = tmp.next
         return tmp
     
     def reverse(self):
+        """ reverses a linked list in place """
         prev, curr = None, self.head
-        while curr is not None:
-            next = curr.next
+        while curr:
+            n = curr.next
             curr.next = prev
             prev = curr
-            curr = next
+            curr = n
         self.head = prev
 
 if __name__ == '__main__':
