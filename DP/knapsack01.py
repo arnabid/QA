@@ -10,6 +10,7 @@ from collections import Counter
 W - weight capacity of knapsack
 wt - weight array, val - value array
 n - # items
+referece: http://cse.unl.edu/~goddard/Courses/CSCE310J/Lectures/Lecture8-DynamicProgramming.pdf
 """
 
 """
