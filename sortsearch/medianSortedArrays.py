@@ -32,18 +32,16 @@ def findMedianFast(A, B, sa, ea, sb, eb):
         return m1
     elif m1 < m2:
         if (ea-sa) % 2 == 0:
-            sa = sa + (ea-sa)/2
             eb = sb + (eb-sb)/2
         else:
-            sa = sa + (ea-sa)/2
             eb = sb + (eb-sb)/2 + 1
+        sa = sa + (ea-sa)/2
     else:
         if (eb-sb) % 2 == 0:
-            sb = sb + (eb-sb)/2
             ea = sa + (ea-sa)/2
         else:
-            sb = sb + (eb-sb)/2
             ea = sa + (ea-sa)/2 + 1
+        sb = sb + (eb-sb)/2
     return findMedianFast(A, B, sa, ea, sb, eb)
 
 def findMedian(A, B):
@@ -75,9 +73,9 @@ def findMedian(A, B):
     return (first + second)/2.0
 
 if __name__ == '__main__':
-    A = [1,3,5]
-    B = [2,2,2]
+    A = [1,3,5,6]
+    B = [2,2,2,3]
     
-    print findMedianFast(A, B, 0, 2, 0, 2)
+    print findMedianFast(A, B, 0, 3, 0, 3)
     
         
