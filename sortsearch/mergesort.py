@@ -39,20 +39,19 @@ def merge(arr, low, mid, high):
 
 def mergesort(arr, low, high):
     if low < high:
-        mid = (low+high) // 2
+        mid = low + (high-low)/2
         
         mergesort(arr, low, mid)
         mergesort(arr, mid+1, high)
         
         merge(arr, low, mid, high)
-        print (arr)
 
 if __name__ == '__main__':
     arr = [2,7,3,1,6,4]
     n = len(arr)
     
-    #print ("The array before sorting = {0}".format(arr))
+    print ("The array before sorting = {} ".format(arr))
     
     mergesort(arr, 0, n-1)
     
-    #print ("The array after sorting = {0}".format(arr))
+    print ("The array after sorting = {} ".format(arr))
