@@ -22,7 +22,7 @@ def add_task(task, priority=0):
     count = next(counter)
     entry = [task, count, priority]
     entry_finder[task] = entry
-    heappush(pq, entry)
+    heapq.heappush(pq, entry)
 
 def remove_task(task):
     """ Mark an existing task in the heap as removed, and delete it from the 
@@ -35,7 +35,7 @@ def pop_task():
     Raise KeyError if heap is empty """
     
     while pq:
-        priority, count, task = heappop(pq)
+        priority, count, task = heapq.heappop(pq)
         if task is not REMOVED:
             del entry_finder[task]
             return task
