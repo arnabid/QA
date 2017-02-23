@@ -18,7 +18,7 @@ Consider a heap of height 'h'
 Till the level h-1, the heap is a complete binary tree with 
 internal nodes = leaves - 1
 
-After that, if the internal nodes increase by x, the can leaves increase
+After that, if the internal nodes increase by x, the leaves can increase
 by x or x-1
 
 At the end, the internal nodes <= leaves
@@ -40,8 +40,7 @@ def heapify(i, heap):
     """
     if 2*i > len(heap) - 1:
         return
-    lc, rc = float('inf'), float('inf')
-    lc = heap[2*i]
+    lc, rc = heap[2*i], float('inf')
     if 2*i + 1 <= len(heap) - 1:
         rc = heap[2*i+1]
     
@@ -81,7 +80,7 @@ def insertHeap(x, heap):
 
     # check if heap is empty
     if not heap:
-        heap += [0,x]
+        heap += [0,x] # first element is 0 to use 1 based indexing
         return
 
     heap.append(x)
@@ -107,11 +106,10 @@ def deleteItem(x, heap):
 
     pindex = i/2
     if heap[pindex] > heap[i]:
-        while pindex >= 1 and heap[pindex] > heap[i]:
+        while i > 1 and heap[pindex] > heap[i]:
             heap[pindex], heap[i] = heap[i], heap[pindex]
             i = pindex
             pindex = i/2
-        return
     else:
         heapify(i, heap)
 
@@ -133,5 +131,6 @@ if __name__ == '__main__':
     print (heap)
     
     # delete item from the heap
-    deleteItem(13, heap)
+    x = int(raw_input())
+    deleteItem(x, heap)
     print (heap)
