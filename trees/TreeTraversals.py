@@ -186,11 +186,11 @@ def printInorderIterative(root):
             root = root.left
         if stack:
             root = stack.pop()
+            print (root.val),
+            root = root.right
         else:
             break
-        print (root.val),
-        root = root.right
-    
+
 
 # A function to do postorder tree traversal w/o recursion
 def printPostorderIterative2(root):
