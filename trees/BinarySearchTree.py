@@ -307,6 +307,43 @@ def findNodeInBetween(root, a, b):
     else:
         return root
 
+def convertBSTDoubleLL(root):
+    # converts a BST to a double linked list of nodes in order
+    if root is None:
+        return
+
+    first, last = None, None
+    tmp = root
+    while tmp.left:
+        tmp = tmp.left
+    first = tmp # smallest node
+
+    tmp = root
+    while tmp.right:
+        tmp = tmp.right
+    last = tmp # biggest node
+
+    prev, stack = None, []
+    while True:
+        while root:
+            stack.append(root)
+            root = root.left
+
+        if stack:
+            root = stack.pop()
+            if prev:
+                prev.right = root
+                root.left = prev
+            prev = root
+            root = root.right
+        else:
+            break
+
+    first.left = last
+    last.right = first
+
+    return first, last
+
 
 if __name__ == '__main__':
     root = Node(50)
