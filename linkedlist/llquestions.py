@@ -24,14 +24,62 @@ def frontBackSplit(head):
     if head.next is None:
         return head, None
     
-    count, tmp = 0, head
-    while tmp:
+    count, current = 0, head
+    while current:
         count += 1
-        tmp = tmp.next
-    head2 = head
-    count = (count+1)/2
+        current = current.next
+    current = head
+    count = (count+1)/2 # number of nodes in the first half
     while count > 0:
-        head2 = head2.next
+        current = current.next
         count -= 1
-    return head, head2
+    return head, current
+
+"""
+Write a RemoveDuplicates() function which takes a list sorted in increasing order
+and deletes any duplicate nodes from the list. Ideally, the list should only be
+traversed once.
+"""
+
+def removeDuplicates(head):
+    """
+    returns head of the modified list
+    """
+    if head is None: # do nothing if the list is empty
+        return
+    current = head
+    while current.next:
+        if current.data == (current.next).data:
+            current.next = (current.next).next
+        else:
+            current = current.next
+    return head
+
+
+"""
+Write a function AlternatingSplit() that takes one list and divides up its nodes
+to make two smaller lists. The sublists should be made from alternating elements
+in the original list. So if the original list is {a, b, a, b, a}, then one sublist
+should be {a, a, a} and the other should be {b, b}. 
+"""
+
+def alternatingSplit(head):
+    """
+    returns head1, head2
+    head1 - head of one sublist
+    head2 - head of the second sublist
+    """
+    if head is None:
+        return None, None
+    if head.next is None:
+        return head, None
     
+    head1, head2 = head, head.next
+    while head1 and head2:
+        head1.next = head2.next
+        if head2.next:
+            head2.next = (head2.next).next
+        
+        head1 = head1.next
+        head2 = head2.next
+    return head, head.next
