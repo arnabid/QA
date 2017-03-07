@@ -87,6 +87,23 @@ def heightRecursive(root):
     rh = heightRecursive(root.right)
     
     return max(lh,rh) + 1
+
+def isTreeBalanced(root):
+    """
+    An empty tree is height balanced.
+    A non-empty tree is balanced if:
+    left subtree is height balanced
+    right subtree is height balanced
+    abs difference in the height of 2 subtrees is not more than 1 
+    """
+    if root is None:
+        return 0, True
+    
+    lh, lb = isTreeBalanced(root.left)
+    rh, rb = isTreeBalanced(root.right)
+    
+    isBalanced = lb and rb and abs(lh-rh) <= 1
+    return max(lh, rh)+1, isBalanced
     
 def getChildren(node):
     # returns the children of a node; returns empty list if node is a leaf node
