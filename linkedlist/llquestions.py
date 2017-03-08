@@ -5,6 +5,22 @@ Created on Sat Mar  4 08:12:03 2017
 @author: arnab
 """
 
+class Node(object):
+    def __init__(self, data = None):
+        self.val = data
+        self.next = None
+
+
+"""
+clone a linked list; return the head of the cloned linked list
+"""
+def clone(head):
+    if head is None:
+        return None
+    result = Node(head.val)
+    result.next = clone(head.next)
+    return result
+
 """
 Given a list, split it into two sublists — one for the front half, and one for the back half.
 If the number of elements is odd, the extra element should go in the front list.
