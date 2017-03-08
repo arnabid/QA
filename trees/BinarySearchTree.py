@@ -345,6 +345,22 @@ def convertBSTDoubleLL(root):
     return first, last
 
 
+def distance(start, endval):
+    """
+    returns the number of hops between start node and 
+    node with val = endval. It is guaranteed that start is an
+    ancestor of node with val = endval
+    """
+    d = 0
+    while start and start.val != endval:
+        if endval > start.val:
+            start = start.right
+        else:
+            start = start.left
+        d += 1
+    return d
+
+
 if __name__ == '__main__':
     root = Node(50)
     insert(root, Node(60))
