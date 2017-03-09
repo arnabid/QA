@@ -5,21 +5,23 @@ Created on Wed Apr  6 21:29:58 2016
 @author: arnab
 """
 
-if __name__ == '__main__':
-#    arr = [3,3,4,5,6,7]
-#    k = 10
-#    n = len(arr)
-#    i,j = 0,n-1
-#    while i < j:
-#        if arr[i] + arr[j] > k and j > 0:
-#            j -= 1
-#        if arr[i] + arr[j] == k and i != j:
-#            print (i,j)
-#        i += 1
-    
-    for i in xrange(3):
-        for j in xrange(10):
+"""
+find pairs that sum to a given value
+array is sorted; array has distinct elements
+"""
+def sol(arr, k):
+    i, j = 0, len(arr) - 1
+    while i < j:
+        if arr[i] + arr[j] == k:
             print (i,j)
-            if j == 5:
-                break
+            i += 1
+            j -= 1
+        elif arr[i] + arr[j] > k:
+            j -= 1
+        else:
+            i += 1
 
+if __name__ == '__main__':
+    arr = [3,4,5,6,7]
+    k = 10
+    sol(arr, k)
