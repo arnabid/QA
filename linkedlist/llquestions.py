@@ -5,10 +5,75 @@ Created on Sat Mar  4 08:12:03 2017
 @author: arnab
 """
 
-class Node(object):
+class ListNode(object):
     def __init__(self, data = None):
         self.val = data
         self.next = None
+
+
+class TreeNode(object):
+    def __init__(self, data = None):
+        self.val = data
+        self.left = None
+        self.right = None
+
+
+"""
+Given a singly linked list, determine if it is a palindrome.
+O(N) time and O(1) space
+"""
+def isPalindrome(self, head):
+    # return True if list is empty or has only 1 node
+    if head is None or head.next is None:
+        return True
+    
+    fast, slow = head, head
+    count = 0
+    while fast != None and fast.next != None:
+        slow = slow.next
+        fast = fast.next.next
+        count += 1
+    
+    prev, curr = None, slow
+    while curr:
+        n = curr.next
+        curr.next = prev
+        prev = curr
+        curr = n
+    
+    tail = prev
+    while count > 0:
+        if head.val != tail.val:
+            return False
+        head = head.next
+        tail = tail.next
+        count -= 1
+    
+    return True
+
+
+"""
+convert sorted linked list to a binary search tree
+"""
+def sortedListToBST(head):
+    if head is None:
+        return None
+    return sortedListToBSTUtil(head, None)
+
+def sortedListToBSTUtil(head, tail):
+    if head == tail:
+        return None
+    
+    slow, fast = head, head
+    while fast != None and fast.next != None:
+        slow = slow.next
+        fast = fast.next.next
+    
+    node = TreeNode(slow.val)
+    node.left = sortedListToBSTUtil(head, slow)
+    node.right = sortedListToBSTUtil(slow.next, tail)
+    
+    return node
 
 
 """
@@ -17,7 +82,7 @@ clone a linked list; return the head of the cloned linked list
 def clone(head):
     if head is None:
         return None
-    result = Node(head.val)
+    result = ListNode(head.val)
     result.next = clone(head.next)
     return result
 
