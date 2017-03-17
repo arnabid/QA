@@ -150,7 +150,7 @@ def depth(root):
 def width(root):
     # width of a tree = maximum number of nodes at any level of the tree
     if root is None:
-        return -1
+        return 0
     
     nodes = Queue.Queue()
     nodeslevel = Counter() # map with key = level and value = # nodes @ level
@@ -162,6 +162,28 @@ def width(root):
         for child in getChildren(v):
             nodes.put((child,vh+1))
     return max(nodeslevel.values())
+
+
+def widthVER2(root):
+    if root is None:
+        return 0
+    
+    curr_level = [root]
+    next_level = []
+    maxw = 1
+    
+    while True:
+        for node in curr_level:
+            if node.left:
+                next_level.append(node.left)
+            if node.right:
+                next_level.append(node.right)
+        
+        if not next_level:
+            break
+        maxw = max(maxw, len(next_level))
+        curr_level = next_level
+        next_level = []
 
 
 def height(root):
