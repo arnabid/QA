@@ -18,6 +18,18 @@ class Node(object):
         self.left = None
         self.right = None
         self.val = key
+
+"""
+clone a binary tree
+"""
+def clone(root):
+    if root is None:
+        return None
+    r = Node(root.val)
+    r.left = clone(root.left)
+    r.right = clone(root.right)
+    return r
+
         
 def traverseSpiral(root):
     if root is None:
