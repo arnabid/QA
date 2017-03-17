@@ -17,6 +17,88 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+"""
+push node at the start of a linked list
+"""
+def pushFront(val, head):
+    node = ListNode(val)
+    if head is None:
+        return node
+    node.next = head
+    return node
+
+"""
+Add 1 to a number represented as a linked list
+Input: (7 -> 2 -> 4 -> 3) + 1
+Output: 7 -> 2 -> 4 -> 4
+"""
+def addOneToNumber(l1):
+    if l1 is None:
+        return None
+    curr, res = l1, None
+    while curr.next:
+        res = pushFront(curr.val)
+    res = pushFront(curr.val + 1, res)
+
+    carry = 0
+    curr, res = res, None
+    while curr:
+        curr.val += carry
+        carry = curr.val/10
+        res = pushFront(curr.val%10, res)
+        curr = curr.next
+    
+    if carry:
+        res = pushFront(1, res)
+    
+    return res
+
+
+"""
+Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 8 -> 0 -> 7
+reference: https://leetcode.com/problems/add-two-numbers-ii/#/description
+"""
+
+def addTwoNumbers(l1, l2):
+    n1, n2 = 0, 0
+    curr1, curr2 = l1, l2
+    
+    # get n1
+    while curr1:
+        n1 += 1
+        curr1 = curr1.next
+    
+    # get n2
+    while curr2:
+        n2 += 1
+        curr2 = curr2.next
+    
+    res, curr1, curr2 = None, l1, l2
+    while n1 > 0 or n2 > 0:
+        digitsum = 0
+        if n1 >= n2:
+            digitsum += curr1.val
+            n1 -= 1
+            curr1 = curr1.next
+        if n2 > n1:
+            digitsum += curr2.val
+            n2 -= 1
+            curr2 = curr2.next
+        res = pushFront(digitsum, res)
+    
+    carry = 0
+    curr, res = res, None
+    while curr:
+        curr.val += carry
+        carry = curr.val/10
+        res = pushFront(curr.val%10, res)
+        curr = curr.next
+    
+    if carry:
+        res = pushFront(1, res)
+    
+    return res
 
 """
 Given a singly linked list, determine if it is a palindrome.
