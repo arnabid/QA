@@ -67,29 +67,23 @@ class SingleLinkedList(object):
         tmp = None
         self.size -= 1
 
-    def removeNthFromEnd(self, n):
-        """ if n is valid, the linked list is altered otherwise no-op """
-        prev,curr,front = None,self.head,self.head
+    def removeNthFromEnd(self, head, n):
+        if head is None:
+            return None
+        tmp = head
+        for i in xrange(n):
+            tmp = tmp.next
         
-        if front is None:
-            return
-
-        for i in xrange(1,n):
-            front = front.next
-            if front is None:
-                return
+        if tmp is None:
+            return head.next
         
-        while front.next:
-            front = front.next
-            prev = curr
-            curr = curr.next
+        stop = head
+        while tmp.next:
+            tmp = tmp.next
+            stop = stop.next
 
-        if curr == self.head:
-            self.head = curr.next
-            curr = None
-            return
-        prev.next = curr.next
-        curr = None
+        stop.next = stop.next.next
+        return head
 
     def getHead(self):
         """ returns the first node """
