@@ -18,6 +18,40 @@ class TreeNode(object):
         self.right = None
 
 """
+Given a list, rotate the list to the right by k places, where k is non-negative.
+For example:
+Given 1->2->3->4->5->NULL and k = 2,
+return 4->5->1->2->3->NULL.
+"""
+def rotateRight(head, k):
+    if head is None:
+        return None
+    # find the length of the linked list
+    n = 0
+    tmp = head
+    while tmp:
+        n += 1
+        tmp = tmp.next
+
+    k = k % n
+    if k == 0:
+        return head
+        
+    tmp = head
+    for i in xrange(k):
+        tmp = tmp.next
+    
+    stop = head
+    while tmp.next:
+        tmp = tmp.next
+        stop = stop.next
+    
+    tmp.next = head
+    head = stop.next
+    stop.next = None
+    return head
+
+"""
 push node at the start of a linked list
 """
 def pushFront(val, head):
