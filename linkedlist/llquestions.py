@@ -17,6 +17,36 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+
+"""
+Given a linked list, swap every two adjacent nodes and return its head.
+
+For example,
+Given 1->2->3->4, you should return the list as 2->1->4->3.
+reference: https://leetcode.com/problems/swap-nodes-in-pairs/#/description
+"""
+def swapPairs(self, head):
+    if head is None:
+        return None
+
+    if head.next is None:
+        return head
+
+    p = ListNode(100) # dummy node
+    c = head
+    n = c.next
+    head = p
+    while n:
+        t = n.next
+        n.next = c
+        c.next = t
+        p.next = n
+        
+        p = c
+        c = t
+        n = t.next if t else None
+    return head.next
+
 """
 Given a list, rotate the list to the right by k places, where k is non-negative.
 For example:
