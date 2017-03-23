@@ -20,6 +20,107 @@ class Node(object):
         self.val = key
 
 """
+returns the list of nodes in path from root to node
+node.val = x
+DFS iteration
+"""
+def findPathDFSIter(root, x):
+    stack = [root]
+    parent = Counter()
+    v = None
+    while stack:
+        v = stack.pop()
+        if v.val == x:
+            break
+        for w in getChildren(v):
+            stack.append(w)
+            parent[w] = v
+    
+    path = []
+    while v != root:
+        path.append(v)
+        v = parent[v]
+    path.append(root)
+    return path[::-1]
+
+
+"""
+returns the list of nodes in path from root to node
+node.val = x
+DFS recursion
+"""
+def findPathDFS(root, x):
+    if root is None:
+        return []
+    path = []
+    findPath(root, x, path)
+    return path
+    
+def findPath(v, x, path):
+    path.append(v)
+    if v.val == x:
+        return True
+    for w in getChildren(v):
+        if findPath(w, x, path):
+            return True
+    path.pop()
+    return False
+
+"""
+returns the list of nodes in path from root to node
+node.val = x
+BFS
+"""
+def findPathBFS(root, x):
+    # using BFS
+    if root is None:
+        return []
+    
+    parent = Counter()
+    q = Queue.Queue()
+    q.put(root)
+    
+    v = None
+    while not q.empty():
+        v = q.get()
+        if v.val == x:
+            break
+        
+        for w in getChildren(v):
+            q.put(w)
+            parent[w] = v
+    
+    path = []
+    while v != root:
+        path.append(v)
+        v = parent[v]
+    path.append(root)
+    
+    return path[::-1]
+
+"""
+find the lca of 2 nodes with values x, y
+"""
+
+def findLCA(root, x, y):
+    if root is None:
+        return None
+    
+    # find path of root to x
+    pathx = findPathBFS(root, x)
+    
+    # find path of root to y
+    pathy = findPathBFS(root, y)
+    
+    i, j = 0, 0
+    lx, ly = len(pathx), len(pathy)
+    while i < lx and j < ly and pathx[i].val == pathy[j].val:
+        i += 1
+        j += 1
+    
+    return pathx[i-1]
+
+"""
 clone a binary tree
 """
 def clone(root):
@@ -403,10 +504,14 @@ if __name__ == '__main__':
     root.left.right = Node(4)
     root.left.left = Node(9)
     root.right.left = Node(5)
-    root.right.right = Node(5)
+    root.right.right = Node(8)
     
     root.left.right.left = Node(6)
     root.right.left.right = Node(7)
+    
+    #print (findPathDFS(root, 1))
+    print (findPathBFS(root, 7))
+    print (findPathDFSIter(root, 7))
     
 #    print "Preorder traversal of binary tree is"
 #    printPreorder(root)
@@ -434,11 +539,11 @@ if __name__ == '__main__':
     
 #    print ""
 #    #print (heightRecursive(root))
-    print ("Height of tree = ")
+    #print ("Height of tree = ")
     #print (width(root))
     #traverseSpiral(root)
 #    #print (getChildren(root))
-    print (height(root))
+    #print (height(root))
     
 #    print ("Level Order")
 #    printLevelOrder(root)
