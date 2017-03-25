@@ -67,14 +67,14 @@ def largestArea(bars, n):
         """
         if bar[i] > top of stack, this bar starts from index i
         """
-        if bars[i] > stack[-1][0]: 
+        if bars[i] >= stack[-1][0]: 
             stack.append((bars[i], i))
         else:
-            """keep popping till you find a smaller bar or stack is empty,
+            """keep popping all bigger bars to the left,
             and bar[i] starts from the last popped index
             """
             temp = None
-            while stack and bars[i] <= stack[-1][0]:
+            while stack and bars[i] < stack[-1][0]:
                 temp = stack.pop()
                 ans = max(ans, (i-temp[1])*temp[0])
             stack.append((bars[i], temp[1]))
@@ -131,17 +131,17 @@ push - adds integer to stack
 push can be done only in increasing order
 """
 
-if __name__ == '__main__':
-    arr = map(int, raw_input().strip().split(" "))
+def checkSequence(arr):
     n = len(arr)
-    
-    stack, lastpushed = [], 0
-    valid = True
+    lp, stack = 0, []
     for i in xrange(n):
-        if arr[i] > lastpushed:
-            stack.extend(xrange(lastpushed+1, arr[i]+1))
-            lastpushed = arr[i]
-        if arr[i] != stack.pop():
-            valid = False
-            break
-    print (valid)
+        if arr[i] > lp:
+            for e in xrange(lp+1, arr[i]): # no need to insert arr[i]
+                stack.append(e)
+            lp = arr[i]
+        else:
+            if arr[i] != stack[-1]:
+                return False
+            stack.pop()
+    return True
+
