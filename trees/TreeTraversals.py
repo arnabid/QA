@@ -20,6 +20,20 @@ class Node(object):
         self.val = key
 
 """
+check if 2 trees are identical
+"""
+def isIdentical(root1, root2):
+    if root1 is None and root2 is None:
+        return True
+    
+    if root1 is None or root2 is None:
+        return False
+    
+    return root1.val == root2.val and \
+    isIdentical(root1.left, root2.left) and \
+    isIdentical(root1.right, root2.right)
+
+"""
 returns the list of nodes in path from root to node
 node.val = x
 DFS iteration
@@ -480,15 +494,19 @@ def printLevelOrderRecurse(level):
         printLevelOrderRecurse(nextlevel)
 
 def isMirror(root1, root2):
-    # returns True if the given binary tree is symmetric
+    # returns True if trees at root1 and root2 are mirror images
     if root1 is None and root2 is None:
         return True
-    if root1 is not None and root2 is not None:
-        if root1.val == root2.val:
-            return isMirror(root1.left, root2.right) and isMirror(root1.right, root2.left)
-    return False
+    
+    if root1 is None or root2 is None:
+        return False
+    return root1.val == root2.val and \
+    isMirror(root1.left, root2.right) and isMirror(root1.right, root2.left)
 
 def isSymmetric(root):
+    # returns True if the given binary tree is symmetric
+    # A tree is symmetric if its left sub-tree is a mirror image of its
+    # right sub-tree
     if root is None:
         return True
     return isMirror(root.left, root.right)
