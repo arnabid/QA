@@ -19,6 +19,58 @@ class Node(object):
         self.right = None
         self.val = key
 
+
+"""
+prints the values of the boundary nodes if a tree
+in the anti-clockwise direction
+"""
+def addInOrder(root, res):
+    if root:
+        addInOrder(root.left, res)
+        if root.left is None and root.right is None:
+            res.append(root.val)
+        addInOrder(root.right, res)
+
+def printBoundary(root):
+    if root is None:
+        return []
+    
+    t, res = root.left, []
+    # add the left boundary top-down
+    while t and t.left:
+        res.append(t.val)
+        t = t.left
+    
+    # add the leaf nodes left-right
+    addInOrder(root, res)
+    
+    t, rightnodes = root.right, []
+    # add the right boundary bottom-up
+    while t and t.right:
+        rightnodes.append(t.val)
+        t = t.right
+    res += rightnodes[::-1]
+    
+    # append the root node
+    res.append(root.val)
+    return (res)
+
+
+def heightA(v, ans):
+    if v is None:
+        return -1
+    lh = heightA(v.left, ans)
+    rh = heightA(v.right, ans)
+    ans[0] = max(ans[0], lh + rh + 2)
+    return (max(lh, rh) + 1)
+
+def diameterOfBinaryTree(root):
+    if root is None:
+        return 0
+    ans = [0]
+    heightA(root, ans)
+    return ans[0]
+
 """
 check if 2 trees are identical
 """
@@ -527,9 +579,10 @@ if __name__ == '__main__':
     root.left.right.left = Node(6)
     root.right.left.right = Node(7)
     
+    print (printBoundary(root))
     #print (findPathDFS(root, 1))
-    print (findPathBFS(root, 7))
-    print (findPathDFSIter(root, 7))
+#    print (findPathBFS(root, 7))
+#    print (findPathDFSIter(root, 7))
     
 #    print "Preorder traversal of binary tree is"
 #    printPreorder(root)
