@@ -71,14 +71,14 @@ def rotateRight(head, k):
     for i in xrange(k):
         tmp = tmp.next
     
-    stop = head
+    last = head
     while tmp.next:
         tmp = tmp.next
-        stop = stop.next
+        last = last.next
     
     tmp.next = head
-    head = stop.next
-    stop.next = None
+    head = last.next
+    last.next = None
     return head
 
 """
