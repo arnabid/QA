@@ -19,6 +19,25 @@ class TreeNode(object):
 
 
 """
+insert a node in a sorted list
+"""
+def sortedInsert(head, x):
+    if head is None:
+        return x
+    
+    if x.val < head.val:
+        x.next = head
+        return x
+    
+    c = head
+    while c.next and c.next.val < x.val:
+        c = c.next
+    x.next = c.next
+    c.next = x
+    return head
+
+
+"""
 merge 2 sorted lists
 """
 def mergeTwoLists(l1, l2):
@@ -52,15 +71,15 @@ def swapPairs(self, head):
     if head.next is None:
         return head
 
-    p = ListNode(100) # dummy node
+    p = ListNode() # dummy node
     c = head
     n = c.next
     head = p
     while n:
         t = n.next
+        p.next = n
         n.next = c
         c.next = t
-        p.next = n
         
         p = c
         c = t
