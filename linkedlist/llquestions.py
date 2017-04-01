@@ -19,6 +19,26 @@ class TreeNode(object):
 
 
 """
+merge 2 sorted lists
+"""
+def mergeTwoLists(l1, l2):
+    if l1 is None:
+        return l2
+    if l2 is None:
+        return l1
+    
+    res = None
+    if l1.val <= l2.val:
+        res = ListNode(l1.val)
+        l1 = l1.next
+    else:
+        res = ListNode(l2.val)
+        l2 = l2.next
+    res.next = mergeTwoLists(l1, l2)
+    return res
+
+
+"""
 Given a linked list, swap every two adjacent nodes and return its head.
 
 For example,
