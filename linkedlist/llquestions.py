@@ -36,6 +36,22 @@ def sortedInsert(head, x):
     c.next = x
     return head
 
+"""
+sort a list using insertion sort
+reference: https://leetcode.com/problems/insertion-sort-list/#/description
+"""
+def insertionSortList(head):
+    if head is None or head.next is None:
+        return head
+
+    c = head.next
+    head.next = None
+    while c:
+        t = c.next
+        head = sortedInsert(head, c)
+        c = t
+    return head
+
 
 """
 merge 2 sorted lists
