@@ -55,8 +55,9 @@ def insertionSortList(head):
 
 """
 merge 2 sorted lists
+iteratively, recursively
 """
-def mergeTwoLists(l1, l2):
+def mergeTwoListsIter(l1, l2):
     if l1 is None:
         return l2
     if l2 is None:
@@ -64,14 +65,43 @@ def mergeTwoLists(l1, l2):
     
     res = None
     if l1.val <= l2.val:
-        res = ListNode(l1.val)
+        res = l1
         l1 = l1.next
     else:
-        res = ListNode(l2.val)
+        res = l2
         l2 = l2.next
-    res.next = mergeTwoLists(l1, l2)
+
+    t = res
+    while l1 and l2:
+        if l1.val <= l2.val:
+            t.next = l1
+            l1 = l1.next
+        else:
+            t.next = l2
+            l2 = l2.next
+        t = t.next
+
+    if l1:
+        t.next = l1
+
+    if l2:
+        t.next = l2
+
     return res
 
+
+def mergeListsRecur(l1, l2):
+    if l1 is None:
+        return l2
+    if l2 is None:
+        return l1
+
+    if l1.val <= l2.val:
+        l1.next = mergeListsRecur(l1.next, l2)
+        return l1
+    else:
+        l2.next = mergeListsRecur(l1, l2.next)
+        return l2
 
 """
 Given a linked list, swap every two adjacent nodes and return its head.
@@ -302,20 +332,21 @@ def frontBackSplit(head):
     # empty list
     if head is None:
         return None, None
-    # list with 1 node
-    if head.next is None:
-        return head, None
     
-    count, current = 0, head
-    while current:
+    count, curr = 0, head
+    # count the number of nodes in the list
+    while curr:
         count += 1
-        current = current.next
-    current = head
-    count = (count+1)/2 # number of nodes in the first half
+        curr = curr.next
+
+    curr = head
+    count = (count-1)/2 # number of hops to the last node in the first half
     while count > 0:
-        current = current.next
+        curr = curr.next
         count -= 1
-    return head, current
+    t = curr.next
+    curr.next = None
+    return head, t
 
 """
 Write a RemoveDuplicates() function which takes a list sorted in increasing order
