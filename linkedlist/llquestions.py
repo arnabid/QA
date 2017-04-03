@@ -57,7 +57,7 @@ def insertionSortList(head):
 merge 2 sorted lists
 iteratively, recursively
 """
-def mergeTwoListsIter(l1, l2):
+def mergeListsIter(l1, l2):
     if l1 is None:
         return l2
     if l2 is None:
@@ -102,6 +102,19 @@ def mergeListsRecur(l1, l2):
     else:
         l2.next = mergeListsRecur(l1, l2.next)
         return l2
+
+
+"""
+sort a list using merge sort techniue
+"""
+def mergeSort(head):
+    if head is None or head.next is None:
+        return head
+    lhalf, rhalf = frontBackSplit(head)
+    lhalf = mergeSort(lhalf)
+    rhalf = mergeSort(rhalf)
+    return mergeListsIter(lhalf, rhalf)
+
 
 """
 Given a linked list, swap every two adjacent nodes and return its head.
