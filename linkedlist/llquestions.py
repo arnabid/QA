@@ -19,6 +19,37 @@ class TreeNode(object):
 
 
 """
+reference: https://leetcode.com/problems/reverse-linked-list-ii/#/description
+"""
+def reverseBetween(head, m, n):
+    if head is None or head.next is None or m == n:
+        return head
+        
+    s = ListNode(100)
+    s.next = head
+    head = s
+
+    temp = m
+    while temp > 1:
+        s = s.next
+        temp -= 1
+
+    prev, curr = None, s.next
+    last = curr
+    t = n - m + 1
+    while t > 0:
+        n = curr.next
+        curr.next = prev
+        prev = curr
+        curr = n
+        t -= 1
+    s.next = prev
+    last.next = curr
+    
+    return head.next
+
+
+"""
 insert a node in a sorted list
 """
 def sortedInsert(head, x):
