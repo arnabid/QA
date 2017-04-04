@@ -24,7 +24,8 @@ reference: https://leetcode.com/problems/reverse-linked-list-ii/#/description
 def reverseBetween(head, m, n):
     if head is None or head.next is None or m == n:
         return head
-        
+    
+    # s - node before the first node in the range [m,n] 
     s = ListNode(100)
     s.next = head
     head = s
