@@ -26,8 +26,8 @@ def solutionR(dic, number):
     if n == 1:
         return dic[int(number[0])]
 
-    words = solutionR(dic, number[0:n-1])
-    words = [prefix+c for c in dic[int(number[-1])] for prefix in words]
+    prefixes = solutionR(dic, number[0:n-1])
+    words = [prefix+c for c in dic[int(number[-1])] for prefix in prefixes]
     return words
 
 def solutionVerbose(keypad, number):
