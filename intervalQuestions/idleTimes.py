@@ -7,6 +7,7 @@ Created on Wed Mar 29 18:09:36 2017
 
 """
 assumption: all times are in 24 hour format
+finds the idle time intervals and the total idle time
 """
 def findIdleTimes(meetings, start, end):
     # array representing 24 hours in the day;
@@ -22,16 +23,18 @@ def findIdleTimes(meetings, start, end):
     if arr[start] == 0:
         ftStart = start
     
-    idleTimes = []
+    idleTimes, totalITime = [], 0
     for i in range(start, end-1):
         if arr[i] == 0 and arr[i+1] == 1: # free time ends
             idleTimes.append((ftStart, i+1))
+            totalITime += (i+1 - ftStart)
             ftStart = None
         elif arr[i] == 1 and arr[i+1] == 0: # free time begins
             ftStart = i+1
     if ftStart is not None:
         idleTimes.append((ftStart, end))
-    return idleTimes
+        totalITime += (end - ftStart)
+    return idleTimes, totalITime
 
 if __name__ == '__main__':
     meetings = [(9,10), (9,13), (13,15)]

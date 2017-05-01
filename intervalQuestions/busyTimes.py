@@ -5,6 +5,10 @@ Created on Wed Mar 29 18:13:14 2017
 @author: arnab
 """
 
+
+"""
+finds the busy time intervals and the total busy time
+"""
 def findBusyTimes(meetings, start, end):
     # array representing 24 hours in the day;
     # example arr[2] = hour from 2 am -> 3 am
@@ -19,16 +23,18 @@ def findBusyTimes(meetings, start, end):
     if arr[start] == 1:
         btStart = start
     
-    busyTimes = []
+    busyTimes, totalBtime = [], 0
     for i in range(start, end-1):
         if arr[i] == 0 and arr[i+1] == 1: # busy time begins
             btStart = i+1
         elif arr[i] == 1 and arr[i+1] == 0: # busy time ends
             busyTimes.append((btStart, i+1))
+            totalBtime += (i+1 - btStart)
             btStart = None
     if btStart is not None:
         busyTimes.append((btStart, end))
-    return busyTimes
+        totalBtime += (end - btStart)
+    return busyTimes, totalBtime
 
 if __name__ == '__main__':
     meetings = [(9,10), (9,13), (13,15), (17,20)]
