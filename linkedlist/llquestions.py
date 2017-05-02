@@ -19,6 +19,31 @@ class TreeNode(object):
 
 
 """
+Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
+Try solving it using constant additional space.
+"""
+def findCycle(head):
+    if head is None:
+        return None
+    
+    slowp, fastp = head, head
+    loop = False
+    while slowp and fastp and fastp.next:
+        slowp = slowp.next
+        fastp = fastp.next.next
+        if slowp == fastp:
+            loop = True
+            break
+    
+    if loop:
+        slowp = head
+        while slowp != fastp:
+            slowp = slowp.next
+            fastp = fastp.next
+        return slowp
+    return None
+
+"""
 reference: https://leetcode.com/problems/reverse-linked-list-ii/#/description
 """
 def reverseBetween(head, m, n):
