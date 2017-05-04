@@ -73,34 +73,30 @@ def minRooms(meetings):
 """
 time - n; space - constant
 """
-def calcRooms(meetings, start = None, end = None):
-    mnStart, mxEnd = 25, -1
+def calcRooms(meetings):
+    mnStart, mxStart = 25, -1
     mapM = Counter()
     for meeting in meetings:
         mapM[meeting[0]] += 1
         mapM[meeting[1]] -= 1
         mnStart = min(mnStart, meeting[0])
-        mxEnd = max(mxEnd, meeting[1])
-    
-    if start is None:
-        start = mnStart
-    
-    if end is None:
-        end = mxEnd
+        mxStart = max(mxStart, meeting[0])
     
     activeMeetings, result = 0, 0
-    for i in xrange(start, end+1):
-        if i in mapM:
-            activeMeetings += mapM[i]
-            result = max(result, activeMeetings)
+    """
+    only consider mnStart to mxStart - meetings only end after that
+    """
+    for i in xrange(mnStart, mxStart+1):
+        activeMeetings += mapM[i]
+        result = max(result, activeMeetings)
     return result
         
 
 if __name__ == '__main__':
     meetings = []
-    for i in xrange(50):
-        start = random.randint(1,7)
-        end = random.randint(start+3,11)
+    for i in xrange(100):
+        start = random.randint(1,12)
+        end = random.randint(start+3,20)
         meetings.append([start,end])
 #    print (meetings)
 #    print (maxNumberMeetings(meetings))
