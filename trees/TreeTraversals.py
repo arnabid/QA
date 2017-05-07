@@ -72,6 +72,22 @@ def diameterOfBinaryTree(root):
     return ans[0]
 
 """
+check if a binary tree is a subtree of another tree
+reference:
+http://www.geeksforgeeks.org/check-if-a-binary-tree-is-subtree-of-another-binary-tree/
+"""
+def isSubtree(r1, r2):
+    if r2 is None:
+        return True
+    if r1 is None:
+        return False
+    
+    if isIdentical(r1, r2):
+        return True
+    
+    return isSubtree(r1.left) or isSubtree(r1.right, r2)
+
+"""
 check if 2 trees are identical
 """
 def isIdentical(root1, root2):
