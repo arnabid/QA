@@ -77,3 +77,61 @@ def findTilt(root):
     tilt = [0]
     findSum(root, tilt)
     return tilt[0]
+
+"""
+Binary Tree Right Side View
+Reference: https://leetcode.com/problems/binary-tree-right-side-view/#/description
+"""
+
+"""
+solution 1
+"""
+def rsvTraverse(root, nodes, currDepth):
+    if root is None:
+        return
+    if len(nodes) == currDepth:
+        nodes.append(root.val)
+    traverse(root.right, nodes, currDepth+1)
+    traverse(root.left, nodes, currDepth+1)
+
+def rightSideView(root):
+    """
+    :type root: TreeNode
+    :rtype: List[int]
+    """
+    if root is None:
+        return []
+    nodes = []
+    rsvTraverse(root, nodes, 0)
+    return nodes
+
+
+"""
+solution 2
+"""
+def rightSideView2(root):
+    """
+    :type root: TreeNode
+    :rtype: List[int]
+    """
+    if root is None:
+        return []
+    nodes = [root.val]
+    level = [root]
+    nextlevel = []
+    while True:
+        for node in level:
+            if node.left:
+                nextlevel.append(node.left)
+            if node.right:
+                nextlevel.append(node.right)
+        if nextlevel:
+            nodes.append(nextlevel[-1].val)
+            level = nextlevel
+            nextlevel = []
+        else:
+            break
+    return nodes
+
+
+
