@@ -133,5 +133,33 @@ def rightSideView2(root):
             break
     return nodes
 
+"""
+Flatten binary tree to linked list
+Reference: https://leetcode.com/problems/flatten-binary-tree-to-linked-list/#/description
+"""
 
+def join(l1, l2):
+    if l1 is None:
+        return l2
+    if l2 is None:
+        return l1
+    t = l1
+    while t.right:
+        t = t.right
+    t.right = l2
+    return l1
 
+def flatten2(root):
+    if root:
+        lft = flatten2(root.left)
+        rft = flatten2(root.right)
+        root.right = join(lft, rft)
+        root.left = None
+    return root
+
+def flatten(root):
+    """
+    :type root: TreeNode
+    :rtype: void Do not return anything, modify root in-place instead.
+    """
+    root = flatten2(root)
