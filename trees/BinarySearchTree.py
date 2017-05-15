@@ -345,6 +345,16 @@ def convertBSTDoubleLL(root):
     return first, last
 
 
+def convertBSTSortedLL(root, prev):
+    if root is None:
+        return
+    convertBSTSortedLL(root.right, prev)
+    root.right = prev[0]
+    temp = root.left
+    root.left = None
+    prev[0] = root
+    convertBSTSortedLL(temp, prev)
+
 def distance(start, endval):
     """
     returns the number of hops between start node and 
@@ -362,14 +372,22 @@ def distance(start, endval):
 
 
 if __name__ == '__main__':
-    root = Node(50)
-    insert(root, Node(60))
-    insert(root, Node(330))
-    insert(root, Node(90))
-    insert(root, Node(75))
-    insert(root, Node(80))
-    insert(root, Node(115))
-    insert(root, Node(675))
+    root = Node(3)
+    insert(root, Node(1))
+    insert(root, Node(2))
+    insert(root, Node(4))
+    insert(root, Node(3.5))
+    insert(root, Node(6))
+    
+    prev = [None]
+    convertBSTSortedLL(root, prev)
+    root = prev[0]
+    
+    # print the tree
+    t = root
+    while t:
+        print (t.val),
+        t = t.right    
 #    
 #    printInorder(root)
 #    print ("")
@@ -399,11 +417,11 @@ if __name__ == '__main__':
 #        print (node.val)
 #        
     #node = find2ndSmallest(root)
-    node = findKthLargest(root, [2])
-    if node:
-        print (node.val)
-    else:
-        print ("Node returned was null")
+#    node = findKthLargest(root, [2])
+#    if node:
+#        print (node.val)
+#    else:
+#        print ("Node returned was null")
     
 #    node = findNodeInBetween(root, 5, 8)
 #    if node is not None:
