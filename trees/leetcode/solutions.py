@@ -166,7 +166,7 @@ def flatten(root):
 
 """
 count the number of nodes in a complete binary tree
-reference:
+reference: https://leetcode.com/problems/count-complete-tree-nodes/#/description
 """
 
 def height(root):
