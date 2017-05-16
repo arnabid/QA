@@ -163,3 +163,49 @@ def flatten(root):
     :rtype: void Do not return anything, modify root in-place instead.
     """
     root = flatten2(root)
+
+"""
+count the number of nodes in a complete binary tree
+reference:
+"""
+
+def height(root):
+    if root is None:
+        return - 1
+    return 1 + height(root.left)
+
+"""
+iterative solution
+"""
+def countNodesI(root):
+    """
+    :type root: TreeNode
+    :rtype: int
+    """
+    n, h = 0, height(root)
+    while root:
+        if height(root.right) == h - 1:
+            n += 1 << h
+            root = root.right
+        else:
+            n += 1 << h-1
+            root = root.left
+        h -= 1
+    return n
+
+"""
+recursive solution
+"""
+def countNodes(self, root):
+    """
+    :type root: TreeNode
+    :rtype: int
+    """
+    h = height(root)
+    if h < 0:
+        return 0
+    else:
+        if height(root.right) == h - 1:
+            return (1 << h) + countNodes(root.right)
+        else:
+            return (1 << h - 1) + countNodes(root.left)
