@@ -246,31 +246,44 @@ def pushFront(val, head):
     node.next = head
     return node
 
+
+"""
+reverse a linked list
+"""
+def reverse(head):
+    if head is None:
+        return None
+    p = None
+    while head:
+        n, head.next = head.next, p
+        p, head = head, n
+    return p
+
+
 """
 Add 1 to a number represented as a linked list
 Input: (7 -> 2 -> 4 -> 3) + 1
 Output: 7 -> 2 -> 4 -> 4
 """
-def addOneToNumber(l1):
-    if l1 is None:
+def addOneToNumber(head):
+    if head is None:
         return None
-    curr, res = l1, None
-    while curr.next:
-        res = pushFront(curr.val)
-    res = pushFront(curr.val + 1, res)
-
-    carry = 0
-    curr, res = res, None
-    while curr:
-        curr.val += carry
-        carry = curr.val/10
-        res = pushFront(curr.val%10, res)
-        curr = curr.next
+    head = reverse(head)
+    head.val += 1
+    
+    carry, p = 0, None
+    while head:
+        head.val += carry
+        carry = head.val/10
+        head.val = head.val%10
+        
+        n, head.next = head.next, p
+        p, head = head, n
     
     if carry:
-        res = pushFront(1, res)
-    
-    return res
+        t = ListNode(1)
+        t.next, p = p, t
+    return p
 
 
 """
@@ -466,3 +479,12 @@ def alternatingSplit(head):
         head1 = head1.next
         head2 = head2.next
     return head, head.next
+
+if __name__ == '__main__':
+    head = ListNode(5)
+    head.next = ListNode(7)
+    #head.next.next = ListNode(9)
+    head = addOneToNumber(head)
+    while head:
+        print head.val,
+        head = head.next
