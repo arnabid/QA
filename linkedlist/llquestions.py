@@ -285,8 +285,54 @@ def addOneToNumber(head):
         t.next, p = p, t
     return p
 
+"""
+You are given two non-empty linked lists representing two non-negative integers.
+The digits are stored in reverse order and each of their nodes contain a single digit.
+Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero,
+except the number 0 itself.
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+refernce: https://leetcode.com/problems/add-two-numbers/#/description
+"""
+class AddTeoNumbers1(object):
+    def newNode(self, l1, l2, carry):
+        tmp = None
+        if l1 and l2:
+            tmp = ListNode((l1.val + l2.val + carry) % 10)
+            tmp.next = self.newNode(l1.next, l2.next, (l1.val + l2.val + carry) / 10)
+        elif l1:
+            tmp = ListNode((l1.val + carry) % 10)
+            tmp.next = self.newNode(l1.next, None, (l1.val + carry) / 10)
+        elif l2:
+            tmp = ListNode((l2.val + carry) % 10)
+            tmp.next = self.newNode(None, l2.next, (l2.val + carry) / 10)
+        else:
+            if carry == 1:
+                return ListNode(1)
+            return None
+        return tmp
+
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if l1 is None and l2 is None:
+            return None
+        elif l1 is None:
+            return l2
+        elif l2 is None:
+            return l1
+        
+        return self.newNode(l1, l2, 0)
+
 
 """
+Add 2 numbers represented as a linked lists
 Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
 reference: https://leetcode.com/problems/add-two-numbers-ii/#/description
@@ -331,6 +377,54 @@ def addTwoNumbers(l1, l2):
         res = pushFront(1, res)
     
     return res
+
+"""
+recursive solution
+"""
+class AddTwoNumbers2(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head is None:
+            return None
+        p = None
+        while head:
+            n, head.next = head.next, p
+            p, head = head, n
+        return p
+
+    def newNode(self, l1, l2, carry):
+        tmp = None
+        if l1 and l2:
+            tmp = ListNode((l1.val + l2.val + carry) % 10)
+            tmp.next = self.newNode(l1.next, l2.next, (l1.val + l2.val + carry) / 10)
+        elif l1:
+            tmp = ListNode((l1.val + carry) % 10)
+            tmp.next = self.newNode(l1.next, None, (l1.val + carry) / 10)
+        elif l2:
+            tmp = ListNode((l2.val + carry) % 10)
+            tmp.next = self.newNode(None, l2.next, (l2.val + carry) / 10)
+        else:
+            if carry == 1:
+                return ListNode(1)
+            return None
+        return tmp
+
+    def addTwoNumbers(self, l1, l2):
+        if l1 is None and l2 is None:
+            return None
+        elif l1 is None:
+            return l2
+        elif l2 is None:
+            return l1
+        
+        l1 = self.reverseList(l1)
+        l2 = self.reverseList(l2)
+        
+        return self.reverseList(self.newNode(l1, l2, 0))
+
 
 """
 Given a singly linked list, determine if it is a palindrome.
