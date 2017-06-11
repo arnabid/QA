@@ -21,14 +21,17 @@ where each number maps to digits as below
 0 - +
 """
 
-def solutionR(dic, number):
-    n = len(number)
+"""
+recursive solution
+"""
+def solutionR(dic, digits):
+    n = len(digits)
     if n == 1:
-        return dic[int(number[0])]
+        return dic[int(digits)]
+    
+    prefixes = solutionR(dic, digits[:n-1])
+    return [prefix + c for prefix in prefixes for c in dic[int(digits[-1])]]
 
-    prefixes = solutionR(dic, number[0:n-1])
-    words = [prefix+c for c in dic[int(number[-1])] for prefix in prefixes]
-    return words
 
 def solutionVerbose(keypad, number):
     number = str(number)
