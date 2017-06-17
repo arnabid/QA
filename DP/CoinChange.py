@@ -26,25 +26,27 @@ def solution(coins, k):
         if val not in A:
             mnwaysToval = float('inf')
             for c in coins:
-                if val - c in A and A[val-c] < mnwaysToval:
+                if val - c in A and A[val-c] + 1 < mnwaysToval:
                     mnwaysToval = A[val-c] + 1
+                    A[val] = mnwaysToval
                     parent[val] = val-c
-            if mnwaysToval < float('inf'):
-                A[val] = mnwaysToval
 
-    number_of_coins = A[k]
+    number_of_coins = -1
+    if k in A:
+        number_of_coins = A[k]
 
     # find the coins used to get k
-    coins_used = []
-    while parent[k] != k:
-        coins_used.append(k - parent[k])
-        k = parent[k]
-    coins_used.append(k)
-    print (coins_used)
+    if number_of_coins != -1:
+        coins_used = []
+        while parent[k] != k:
+            coins_used.append(k - parent[k])
+            k = parent[k]
+        coins_used.append(k)
+        print (coins_used)
 
     return number_of_coins
 
 if __name__ == '__main__':
-    coins = [5,7,8]
-    k = 18
+    coins = [4,2]
+    k = 17
     print (solution(coins,k))
