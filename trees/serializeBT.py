@@ -7,34 +7,11 @@ Created on Wed Mar 23 12:03:46 2016
 
 """ Serialize and De-serialize a given BT """
 
-import Queue
-
 class Node(object):
     def __init__(self, key):
         self.left = None
         self.right = None
         self.val = key
-
-#def serializeTree(root, tlist):
-#    if root is None:
-#        tlist.append(-1)
-#        return
-#
-#    tlist.append(root.val)
-#    serializeTree(root.left, tlist)
-#    serializeTree(root.right, tlist)
-#
-#def deserialize(root1, tlist):
-#    if len(tlist) == 0:
-#        return None
-#    elif tlist[0] == -1:
-#        tlist.pop(0)
-#        return None
-#
-#    root1 = Node(tlist.pop(0))
-#    root1.left = deserialize(root1.left, tlist)
-#    root1.right = deserialize(root1.right, tlist)
-#    return root1
 
 class Codec:
     
@@ -54,7 +31,6 @@ class Codec:
         self.arr.append(root.val)
         self.serialize(root.left)
         self.serialize(root.right)
-        return self.arr
         
 
     def deserialize(self):
