@@ -20,6 +20,15 @@ class Node(object):
         self.val = key
 
 
+def calculateHorzDistance(node, val, dmap):
+    if node:
+        if val in dmap:
+            dmap[val].append(node.val)
+        else:
+            dmap[val] = [node.val]
+        calculateHorzDistance(node.left, val-1, dmap)
+        calculateHorzDistance(node.right, val+1, dmap)
+
 """
 prints the values of the boundary nodes if a tree
 in the anti-clockwise direction
@@ -85,7 +94,7 @@ def isSubtree(r1, r2):
     if isIdentical(r1, r2):
         return True
     
-    return isSubtree(r1.left) or isSubtree(r1.right, r2)
+    return isSubtree(r1.left, r2) or isSubtree(r1.right, r2)
 
 """
 check if 2 trees are identical
@@ -398,53 +407,6 @@ def height(root):
                 nodes.put((child,vh+1))
     return maxh
 
-# A function to do inorder tree traversal
-def printInorder(root):
-
-    if root:
-
-        # First recur on left child
-        printInorder(root.left)
-
-        # Then print the data of node
-        print(root.val),
-
-        # Finally recur on right child
-        printInorder(root.right)
-
-def printInorderIterative(root):
-    stack = []
-    while True:
-        while root:
-            stack.append(root)
-            root = root.left
-        if stack:
-            root = stack.pop()
-            print (root.val),
-            root = root.right
-        else:
-            break
-
-
-# A function to do postorder tree traversal w/o recursion
-def printPostorderIterative2(root):
-    #postorder is reverse of preorder with (node right left)
-    stack = []
-    stack2 = []
-    while True:
-        while root:
-            stack.append(root)
-            stack2.append(root.val)
-            root = root.right
-        if stack:
-            root = stack.pop()
-        else:
-            break
-        root = root.left
-
-    stack2.reverse()
-    for item in stack2:
-        print (item),
 
 # A function to do postorder tree traversal w/o recursion
 
@@ -478,67 +440,6 @@ def printPostorderIterative(root):
                 root = None
         else:
             break
-
-# A function to do postorder tree traversal
-def printPostorder(root):
-
-    if root:
-
-        # First recur on left child
-        printPostorder(root.left)
-
-        # Then recur on right child
-        printPostorder(root.right)
-
-        # now print the data of node
-        print(root.val),
-
-        
-def printPreorderIterative(root):
-    stack = []
-    while True:
-        while root:
-            stack.append(root)
-            print (root.val),
-            root = root.left
-        if stack:
-            root = stack.pop()
-        else:
-            break
-        root = root.right
-
-# A function to do preorder tree traversal
-def printPreorder(root):
-
-    if root:
-
-        # First print the data of node
-        print(root.val),
-
-        # Then recur on left child
-        printPreorder(root.left)
-
-        # Finally recur on right child
-        printPreorder(root.right)
-
-
-# A function to do levelorder tree traversal w/o recursion
-def printLevelOrderIterative(root):
-    if root is None:
-        return
-
-    q = Queue.Queue()
-    q.put(root)
-    
-    while not q.empty():
-        v = q.get()
-        print (v.val),
-
-        # put the children of v in the queue
-        if v.left:
-            q.put(v.left)
-        if v.right:
-            q.put(v.right)
 
 
 # A function to do levelorder tree traversal 
