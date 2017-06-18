@@ -5,9 +5,7 @@ Created on Wed Mar 16 12:44:17 2016
 @author: arnab
 """
 
-""" Binary Search Tree """
-
-from TreeTraversals import printInorder, printLevelOrder
+""" Binary Search Tree questions"""
 
 class Node(object):
     def __init__(self, key):
@@ -93,6 +91,10 @@ def predecessor(root, key):
             root = root.right
     return p
 
+
+"""
+inserts a node in a BST
+"""
 def insert(root, node):
     # inserts node in the BST rooted at root
     if root is None:
@@ -112,6 +114,10 @@ def insert(root, node):
         p.right = node
     return root
 
+
+"""
+deletes a node in a BST
+"""
 def delete(root, key):
     if root is None:
         return None
@@ -132,6 +138,10 @@ def delete(root, key):
             root.right = delete(root.right, temp.val)
     return root
 
+
+"""
+constructs a BST from a sorted array
+"""
 def sortedArrayToBST(arr, start, end):
     # builds a balanced BST from sorted array arr
     if start > end:
@@ -144,43 +154,32 @@ def sortedArrayToBST(arr, start, end):
     node.right = sortedArrayToBST(arr, mid+1, end)
     return node
 
-def sumgreater(root, count):
-    stack = []
-    while True:
-        while root:
-            stack.append(root)
-            root = root.right
-        if stack:
-            root = stack.pop()
-            count[0] += root.val
-            root.val = count[0]
-        else:
-            break
-        root = root.left
 
-def modifyBST(root):
-    # make the data of each node the sum of itself and everything greater than it
-    def modifyBSTUtil(root, count):
-        if root is None:
-            return
-        modifyBSTUtil(root.right, count)
+"""
+modify each node val = sum of all nodes >= itself
+"""
+def sumGreater(root, count):
+    if root:
+        sumGreater(root.right, count)
         count[0] += root.val
         root.val = count[0]
-        
-        modifyBSTUtil(root.left,count)
-    modifyBSTUtil(root, [0])
+        sumGreater(root.left, count)
 
+
+"""
+finds the lowest common ancestor of keys n1 and n2
+"""
 def lca(root, n1, n2):
-    # find the lowest common ancestor of n1 and n2
     if root is None:
         return None
 
     if n1 < root.val and n2 < root.val:
         return lca(root.left, n1, n2)
-    if n1 > root.val and n2 > root.val:
+    elif n1 > root.val and n2 > root.val:
         return lca(root.right, n1, n2)
     return root
-    
+
+
 # A function to return the node with the Kth smallest key in a BST rooted at root
 def findKthSmallest(root, k):
     
