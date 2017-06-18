@@ -65,58 +65,52 @@ def findMin(root):
 def successor(root, key):
     # returns the successor of key in the BST rooted at root
     # the successor is the smallest key in the BST greater than key
-    node = search(root, key)
-    if node is None:
+    if root is None:
         return None
+    
+    sc = None
+    while root:
+        if root.val <= key:
+            root = root.right
+        else:
+            sc = root.val
+            root = root.left
+    return sc
 
-    if node.right:
-        return findMin(node.right)
-    else:
-        res = None
-        while root.val != key:
-            if key < root.val:
-                res = root
-                root = root.left
-            else:
-                root = root.right
-        return res
     
 def predecessor(root, key):
     # returns the predecessor of key in the BST rooted at root
     # the predecessor is the largest key in the BST less than key
-    node = search(root, key)
-    if node is None:
+    if root is None:
         return None
-
-    if node.left is not None:
-        return findMax(node.left)
-    else:
-        res = None
-        while root.val != key:
-            if key < root.val:
-                root = root.left
-            else:
-                res = root
-                root = root.right
-        return res
+    
+    p = None
+    while root:
+        if root.val >= key:
+            root = root.left
+        else:
+            p = root.val
+            root = root.right
+    return p
 
 def insert(root, node):
     # inserts node in the BST rooted at root
     if root is None:
         root = node
-    else:
-        p = None
-        while root:
-            p = root
-            if node.val <= root.val:
-                root = root.left
-            else:
-                root = root.right
-        
-        if node.val <= p.val:
-            p.left = node
+        return root
+    p, current = None, root
+    while current:
+        p = current
+        if node.val <= current.val:
+            current = current.left
         else:
-            p.right = node
+            current = current.right
+        
+    if node.val <= p.val:
+        p.left = node
+    else:
+        p.right = node
+    return root
 
 def delete(root, key):
     if root is None:
@@ -371,73 +365,40 @@ def distance(start, endval):
     return d
 
 
-if __name__ == '__main__':
-    root = Node(3)
-    insert(root, Node(1))
-    insert(root, Node(2))
-    insert(root, Node(4))
-    insert(root, Node(3.5))
-    insert(root, Node(6))
+"""
+find the closest value in a BST to a given value k
+"""
+def findclosestValueBST(node, k):
+    if node is None:
+        return None
     
-    prev = [None]
-    convertBSTSortedLL(root, prev)
-    root = prev[0]
+    p, s = None, None
+    while node:
+        if node.val == k:
+            return k
+        elif node.val < k:
+            p = node.val
+            node = node.right
+        else:
+            s = node.val
+            node = node.left
     
-    # print the tree
-    t = root
-    while t:
-        print (t.val),
-        t = t.right    
-#    
-#    printInorder(root)
-#    print ("")
-#    printLevelOrder(root)
-#    
-#    # successor
-#    print ("")
-#    print (successor(root,50).val)
-#    print (findMax(root).val)
-#    
-#    # predecessor
-#    #print (predecessor(root,20))
-#    #delete(root,30)
-#    print ("")
-#    #printLevelOrder(root)
-#    arr = [2,3,3,4,4,5,5,5,6,7,8]
-#    root = sortedArrayToBST(arr, 0, len(arr)-1)
-    #printInorder(root)
-#    print ("")
-#    root = delete(root, 7)
-#    printInorder(root)
-#    print ("")
-#    printLevelOrder(root)
-    #print ("")
-#    node = kthsmallest(root, [8])
-#    if node:
-#        print (node.val)
-#        
-    #node = find2ndSmallest(root)
-#    node = findKthLargest(root, [2])
-#    if node:
-#        print (node.val)
-#    else:
-#        print ("Node returned was null")
+    if s is None:
+        return p
     
-#    node = findNodeInBetween(root, 5, 8)
-#    if node is not None:
-#        print (node.val)
+    if p is None:
+        return s
     
-#    a = []
-#    findAllKeys(root,2,7,a)
-#    print (a)
-    
-#    print ("")
-#    printLevelOrder(root)
-#    print ("")
-    #sumgreater(root, [0])
-    #printInorder(root)
-#    print ("")
-#    printLevelOrder(root)
-    
-    
+    if k - p < s - k:
+        return p
+    else:
+        return s
 
+
+if __name__ == '__main__':
+    root = insert(None, Node(3))
+    root = insert(root, Node(1))
+    root = insert(root, Node(2))
+    root = insert(root, Node(4))
+    root = insert(root, Node(3.5))
+    root = insert(root, Node(6))
