@@ -23,7 +23,7 @@ def tpSortBFS(graph):
     # find the in-degree of all nodes
     inDeg = Counter()
     for u in graph.keys():
-        for v in graph[u]:
+        for v in graph.get(u, []):
             inDeg[v] += 1
     
     # put the nodes with in-degree = 0 in queue
@@ -36,7 +36,7 @@ def tpSortBFS(graph):
     while not q.empty():
         u = q.get()
         res.append(u)
-        for v in graph[u]:
+        for v in graph.get(u, []):
             inDeg[v] -= 1
             if inDeg[v] == 0:
                 q.put(v)
@@ -48,7 +48,7 @@ topological sort DFS
 
 def tpSortDFSUtil(x, graph, visited, stack):
     visited.add(x)
-    for w in graph[x]:
+    for w in graph.get(x, []):
         if w not in visited:
             tpSortDFSUtil(w, graph, visited, stack)
     stack.append(x)
@@ -71,10 +71,9 @@ if __name__ == '__main__':
     graph = Counter()
     graph['a'] = ['b']
     graph['b'] = ['c']
-    graph['c'] = []
     graph['d'] = ['b', 'e', 'f']
     graph['e'] = ['g']
     graph['f'] = ['g']
-    graph['g'] = []
     
+    print (tpSortDFS(graph))
     print (tpSortBFS(graph))
