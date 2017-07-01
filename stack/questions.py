@@ -5,38 +5,6 @@ Created on Mon Oct 17 07:58:38 2016
 @author: arnab
 """
 
-"""
-Design a stack to support the folllowing operations:
-push, pop, min/max/average??
-
-Each query is of the form:
-1 x  -Push x into the stack.
-2    -Pop from the stack.
-3    -Print the maximum item present in the stack.
-"""
-
-# find max in the stack
-if __name__ == '__main__':
-    stack, stackm = [], []
-    T = int(raw_input())
-
-    for _ in xrange(T):
-        q = map(int, raw_input().strip().split(" "))
-        if q[0] == 1: # push
-            stack.append(q[1])
-            if stackm:
-                if q[1] >= stackm[-1]:
-                    stackm.append(q[1])
-            else:
-                stackm.append(q[1])
-                
-        elif q[0] == 2: # pop
-            if stack[-1] == stackm[-1]:
-                stackm.pop()
-            stack.pop()
-        else: # return max element in the stack
-            print (stackm[-1])
- 
 # find the average in the stack           
 if __name__ == '__main__':
     stack = []
