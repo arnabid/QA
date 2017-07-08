@@ -7,7 +7,7 @@ Created on Thu Jun 22 00:24:56 2017
 
 """
 break word into a valid combination of simple words
-reference: 
+reference: https://leetcode.com/problems/concatenated-words/#/description
 """
 
 dictionary = set(["go", "dcat", "dog", "cat", "god", "goddog", "catdoggod", "goddogbat", "catcat"])
