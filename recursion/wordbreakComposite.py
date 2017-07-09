@@ -10,7 +10,11 @@ break word into a valid combination of simple words
 reference: https://leetcode.com/problems/concatenated-words/#/description
 """
 
-dictionary = set(["go", "dcat", "dog", "cat", "god", "goddog", "catdoggod", "goddogbat", "catcat"])
+dictionary = set(["pie","pear","apple","peach","applepie"])
+
+# set of strings which cannot be broken down into 2 or more words
+# used for memoization while backtracking
+notValid = set()
 
 def wordbreak(s):
     n = len(s)
@@ -20,10 +24,13 @@ def wordbreak(s):
         if prefix in dictionary:
             if i == n:
                 return 1
-            l = wordbreak(s[i:])
-            if l:
-                return l + 1
-    return None
+            if s[i:] not in notValid:
+                l = wordbreak(s[i:])
+                if l:
+                    return l + 1
+                else:
+                    notValid.add(s[i:])
+    return 0
 
 if __name__ == '__main__':
     output = []
