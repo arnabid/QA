@@ -8,9 +8,15 @@ Created on Thu Jun 22 00:24:56 2017
 """
 break word into a valid combination of simple words
 reference: https://leetcode.com/problems/concatenated-words/#/description
+
+
+a good test case where the memoization is useful:
+word = aaaab
+dic = set(["a", "aa"])
+work out the code and see where the savings are achieved
 """
 
-dictionary = set(["pie","pear","apple","peach","applepie"])
+dictionary = set(["apple", "pear", "pie", "cream", "applepie"])
 
 # set of strings which cannot be broken down into 2 or more words
 # used for memoization while backtracking
