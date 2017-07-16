@@ -19,15 +19,43 @@ class Node(object):
         self.right = None
         self.val = key
 
+"""
+reference: https://leetcode.com/problems/merge-two-binary-trees/#/description
+"""
+def mergeTrees(t1, t2):
+    if t1 is None and t2 is None:
+        return None
+    if t1 is None:
+        return t2
+    if t2 is None:
+        return t1
+    root = Node(t1.val + t2.val)
+    root.left = mergeTrees(t1.left, t2.left)
+    root.right = mergeTrees(t1.right, t2.right)
+    return root
 
-def calculateHorzDistance(node, val, dmap):
+
+def calculateHorzDistance(node, val, dmap, mn, mx):
     if node:
+        mn[0], mx[0] = min(mn[0], val), max(mx[0], val)
         if val in dmap:
             dmap[val].append(node.val)
         else:
             dmap[val] = [node.val]
-        calculateHorzDistance(node.left, val-1, dmap)
-        calculateHorzDistance(node.right, val+1, dmap)
+        calculateHorzDistance(node.left, val-1, dmap, mn, mx)
+        calculateHorzDistance(node.right, val+1, dmap, mn, mx)
+
+"""
+Binary Tree Vertical Order Traversal
+reference: http://www.geeksforgeeks.org/print-binary-tree-vertical-order/
+
+mn, mx = [float('inf')], [-float('inf')]
+dmap = Counter()
+calculateHorzDistance(root, 0, dmap, mn, mx)
+for i in xrange(mn, mx+1):
+    print (dmap[i])
+"""
+
 
 """
 prints the values of the boundary nodes if a tree
