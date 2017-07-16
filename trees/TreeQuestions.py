@@ -8,8 +8,6 @@ Created on Sat Feb 13 12:32:44 2016
 import Queue
 from collections import Counter
 
-# Python program for tree traversals
-# TODO: tree traversals w/o recursion and w/o explicit stacks
 # Study Morris traversals - binary threaded trees
 
 # A class that represents an individual node in a Binary Tree
@@ -310,6 +308,7 @@ def maxSumIterative(root):
                 values.append(child.val+val)
     return mSum
 
+
 def heightRecursive(root):
     # returns the height of the tree rooted at root
     if root is None:
@@ -319,6 +318,7 @@ def heightRecursive(root):
     rh = heightRecursive(root.right)
     
     return max(lh,rh) + 1
+
 
 def isTreeBalanced(root):
     """
@@ -336,6 +336,7 @@ def isTreeBalanced(root):
     
     isBalanced = lb and rb and abs(lh-rh) <= 1
     return max(lh, rh)+1, isBalanced
+
     
 def getChildren(node):
     # returns the children of a node; returns empty list if node is a leaf node
@@ -348,6 +349,7 @@ def getChildren(node):
     if node.right:
         children.append(node.right)
     return children
+
 
 def depthUtil(root):
     if root is None:
@@ -364,6 +366,7 @@ def depthUtil(root):
     depth(root, 0)
     return maxd[0]
 
+
 def depth(root):
     # returns the maximum depth of the tree rooted at root
     if root is None:
@@ -378,6 +381,7 @@ def depth(root):
             for child in getChildren(v):
                 nodes.append((child,currDepth+1))
     return maxd
+
 
 def width(root):
     # width of a tree = maximum number of nodes at any level of the tree
@@ -436,8 +440,26 @@ def height(root):
     return maxh
 
 
-# A function to do postorder tree traversal w/o recursion
+def isMirror(root1, root2):
+    # returns True if trees at root1 and root2 are mirror images
+    if root1 is None and root2 is None:
+        return True
+    
+    if root1 is None or root2 is None:
+        return False
+    return root1.val == root2.val and \
+    isMirror(root1.left, root2.right) and isMirror(root1.right, root2.left)
 
+def isSymmetric(root):
+    # returns True if the given binary tree is symmetric
+    # A tree is symmetric if its left sub-tree is a mirror image of its
+    # right sub-tree
+    if root is None:
+        return True
+    return isMirror(root.left, root.right)
+
+
+# A function to do postorder tree traversal w/o recursion
 def peek(stack):
     if len(stack) > 0:
         return stack[-1]
@@ -490,24 +512,6 @@ def printLevelOrderRecurse(level):
         print ("")
         printLevelOrderRecurse(nextlevel)
 
-def isMirror(root1, root2):
-    # returns True if trees at root1 and root2 are mirror images
-    if root1 is None and root2 is None:
-        return True
-    
-    if root1 is None or root2 is None:
-        return False
-    return root1.val == root2.val and \
-    isMirror(root1.left, root2.right) and isMirror(root1.right, root2.left)
-
-def isSymmetric(root):
-    # returns True if the given binary tree is symmetric
-    # A tree is symmetric if its left sub-tree is a mirror image of its
-    # right sub-tree
-    if root is None:
-        return True
-    return isMirror(root.left, root.right)
-
 
 # Driver code
 if __name__ == '__main__':
@@ -523,46 +527,5 @@ if __name__ == '__main__':
     
     root.left.right.left = Node(6)
     root.right.left.right = Node(7)
-    
-    print (printBoundary(root))
-    #print (findPathDFS(root, 1))
-#    print (findPathBFS(root, 7))
-#    print (findPathDFSIter(root, 7))
-    
-#    print "Preorder traversal of binary tree is"
-#    printPreorder(root)
-#
-#    print "\nPreorder traversal of binary tree w/o recursion is"
-#    printPreorderIterative(root)
 
-#    print "\nInorder traversal of binary tree w/o recursion is"
-#    printInorderIterative(root)
-#    
-#    print "\nInorder traversal of binary tree is"
-#    printInorder(root)
-    
-#    print "\nPostorder traversal of binary tree is"
-#    printPostorder(root)
-#    
-#    print "\nPostorder traversal of binary tree w/o recursion is"
-#    printPostorderIterative(root)
-#    
-#    print "\nLevelorder traversal of binary tree is"
-#    printLevelOrder(root)
-#    
-#    print "\nLevelorder traversal of binary tree w/o recursion is"
-#    printLevelOrderIterative(root)
-    
-#    print ""
-#    #print (heightRecursive(root))
-    #print ("Height of tree = ")
-    #print (width(root))
-    #traverseSpiral(root)
-#    #print (getChildren(root))
-    #print (height(root))
-    
-#    print ("Level Order")
-#    printLevelOrder(root)
-    
-    #print (isSymmetric(root))
 
