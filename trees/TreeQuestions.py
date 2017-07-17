@@ -21,8 +21,6 @@ class Node(object):
 reference: https://leetcode.com/problems/merge-two-binary-trees/#/description
 """
 def mergeTrees(t1, t2):
-    if t1 is None and t2 is None:
-        return None
     if t1 is None:
         return t2
     if t2 is None:
