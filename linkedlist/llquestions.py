@@ -486,6 +486,7 @@ def sortedListToBSTUtil(head, tail):
 
 """
 clone a linked list; return the head of the cloned linked list
+recursive
 """
 def clone(head):
     if head is None:
@@ -493,6 +494,20 @@ def clone(head):
     result = ListNode(head.val)
     result.next = clone(head.next)
     return result
+
+"""
+clone a linked list iteratively
+"""
+def cloneIterative(head):
+    if head is None:
+        return None
+    res = ListNode(head.val)
+    t, head = res, head.next
+    while head:
+        t.next = ListNode(head.val)
+        t = t.next
+        head = head.next
+    return res
 
 """
 Given a list, split it into two sublists — one for the front half, and one for the back half.
