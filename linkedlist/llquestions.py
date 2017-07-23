@@ -509,6 +509,63 @@ def cloneIterative(head):
         head = head.next
     return res
 
+
+"""
+clone a linked list with next and random pointer
+reference: http://www.geeksforgeeks.org/clone-linked-list-next-arbit-pointer-set-2/
+"""
+
+def copyRandomList1(head):
+    if head is None:
+        return None
+    
+    hm, t = {}, head
+    while t:
+        hm[t] = ListNode(t.val)
+        t = t.next
+    
+    t = head
+    while t:
+        cloneNode = hm[t]
+        if t.next:
+            cloneNode.next = hm[t.next]
+        if t.random:
+            cloneNode.random = hm[t.random]
+        t = t.next
+    return hm[head]
+
+
+"""
+another solution w/o using extra space
+"""
+def copyRandomList2(head):
+    if head is None:
+        return None
+    res = ListNode(head.val)
+    rtmp = res
+    # traverse the original list; create the copy list
+    # set the next pointers in the copied list 
+    # set the random pointers in the copied list to the original list
+    # and the next pointers in the original list to the copied list
+    while head:
+        rtmp.random = head
+        if head.next:
+            rtmp.next = ListNode(head.next.label)
+        t = head.next
+        head.next = rtmp
+        head = t
+        rtmp = rtmp.next
+    # traverse the copied list and set the random pointers accordingly
+    t = res
+    while t:
+        if t.random.random:
+            t.random = t.random.random.next
+        else:
+            t.random = None
+        t = t.next
+    return res
+
+
 """
 Given a list, split it into two sublists — one for the front half, and one for the back half.
 If the number of elements is odd, the extra element should go in the front list.
