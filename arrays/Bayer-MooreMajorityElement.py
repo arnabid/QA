@@ -28,7 +28,6 @@ def findMajorityElement(arr):
     
     # verify candidate
     if count >= (n//2)+1:
-        print "Hello"
         return candidate
 
     count = 0
