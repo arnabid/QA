@@ -646,6 +646,44 @@ def alternatingSplit(head):
         head2 = head2.next
     return head, head.next
 
+
+def count(head):
+    n = 0
+    while head:
+        n += 1
+        head = head.next
+    return n
+
+"""
+return the intersection node of 2 linked lists
+"""
+def getIntersectionNode(headA, headB):
+    """
+    :type head1, head1: ListNode
+    :rtype: ListNode
+    """
+    if headA is None or headB is None:
+        return None
+
+    n1, n2 = count(headA), count(headB)
+    if n1 > n2:
+        t = n1 - n2
+        while t > 0:
+            headA = headA.next
+            t -= 1
+    elif n2 > n1:
+        t = n2 - n1
+        while t > 0:
+            headB = headB.next
+            t -= 1
+    
+    while headA and headB:
+        if headA.val == headB.val:
+            return headA
+        headA = headA.next
+        headB = headB.next
+    return None
+
 if __name__ == '__main__':
     head = ListNode(5)
     head.next = ListNode(7)

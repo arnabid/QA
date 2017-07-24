@@ -95,16 +95,7 @@ class SingleLinkedList(object):
         while tmp.next:
             tmp = tmp.next
         return tmp
-    
-    def reverse(self):
-        """ reverses a linked list in place """
-        prev, curr = None, self.head
-        while curr:
-            n = curr.next
-            curr.next = prev
-            prev = curr
-            curr = n
-        self.head = prev
+
 
 if __name__ == '__main__':
     list1 = SingleLinkedList(range(0, 100, 10))
