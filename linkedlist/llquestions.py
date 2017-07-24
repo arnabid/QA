@@ -18,6 +18,7 @@ class TreeNode(object):
         self.right = None
 
 
+
 """
 Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
 Try solving it using constant additional space.
@@ -25,17 +26,18 @@ Try solving it using constant additional space.
 def findCycle(head):
     if head is None:
         return None
-    
+
     slowp, fastp = head, head
-    loop = False
-    while slowp and fastp and fastp.next:
+    while fastp:
         slowp = slowp.next
-        fastp = fastp.next.next
+        fastp = fastp.next
+        if fastp:
+            fastp = fastp.next
+        else:
+            return None
         if slowp == fastp:
-            loop = True
             break
-    
-    if loop:
+    if fastp:
         slowp = head
         while slowp != fastp:
             slowp = slowp.next
