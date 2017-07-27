@@ -35,8 +35,31 @@ def pushZeroToRight(arr):
                 j += 1
     print (arr)
 
+"""
+O(N) solution
+use 2 pointers i - index of leftmost zero; j marches ahead
+cases:
+i j
+0 X - swap, inc i, j
+0 0 - inc j
+X X - inc i, j
+X 0 - inc i, j
+"""
+def moveZerosRight(arr):
+    n = len(arr)
+    i, j = 0, 1
+    while i < n and j < n:
+        if arr[i] == 0 and arr[j] == 0:
+            j += 1
+        else:
+            if arr[i] == 0 and arr[j] != 0:
+                arr[i], arr[j] = arr[j], arr[i] # swap
+            i += 1
+            j += 1
+    print arr
+
 if __name__ == '__main__':
     arr = [0,0,0,0,0,6,1,-3]
-    pushZeroRight(arr)
+    moveZerosRight(arr)
     
         
