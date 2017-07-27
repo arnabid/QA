@@ -15,16 +15,17 @@ def productExceptSelf(nums):
     :type nums: List[int]
     :rtype: List[int]
     """
-    res = [1]*len(nums)
+    n = len(nums)
+    res = [1] * n
     
     # res[i] = product of array elements to the left of i
-    for i in range(1,len(nums)):
+    for i in xrange(1,n):
         res[i] = nums[i-1]*res[i-1]
     
     # accumulate product of array elements and traverse left
-    k = 1
-    for i in range(len(nums)-2,-1,-1):
-        k = k*nums[i+1]
+    k = nums[-1]
+    for i in xrange(n-2,-1,-1):
         res[i] = res[i]*k
+        k = k * nums[i]
     
     return res
