@@ -44,6 +44,7 @@ i j
 0 0 - inc j
 X X - inc i, j
 X 0 - inc i, j
+reference: https://leetcode.com/problems/move-zeroes/tabs/description
 """
 def moveZerosRight(arr):
     n = len(arr)
