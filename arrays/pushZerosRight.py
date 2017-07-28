@@ -48,7 +48,7 @@ X 0 - inc i, j
 def moveZerosRight(arr):
     n = len(arr)
     i, j = 0, 1
-    while i < n and j < n:
+    while j < n:
         if arr[i] == 0 and arr[j] == 0:
             j += 1
         else:
