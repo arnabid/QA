@@ -23,6 +23,34 @@ def maxNumberMeetings(meetings):
             final_meetings.append(meeting)
     return len(final_meetings)
 
+
+"""
+merge intervals
+reference: https://leetcode.com/problems/merge-intervals/description/
+"""
+# Definition for an interval.
+# class Interval(object):
+#     def __init__(self, s=0, e=0):
+#         self.start = s
+#         self.end = e
+
+def merge(meetings):
+    """
+    :type meetings: List[Interval]
+    :rtype: List[Interval]
+    """
+    if not meetings:
+        return []
+    meetings.sort(key = lambda x: x.start)
+    final_meetings = [meetings[0]]
+    for meeting in meetings[1:]:
+        if meeting.start > final_meetings[-1].end:
+            final_meetings.append(meeting)
+        else:
+            final_meetings[-1].end = max(meeting.end, final_meetings[-1].end)
+    return final_meetings
+
+
 """
 minRooms - minimum number of rooms required to schedule
 list of meetings
