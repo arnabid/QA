@@ -10,35 +10,16 @@ from collections import Counter
 
 """
 maxNumberMeetings - maximum number of meetings that can be
-attended without overlap
+attended/scheduled without overlap
 scenario: maximize the number of talks that you can attend in a seminar
 you earn points for each talk attended. Once you attend a talk,
 you cannot leave until the talk is over.
 """
 def maxNumberMeetings(meetings):
-    meetings.sort(key = lambda x: x[1])
-    #sorted_meetings = sorted(meetings, key=operator.itemgetter(1))
-    final_meetings = []
-    for meeting in meetings:
-        overlap = False
-        for sample in final_meetings:
-            if meeting[0] < sample[1] and meeting[1] > sample[0]:
-                    overlap = True
-                    break
-        if not overlap:
-            final_meetings.append(meeting)
-    return len(final_meetings)
-
-def maxNumberMeetings2(meetings):
-    meetings.sort(key = lambda x: x[1])
-    final_meetings = []
-    for meeting in meetings:
-        overlap = False
-        for item in final_meetings:
-            if not (meeting[1] <= item[0] or meeting[0] >= item[1]):
-                overlap = True
-                break
-        if not overlap:
+    meetings.sort(key = lambda x: (x[1], x[0]))
+    final_meetings = [meetings[0]]
+    for meeting in meetings[1:]:
+        if meeting[0] >= final_meetings[-1][1]:
             final_meetings.append(meeting)
     return len(final_meetings)
 
@@ -99,7 +80,7 @@ if __name__ == '__main__':
         end = random.randint(start+3,20)
         meetings.append([start,end])
 #    print (meetings)
-#    print (maxNumberMeetings(meetings))
+    print (maxNumberMeetings(meetings))
 #    print (meetings)
 #    print (maxNumberMeetings2(meetings))
-    print (minRooms(meetings), calcRooms(meetings))
+#    print (minRooms(meetings), calcRooms(meetings))
