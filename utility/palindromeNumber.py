@@ -6,6 +6,7 @@ Created on Tue Jun 13 20:08:29 2017
 
 """
 check if a number is a palindorme
+reference: https://leetcode.com/problems/palindrome-number/description/
 """
 
 def isPalindrome(self, x):
