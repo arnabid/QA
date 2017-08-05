@@ -490,6 +490,34 @@ def printPostorderIterative(root):
             break
 
 
+"""
+level order traversal of a binary tree
+reference: https://leetcode.com/problems/binary-tree-level-order-traversal/description/
+"""
+
+def levelOrder(root):
+    """
+    :type root: TreeNode
+    :rtype: List[List[int]]
+    """
+    if root is None:
+        return []
+    q = Queue.Queue()
+    q.put(root)
+    res = []
+    while not q.empty():
+        level = []
+        for _ in xrange(q.qsize()):
+            v = q.get()
+            if v.left:
+                q.put(v.left)
+            if v.right:
+                q.put(v.right)
+            level.append(v.val)
+        res.append(level)
+    return res
+
+
 # A function to do levelorder tree traversal 
 def printLevelOrder(root):
     if root:
