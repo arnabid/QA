@@ -386,38 +386,35 @@ def width(root):
     if root is None:
         return 0
     
-    nodes = Queue.Queue()
-    nodeslevel = Counter() # map with key = level and value = # nodes @ level
-    nodes.put((root,0))
-
-    while not nodes.empty():
-        v, vh = nodes.get() # v - current node, vh - height of v
-        nodeslevel[vh] += 1
-        for child in getChildren(v):
-            nodes.put((child,vh+1))
-    return max(nodeslevel.values())
+    maxw = 0
+    q = Queue.Queue()
+    q.put(root)
+    while not q.empty():
+        maxw = max(maxw, q.qsize())
+        for _ in xrange(q.qsize()):
+            v = q.get()
+            if v.left:
+                q.put(v.left)
+            if v.right:
+                q.put(v.right)
+    return maxw
 
 
 def widthVER2(root):
     if root is None:
         return 0
     
-    curr_level = [root]
-    next_level = []
-    maxw = 1
-    
-    while True:
-        for node in curr_level:
+    cl, maxw = [root], 0
+    while cl:
+        maxw = max(maxw, len(cl))
+        nl = []
+        for node in cl:
             if node.left:
-                next_level.append(node.left)
+                nl.append(node.left)
             if node.right:
-                next_level.append(node.right)
-        
-        if not next_level:
-            break
-        maxw = max(maxw, len(next_level))
-        curr_level = next_level
-        next_level = []
+                nl.append(node.right)
+        cl = nl
+    return maxw
 
 
 def height(root):
