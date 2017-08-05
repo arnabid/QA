@@ -28,9 +28,9 @@ def tpSortBFS(graph):
     
     # put the nodes with in-degree = 0 in queue
     q = Queue.Queue()
-    for node in graph.keys():
-        if node not in inDeg:
-            q.put(node)
+    for u in graph.keys():
+        if u not in inDeg:
+            q.put(u)
 
     res = []
     while not q.empty():
@@ -42,10 +42,11 @@ def tpSortBFS(graph):
                 q.put(v)
     return res
 
+
+
 """
 topological sort DFS
 """
-
 def tpSortDFSUtil(x, graph, visited, stack):
     visited.add(x)
     for w in graph.get(x, []):
