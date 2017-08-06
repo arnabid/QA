@@ -89,19 +89,23 @@ def printBoundary(root):
     return (res)
 
 
-def heightA(v, ans):
+def helper(v, ans):
     if v is None:
         return -1
-    lh = heightA(v.left, ans)
-    rh = heightA(v.right, ans)
+    lh = helper(v.left, ans)
+    rh = helper(v.right, ans)
     ans[0] = max(ans[0], lh + rh + 2)
     return (max(lh, rh) + 1)
 
+"""
+The diameter of a binary tree is the length of the longest path between
+any two nodes in a tree. This path may or may not pass through the root.
+"""
 def diameterOfBinaryTree(root):
     if root is None:
         return 0
     ans = [0]
-    heightA(root, ans)
+    helper(root, ans)
     return ans[0]
 
 """
@@ -305,6 +309,31 @@ def maxSumIterative(root):
                 nodes.append(child)
                 values.append(child.val+val)
     return mSum
+
+
+"""
+Binary Tree Maximum Path Sum
+reference: https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+"""
+def helperSum(root, ans):
+    if root is None:
+        return 0
+    left = max(helperSum(root.left, ans), 0)
+    right = max(helperSum(root.right, ans), 0)
+
+    ans[0] = max(ans[0], root.val + left + right)
+    return max(left,right) + root.val
+
+def maxPathSum(root):
+    """
+    :type root: TreeNode
+    :rtype: int
+    """
+    if root is None:
+        return 0
+    ans = [-float('inf')]
+    helperSum(root, ans)
+    return ans[0]
 
 
 def heightRecursive(root):
