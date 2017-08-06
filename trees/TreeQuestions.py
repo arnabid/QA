@@ -8,7 +8,6 @@ Created on Sat Feb 13 12:32:44 2016
 import Queue
 from collections import Counter
 
-# Study Morris traversals - binary threaded trees
 
 # A class that represents an individual node in a Binary Tree
 class Node(object):
@@ -18,6 +17,7 @@ class Node(object):
         self.val = key
 
 """
+Merge 2 BTs
 reference: https://leetcode.com/problems/merge-two-binary-trees/#/description
 """
 def mergeTrees(t1, t2):
@@ -34,23 +34,22 @@ def mergeTrees(t1, t2):
 def calculateHorzDistance(node, val, dmap, mn, mx):
     if node:
         mn[0], mx[0] = min(mn[0], val), max(mx[0], val)
-        if val in dmap:
-            dmap[val].append(node.val)
-        else:
-            dmap[val] = [node.val]
+        dmap[val] = dmap.get(val,[]) + [node.val]
         calculateHorzDistance(node.left, val-1, dmap, mn, mx)
         calculateHorzDistance(node.right, val+1, dmap, mn, mx)
 
 """
 Binary Tree Vertical Order Traversal
 reference: http://www.geeksforgeeks.org/print-binary-tree-vertical-order/
-
-mn, mx = [float('inf')], [-float('inf')]
-dmap = Counter()
-calculateHorzDistance(root, 0, dmap, mn, mx)
-for i in xrange(mn, mx+1):
-    print (dmap[i])
 """
+def verticalOrder(root):
+    if root is None:
+        return 
+    mn, mx = [float('inf')], [-float('inf')]
+    dmap = Counter()
+    calculateHorzDistance(root, 0, dmap, mn, mx)
+    for i in xrange(mn[0], mx[0]+1):
+        print (dmap[i])
 
 
 """
@@ -108,6 +107,7 @@ def diameterOfBinaryTree(root):
     helper(root, ans)
     return ans[0]
 
+
 """
 check if a binary tree is a subtree of another tree
 reference:
@@ -137,6 +137,7 @@ def isIdentical(root1, root2):
     return root1.val == root2.val and \
     isIdentical(root1.left, root2.left) and \
     isIdentical(root1.right, root2.right)
+
 
 """
 returns the list of nodes in path from root to node
@@ -217,6 +218,7 @@ def findPathBFS(root, x):
     
     return path[::-1]
 
+
 """
 find the lca of 2 nodes with values x, y
 """
@@ -239,6 +241,7 @@ def findLCA(root, x, y):
     
     return pathx[i-1]
 
+
 """
 clone a binary tree
 """
@@ -250,7 +253,10 @@ def clone(root):
     r.right = clone(root.right)
     return r
 
-        
+
+"""
+traverse a BT in a spiral fashion
+"""        
 def traverseSpiral(root):
     if root is None:
         return
@@ -282,8 +288,11 @@ def traverseSpiral(root):
         if not even:
             break
 
+
+"""
+Find the maximal sum from the root to a leaf
+"""
 def maxSumRecursive(root):
-    # returns the maximal sum from the root to a leaf
     if root is None:
         return 0
     lSum = maxSumRecursive(root.left)
@@ -292,7 +301,6 @@ def maxSumRecursive(root):
 
 
 def maxSumIterative(root):
-    # returns the maximal sum from the root to a leaf
     if root is None:
         return 0
     nodes = [root]
@@ -410,8 +418,10 @@ def depth(root):
     return maxd
 
 
+"""
+Find the width of a tree = maximum number of nodes at any level of the tree
+"""
 def width(root):
-    # width of a tree = maximum number of nodes at any level of the tree
     if root is None:
         return 0
     
@@ -464,8 +474,10 @@ def height(root):
     return maxh
 
 
+"""
+check if 2 BTs are mirror images
+"""
 def isMirror(root1, root2):
-    # returns True if trees at root1 and root2 are mirror images
     if root1 is None and root2 is None:
         return True
     
@@ -474,6 +486,10 @@ def isMirror(root1, root2):
     return root1.val == root2.val and \
     isMirror(root1.left, root2.right) and isMirror(root1.right, root2.left)
 
+
+"""
+check if a BT is symmetric
+"""
 def isSymmetric(root):
     # returns True if the given binary tree is symmetric
     # A tree is symmetric if its left sub-tree is a mirror image of its
@@ -483,7 +499,9 @@ def isSymmetric(root):
     return isMirror(root.left, root.right)
 
 
-# A function to do postorder tree traversal w/o recursion
+"""
+postorder tree traversal w/o recursion
+"""
 def peek(stack):
     if len(stack) > 0:
         return stack[-1]
@@ -520,7 +538,6 @@ def printPostorderIterative(root):
 level order traversal of a binary tree
 reference: https://leetcode.com/problems/binary-tree-level-order-traversal/description/
 """
-
 def levelOrder(root):
     """
     :type root: TreeNode
@@ -544,7 +561,9 @@ def levelOrder(root):
     return res
 
 
-# A function to do levelorder tree traversal 
+"""
+levelorder tree traversal 
+"""
 def printLevelOrder(root):
     if root:
         level = [root]
@@ -579,5 +598,3 @@ if __name__ == '__main__':
     
     root.left.right.left = Node(6)
     root.right.left.right = Node(7)
-
-
