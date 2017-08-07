@@ -19,7 +19,7 @@ before the left child.
 """
 Recursive solutions
 """
-# Inorder LC, root, RC
+# Inorder: LC, root, RC
 def traverseInOrder(root):
 
     if root:
@@ -27,7 +27,7 @@ def traverseInOrder(root):
         print(root.val),
         traverseInOrder(root.right)
 
-# Preorder root, LC, RC
+# Preorder: root, LC, RC
 def traversePreOrder(root):
 
     if root:
@@ -35,7 +35,7 @@ def traversePreOrder(root):
         traversePreOrder(root.left)
         traversePreOrder(root.right)
 
-# Postorder LC, RC, root
+# Postorder: LC, RC, root
 def traversePostOrder(root):
 
     if root:
@@ -49,8 +49,43 @@ def traversePostOrder(root):
 Iterative solutions using DFS
 """
 
+#############################################################
 # preOrder - print node when you visit it
-def preorderTraversal(root):
+# in order of preference
+def preorderTraversal1(root):
+    """
+    :type root: TreeNode
+    :rtype: List[int]
+    """
+    if root is None:
+        return []
+    
+    stack, pre_ordered_list = [root], []
+    
+    while stack:
+        v = stack.pop()
+        pre_ordered_list.append(v.val)
+        if v.right:
+            stack.append(v.right)
+        if v.left:
+            stack.append(v.left)
+    return pre_ordered_list
+
+
+def preorderTraversal12(root):
+    stack = []
+    while True:
+        while root:
+            stack.append(root)
+            print (root.val),
+            root = root.left
+        if stack:
+            root = stack.pop().right
+        else:
+            break
+
+
+def preorderTraversal3(root):
     """
     :type root: TreeNode
     :rtype: List[int]
@@ -75,22 +110,12 @@ def preorderTraversal(root):
             stack.pop()
     return pre_ordered_list
 
-# another way to print pre-order iteratively
-def printPreorderIterative(root):
-    stack = []
-    while True:
-        while root:
-            stack.append(root)
-            print (root.val),
-            root = root.left
-        if stack:
-            root = stack.pop().right
-        else:
-            break
+
+###############################################################
 
 
 # postOrder - print node when you backtrack from it
-def postorderTraversal(root):
+def postorderTraversal1(root):
     """
     :type root: TreeNode
     :rtype: List[int]
@@ -113,6 +138,32 @@ def postorderTraversal(root):
             post_ordered_list.append(stack.pop().val)
     return post_ordered_list
 
+
+def postorderTraversal2(root):
+    """
+    :type root: TreeNode
+    :rtype: List[int]
+    """
+    if root is None:
+        return []
+    
+    stack, post_ordered_list = [root], []
+    visited = set()
+    
+    while stack:
+        v = stack[-1]
+        ad = True # flag to indicate if all children of this node are visited
+        if v.right and v.right not in visited:
+            stack.append(v.right)
+            visited.add(v.right)
+            ad = False
+        if v.left and v.left not in visited:
+            stack.append(v.left)
+            visited.add(v.left)
+            ad = False
+        if ad:
+            post_ordered_list.append(stack.pop().val)
+    return post_ordered_list
 
 
 # inOrder - print node when you backtrack
@@ -153,5 +204,32 @@ def printInorderIterative(root):
             root = stack.pop()
             print (root.val),
             root = root.right
+        else:
+            break
+
+
+def levelOrderTraversal(root):
+    """
+    :type root: TreeNode
+    :rtype: List[List[int]]
+    """
+    if root is None:
+        return []
+    
+    level_ordered_list = [[root.val]]
+    cl = [root]
+    
+    while True:
+        nl, vals = [], []
+        for node in cl:
+            if node.left:
+                nl.append(node.left)
+                vals.append(node.left.val)
+            if node.right:
+                nl.append(node.right)
+                vals.append(node.right.val)
+        if nl:
+            level_ordered_list.append(vals)
+            cl = nl
         else:
             break
