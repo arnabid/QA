@@ -52,37 +52,9 @@ def merge(meetings):
 
 
 """
-minRooms - minimum number of rooms required to schedule
-list of meetings
-minRooms = maximum number of active meetings at any given time
-time - nlogn; space - n
-"""
-def minRooms(meetings):
-    events = []
-    for meeting in meetings:
-        events += [(meeting[0], 1), (meeting[1], -1)]
-    events.sort(key = lambda x: (x[0], x[1]))
-    
-    """
-    events holds the start and stop times of all meetings
-    in increasing order, for start and stop times coinciding, stop times are 
-    placed first
-    """
-    result, occupiedrooms = 0, 0
-    for event in events:
-        if event[1] == 1:
-            # meeting starts
-            occupiedrooms += 1
-            result = max(result, occupiedrooms)
-        else:
-            # meeting stops
-            occupiedrooms -= 1
-    return result
-
-"""
 time - n; space - constant
 """
-def calcRooms(meetings):
+def minMeetingRooms1(meetings):
     mnStart, mxStart = 25, -1
     mapM = Counter()
     for meeting in meetings:
@@ -94,12 +66,40 @@ def calcRooms(meetings):
     activeMeetings, result = 0, 0
     """
     only consider mnStart to mxStart - meetings only end after that
+    if the range(mnStart, mxStart) is small
     """
     for i in xrange(mnStart, mxStart+1):
         activeMeetings += mapM[i]
         result = max(result, activeMeetings)
     return result
-        
+
+
+def minMeetingRooms2(meetings):
+    """
+    :type intervals: List[Interval]
+    :rtype: int
+    """
+    if not meetings:
+        return 0
+    mxStart = -1
+    mapM = Counter()
+    for meeting in meetings:
+        mapM[meeting.start] += 1
+        mapM[meeting.end] -= 1
+        mxStart = max(mxStart, meeting.start)
+    activeMeetings, result = 0, 0
+    """
+    get the times in sorted order till mxStart - meetings only end after that
+    """
+    for key in sorted(mapM):
+        if key <= mxStart:
+            activeMeetings += mapM[key]
+            result = max(result, activeMeetings)
+        else:
+            break
+    return result
+
+     
 
 if __name__ == '__main__':
     meetings = []
