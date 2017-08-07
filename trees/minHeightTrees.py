@@ -10,12 +10,11 @@ Minimum height trees
 reference: https://leetcode.com/problems/minimum-height-trees/description/
 
 Notes:
-There can be only 1/2 nodes with minimum height trees.
-Lots of applications; logistics/computer/travel networks
+There can be only 1 or 2 nodes with minimum height trees.
 
-These nodes are the critical nodes in the sense that min total cost is needed to
-reach the other nodes in the network. Any sort of message propagation will be most
-efficient from these node(s).
+These nodes are the critical nodes in the sense that maximum cost needed to
+reach the farthest node in the network will be minimum. Any sort of message propagation
+will be most efficient from these node(s).
 """
 
 from collections import Counter
