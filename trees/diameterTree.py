@@ -8,6 +8,14 @@ Created on Mon Aug  7 17:16:05 2017
 """
 Diameter of a general tree
 diameter = length of the longest path between any 2 nodes in the tree
+
+Why does the longest path between any 2 nodes in the tree pass through the 
+min height node?
+
+consider the tree rooted at the min height node. The longest path possible is
+<= 2*h, h = height of tree. All other paths that do not pass through the min height
+node are strictly less than the longest path through the min node. Therefore the longest
+path which is <= 2*h will pass through the min height node.
 """
 
 from collections import Counter
