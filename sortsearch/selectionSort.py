@@ -4,16 +4,20 @@ Created on Sat Aug 12 20:30:29 2017
 
 @author: arnab
 """
+
+"""
+Selection sort - select the min element and put it
+in its correct position
+"""
 import random
 
 def selectionSortVER1(arr):
     n = len(arr)
     
     for i in xrange(n-1):
-        mn, mi = arr[i], i
+        mi = i
         for j in xrange(i+1, n):
-            if arr[j] < mn:
-                mn = arr[j]
+            if arr[j] < arr[mi]:
                 mi = j
         arr[i], arr[mi] = arr[mi], arr[i]
     return arr
