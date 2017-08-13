@@ -8,8 +8,20 @@ Created on Sat Aug 12 20:30:29 2017
 """
 Selection sort - select the min element and put it
 in its correct position
+stable sorting algorithm
 """
 import random
+
+def selectionSortRecur(arr, start, n):
+    if start >= n-1:
+        return
+    
+    mi = start
+    for i in xrange(start+1, n):
+        if arr[i] < arr[mi]:
+            mi = i
+    arr[start], arr[mi] = arr[mi], arr[start]
+    selectionSortRecur(arr, start+1, n)
 
 def selectionSortVER1(arr):
     n = len(arr)
@@ -45,7 +57,8 @@ if __name__ == '__main__':
     res = list(arr)
     
     # sort test array and print result
-    print (selectionSortVER1(arr))
+    selectionSortRecur(arr, 0, len(arr))
+    print (arr)
     
     # sort copy and print result
     res.sort()
