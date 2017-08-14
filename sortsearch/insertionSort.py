@@ -23,25 +23,46 @@ the number of inversions in the array, a[i] > a[j]; i < j
 
 sort a k sorted array - O(nk)
 """
+import random
 
-if __name__ == '__main__':
-    arr = [2,4,1,1,5,9,7,6]
+def insertionSort(arr):
     n = len(arr)
     
-    # ascending order
-#    for j in xrange(1,n):
-#        i = j-1
-#        
-#        while i >= 0 and arr[i] > arr[i+1]:
-#            arr[i+1], arr[i] = arr[i], arr[i+1]
-#            i -= 1
+    #ascending order
+    for j in xrange(1,n):
+        i = j-1
+        
+        while i >= 0 and arr[i] > arr[i+1]:
+            arr[i+1], arr[i] = arr[i], arr[i+1]
+            i -= 1
     
     #descending order
+    """
     for j in xrange(1,n):
         i = j-1
         
         while i >= 0 and arr[i] < arr[i+1]:
             arr[i+1], arr[i] = arr[i], arr[i+1]
             i -= 1
+    """
     
-    print (arr)
+    return arr
+
+
+if __name__ == '__main__':
+    
+    # set random seed
+    random.seed()
+    
+    # generate test array
+    arr = [random.randint(1,20) for i in xrange(10)]
+    
+    # create copy of test array
+    res = list(arr)
+    
+    # sort test array and print result
+    print (insertionSort(arr))
+    
+    # sort copy and print result
+    res.sort()
+    print (res)
