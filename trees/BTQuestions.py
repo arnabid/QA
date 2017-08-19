@@ -207,34 +207,9 @@ def findPathDFSIter(root, x):
 
 
 """
-returns the list of nodes in path from root to node
-node.val = x
-DFS recursion
+returns the list of nodes in path from root to node using BFS
 """
-def findPathDFS(root, x):
-    if root is None:
-        return []
-    path = []
-    findPath(root, x, path)
-    return path
-    
-def findPath(v, x, path):
-    path.append(v)
-    if v.val == x:
-        return True
-    for w in getChildren(v):
-        if findPath(w, x, path):
-            return True
-    path.pop()
-    return False
-
-"""
-returns the list of nodes in path from root to node
-node.val = x
-BFS
-"""
-def findPathBFS(root, x):
-    # using BFS
+def findPathBFS(root, node):
     if root is None:
         return []
     
@@ -245,7 +220,7 @@ def findPathBFS(root, x):
     v = None
     while not q.empty():
         v = q.get()
-        if v.val == x:
+        if v == node:
             break
         
         for w in getChildren(v):
@@ -262,10 +237,34 @@ def findPathBFS(root, x):
 
 
 """
-find the lca of 2 nodes with values x, y
+returns the list of nodes in path from root to node
+DFS recursion
 """
+def findPathDFS(root, x, path):
+    if root:
+        path.append(root)
+        if root == x:
+            return True
+        if findPathDFS(root.left, x, path):
+            return True
+        if findPathDFS(root.right, x, path):
+            return True
+        path.pop()
+        return False
+    else:
+        return False
 
+
+"""
+find the lca of 2 nodes x, y
+"""
 def findLCA(root, x, y):
+    """
+    :type root: TreeNode
+    :type x: TreeNode
+    :type y: TreeNode
+    :rtype: TreeNode
+    """
     if root is None:
         return None
     
@@ -277,7 +276,7 @@ def findLCA(root, x, y):
     
     i, j = 0, 0
     lx, ly = len(pathx), len(pathy)
-    while i < lx and j < ly and pathx[i].val == pathy[j].val:
+    while i < lx and j < ly and pathx[i] == pathy[j]:
         i += 1
         j += 1
     
