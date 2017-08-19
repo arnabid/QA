@@ -24,10 +24,6 @@ def containsPWD(s):
     return PWD in s
 
 def findPassword1(s):
-    # return None if the input string does not contain the password
-    if not containsPWD(s):
-        return None
-
     n = len(s)
     pwdFound = False
     # advance i from the left till the substring contains password
@@ -37,7 +33,7 @@ def findPassword1(s):
             break
 
     # return None if the password does not exist in string s
-    if pwdFound is False:
+    if not pwdFound:
         return None
 
     # advance j from right to left starting from i till you get the actual password
