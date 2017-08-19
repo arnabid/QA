@@ -31,6 +31,48 @@ def mergeTrees(t1, t2):
     return root
 
 
+"""
+Count Univalue Subtrees
+reference: leetcode.com - premium account question
+"""
+def countUtility(root, c):
+    if root is None:
+        return True
+
+    # check if the left sub-tree is a univalue tree
+    l = countUtility(root.left, c)
+    
+    # check if the right sub-tree is a univalue tree
+    r = countUtility(root.right, c)
+    
+    # if both left and right sub-trees are univalue trees, compare with
+    # current node value
+    if l and r:
+        # for a leaf node which is always univalue tree,  make
+        # left child node value and right child node value equal to the 
+        # leaf node value
+        lv, rv = root.val, root.val
+        if root.left:
+            lv = root.left.val
+        if root.right:
+            rv = root.right.val
+        if root.val == lv and root.val == rv:
+            c[0] += 1
+            return True
+    return False
+
+def countUnivalSubtrees(root):
+    """
+    :type root: TreeNode
+    :rtype: int
+    """
+    if root is None:
+        return 0
+    c = [0]
+    countUtility(root, c)
+    return c[0]
+
+
 def calculateHorzDistance(node, val, dmap, mn, mx):
     if node:
         mn[0], mx[0] = min(mn[0], val), max(mx[0], val)
