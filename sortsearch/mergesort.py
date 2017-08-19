@@ -7,7 +7,10 @@ Created on Sat Oct  8 10:38:47 2016
 
 """
 Merge sort: http://quiz.geeksforgeeks.org/merge-sort/
+stable sorting algorithm
 """
+
+import random
 
 def merge(arr, low, mid, high):
     n1 = mid - low + 1
@@ -47,11 +50,20 @@ def mergesort(arr, low, high):
         merge(arr, low, mid, high)
 
 if __name__ == '__main__':
-    arr = [2,7,3,1,6,4]
-    n = len(arr)
     
-    print ("The array before sorting = {} ".format(arr))
+    # set random seed
+    random.seed()
     
-    mergesort(arr, 0, n-1)
+    # generate test array
+    arr = [random.randint(1,20) for i in xrange(10)]
     
-    print ("The array after sorting = {} ".format(arr))
+    # create copy of test array
+    res = list(arr)
+    
+    # sort test array and print result
+    mergesort(arr, 0, len(arr)-1)
+    print (arr)
+    
+    # sort copy and print result
+    res.sort()
+    print (res)
