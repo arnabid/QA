@@ -6,7 +6,7 @@ Created on Sun Jul 30 09:07:43 2017
 """
 
 """
-Amazon phone interview question:
+Phone interview question:
 given an input string and a method containsPWD(s), write a method to return the password
 The method containsPWD(s) takes an input string as parameter and returns
 True if the password is a substring of s and False otherwise in O(1) time.
@@ -45,30 +45,30 @@ def findPassword1(s):
         if containsPWD(s[j:i+1]):
             return s[j:i+1]
 
-def findPassword2(s):
-    # return None if the input string does not contain the password
-    if not containsPWD(s):
-        return None
 
-    n = len(s)
-    i, j = 0, n-1
-    status = True
-    # keep 2 pointers i, j and advance them if the remaining part of string
-    # contains the password
-    while status:
-        status =  False
-        if containsPWD(s[i+1:j+1]):
-            i += 1
-            status = True
-        if containsPWD(s[i:j]):
-            j -= 1
-            status = True
-    return s[i:j+1]
+"""
+preferred method
+"""
+def findPassword2(s):
+    i, j = -1, len(s)
+    
+    # keep increasing i from the left till s[i...j] contains password
+    while containsPWD(s[i+1:j]):
+        i += 1
+    
+    # keep decreasing j from the right till s[i...j] conatains password
+    while containsPWD(s[i:j]):
+        j -= 1
+    
+    if i >= 0:
+        return s[i:j+1]
+    else:
+        return None
 
 
 if __name__ == '__main__':
-    s = ""
-    ans = findPassword1(s)
+    s = "xyzxyzxyz"
+    ans = findPassword2(s)
     print (ans)
     print (ans == PWD)
 
