@@ -8,9 +8,10 @@ Created on Sat Oct 15 09:27:39 2016
 """
 median of a stream of integers
 reference: https://www.youtube.com/watch?v=VmogG01IjYc
+
 maintain 2 heaps: lh(max heap); rh(min heap)
 add number to either heaps based on value
-rebalance heaps of necessary; size of heaps differs by atmost 1
+rebalance heaps if necessary; size of heaps differs by atmost 1
 return median based on size of heaps
 """
 
