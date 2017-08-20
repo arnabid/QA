@@ -6,40 +6,41 @@ Created on Sat Oct 15 09:27:39 2016
 """
 
 """
-median in a stream of integers
+median of a stream of integers
+reference: https://www.youtube.com/watch?v=VmogG01IjYc
+maintain 2 heaps: lh(max heap); rh(min heap)
+add number to either heaps based on value
+rebalance heaps of necessary; size of heaps differs by atmost 1
+return median based on size of heaps
 """
 
 import heapq
-
-cm = [float('inf')]
 lh, rh = [], []
 
 def findmedian(x):
-    if x <= cm[0]:
-        if len(lh) <= len(rh):
-            heapq.heappush(lh, -x)
-        else:
-            v = heapq.heapreplace(lh, -x)
-            heapq.heappush(rh, -v)
+    # add x to the lower or higher heap
+    if len(lh) == 0 or x < -lh[0]:
+        heapq.heappush(lh, -x)
     else:
-        if len(rh) <= len(lh):
-            heapq.heappush(rh, x)
-        else:
-            v = heapq.heapreplace(rh, x)
-            heapq.heappush(lh, -v)
+        heapq.heappush(rh, x)
     
+    # rebalance if necessary
+    if len(lh) - len(rh) >= 2:
+        number = -heapq.heappop(lh)
+        heapq.heappush(rh, number)
+    elif len(rh) - len(lh) >= 2:
+        number = heapq.heappop(rh)
+        heapq.heappush(lh, -number)
+    
+    # return median
     if len(lh) > len(rh):
-        cm[0] = -lh[0]
+        return -lh[0]
     elif len(rh) > len(lh):
-        cm[0] = rh[0]
+        return rh[0]
     else:
-        cm[0] = (-lh[0] + rh[0])/2.0
-    
-    print (cm[0])
-        
-    
+        return (-lh[0] + rh[0]) / float(2)
 
 if __name__ == '__main__':
     arr = map(int, raw_input().strip().split(" "))
     for x in arr:
-        findmedian(x)
+        print (findmedian(x)),
