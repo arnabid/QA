@@ -27,14 +27,12 @@ def build(arr):
     return blocks
 
 """
-update index i to k
+update arr[i] to k
 """
 def update(arr, blocks, i, k):
-    oldval = arr[i]
-    arr[i] = k
-    
     nblocks = len(blocks)
-    blocks[i/nblocks] += k - oldval
+    blocks[i/nblocks] += k - arr[i]
+    arr[i] = k
 
 
 """
@@ -51,11 +49,24 @@ def sumQuery(arr, blocks, l, r):
     
     # calculate last index of start block
     lp_end = (startblock+1)*nblocks
+    lp_end = min(lp_end, r+1)
     for i in xrange(l, lp_end):
         res += arr[i]
     
     # calculate first index of end block
     rp_start = (endblock)*nblocks
+    rp_start = max(rp_start, l)
     for i in xrange(rp_start, r+1):
         res += arr[i]
+    
+    if startblock == endblock:
+        res = res/2
     return res
+
+if __name__ == '__main__':
+    arr = [1,2,3,4,5,6,7,8,9,10,11]
+    n = len(arr)
+    blocks = build(arr)
+    for i in xrange(n):
+        for j in xrange(i,n):
+            print i,j," Sum = ",sumQuery(arr, blocks, i, j)
