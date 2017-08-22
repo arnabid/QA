@@ -60,27 +60,27 @@ def maxNumberMeetings(meetings):
 """
 merge intervals
 reference: https://leetcode.com/problems/merge-intervals/description/
+
+*** extra credit ***
+also calculate the total time(union) of the merged intervals
+union of the four intervals [1, 3], [2, 4.5], [6, 9], and [7, 8] is 6.5
 """
-# Definition for an interval.
-# class Interval(object):
-#     def __init__(self, s=0, e=0):
-#         self.start = s
-#         self.end = e
 
 def merge(meetings):
-    """
-    :type meetings: List[Interval]
-    :rtype: List[Interval]
-    """
     if not meetings:
         return []
-    meetings.sort(key = lambda x: x.start)
+    meetings.sort(key = lambda x: x[0])
     final_meetings = [meetings[0]]
+    total = 0
     for meeting in meetings[1:]:
-        if meeting.start > final_meetings[-1].end:
+        if meeting[0] > final_meetings[-1][1]:
+            total += final_meetings[-1][1] - final_meetings[-1][0]
             final_meetings.append(meeting)
         else:
-            final_meetings[-1].end = max(meeting.end, final_meetings[-1].end)
+            final_meetings[-1][1] = max(meeting[1], final_meetings[-1][1])
+
+    total += final_meetings[-1][1] - final_meetings[-1][0]
+    print (total)
     return final_meetings
 
 
@@ -135,14 +135,14 @@ def minMeetingRooms2(meetings):
      
 
 if __name__ == '__main__':
-    meetings = []
-    #meetings = [[1,2], [3,5], [4,7], [6,10]]
-    for i in xrange(100):
-        start = random.randint(1,12)
-        end = random.randint(start+3,20)
-        meetings.append([start,end])
+    #meetings = []
+    meetings = [[1,2], [3,5], [4,7], [6,10]]
+#    for i in xrange(100):
+#        start = random.randint(1,12)
+#        end = random.randint(start+3,20)
+#        meetings.append([start,end])
 #    print (meetings)
-    print (maxNumberMeetings(meetings))
+    print (merge(meetings))
 #    print (meetings)
 #    print (maxNumberMeetings2(meetings))
 #    print (minRooms(meetings), calcRooms(meetings))
