@@ -85,46 +85,71 @@ def merge(meetings):
 
 
 """
-time - n; space - constant
+find the total number of intersections between meetings
+example:
+
+|-----|    |------|
+      |------|
+
+result = 2
+"""
+def numberIntersections(meetings):
+    events = []
+    for meeting in meetings:
+        events.append([meeting[0], -1])
+        events.append([meeting[1], 1])
+    events.sort(key = lambda x : (x[0], x[1]))
+    
+    active, intersections = 0, 0
+    for event in events:
+        # meeting starts
+        if event[1] == -1:
+            intersections += active
+            active += 1
+        # meeting ends
+        else:
+            active -= 1
+    return intersections
+
+
+
+"""
+return the minimum of rooms required to hold meetings
+min rooms = maximum number of concurrent meetings at any given time
 """
 def minMeetingRooms1(meetings):
-    mnStart, mxStart = 25, -1
-    mapM = Counter()
+    events = []
     for meeting in meetings:
-        mapM[meeting[0]] += 1
-        mapM[meeting[1]] -= 1
-        mnStart = min(mnStart, meeting[0])
-        mxStart = max(mxStart, meeting[0])
+        events.append([meeting[0], 1])
+        events.append([meeting[1], -1])
+    events.sort(key = lambda x : (x[0], x[1]))
     
-    activeMeetings, result = 0, 0
-    """
-    only consider mnStart to mxStart - meetings only end after that
-    if the range(mnStart, mxStart) is small
-    """
-    for i in xrange(mnStart, mxStart+1):
-        activeMeetings += mapM[i]
-        result = max(result, activeMeetings)
+    active, result = 0, 0
+    for event in events:
+        # meeting starts
+        if event[1] == 1:
+            active += 1
+            result = max(result, active)
+        # meeting ends
+        else:
+            active -= 1
     return result
 
 
 def minMeetingRooms2(meetings):
-    """
-    :type intervals: List[Interval]
-    :rtype: int
-    """
     if not meetings:
         return 0
-    mxStart = -1
+    mxStart = -float('inf')
     mapM = Counter()
     for meeting in meetings:
-        mapM[meeting.start] += 1
-        mapM[meeting.end] -= 1
-        mxStart = max(mxStart, meeting.start)
+        mapM[meeting[0]] += 1
+        mapM[meeting[1]] -= 1
+        mxStart = max(mxStart, meeting[0])
     activeMeetings, result = 0, 0
     """
     get the times in sorted order till mxStart - meetings only end after that
     """
-    for key in sorted(mapM):
+    for key in sorted(mapM): # get keys in sorted order
         if key <= mxStart:
             activeMeetings += mapM[key]
             result = max(result, activeMeetings)
@@ -135,14 +160,9 @@ def minMeetingRooms2(meetings):
      
 
 if __name__ == '__main__':
-    #meetings = []
-    meetings = [[1,2], [3,5], [4,7], [6,10]]
-#    for i in xrange(100):
-#        start = random.randint(1,12)
-#        end = random.randint(start+3,20)
-#        meetings.append([start,end])
-#    print (meetings)
-    print (merge(meetings))
-#    print (meetings)
-#    print (maxNumberMeetings2(meetings))
-#    print (minRooms(meetings), calcRooms(meetings))
+    meetings = []
+    for i in xrange(20):
+        start = random.randint(1,12)
+        end = random.randint(start+3,start+4)
+        meetings.append([start,end])
+    print (minMeetingRooms2(meetings), minMeetingRooms1(meetings))
