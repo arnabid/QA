@@ -20,8 +20,8 @@ def reverseInPlace(s):
         i += 1
         j -= 1
 
-    i, j = 0, 0
-    while j < n:
+    i = 0
+    for j in xrange(n):
         if arr[j] == " ":
             k = j - 1
             while i < k:
@@ -29,7 +29,7 @@ def reverseInPlace(s):
                 i += 1
                 k -= 1
             i = j + 1
-        j += 1
+
     k = j - 1
     while i < k:
         arr[i], arr[k] = arr[k], arr[i]
