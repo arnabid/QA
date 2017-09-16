@@ -17,6 +17,34 @@ class Node(object):
         self.val = key
 
 """
+Find the second minimum element in a binary heap
+reference: https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/description/
+"""
+def dfs(self, node, min1, ans):
+    if node:
+        # since we want the second minimum element; if we find a element greater than
+        # min1 we dont need to traverse the sub-trees(all values will be equal or greater)
+        if min1 < node.val < ans[0]:
+            ans[0] = node.val
+        elif node.val == min1:
+            self.dfs(node.left, min1, ans)
+            self.dfs(node.right, min1, ans)
+
+def findSecondMinimumValue(self, root):
+    """
+    :type root: TreeNode
+    :rtype: int
+    """
+    if root is None:
+        return -1
+    ans, min1 = [float('inf')], root.val
+    self.dfs(root, min1, ans)
+
+    if ans[0] < float('inf'):
+        return ans[0]
+    return -1
+
+"""
 Merge 2 BTs
 reference: https://leetcode.com/problems/merge-two-binary-trees/#/description
 """
