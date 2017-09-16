@@ -13,6 +13,29 @@ class Node(object):
         self.right = None
         self.val = key
 
+"""
+trim BST
+reference: https://leetcode.com/problems/trim-a-binary-search-tree/description/
+"""
+
+def trimBST(self, root, L, R):
+    """
+    :type root: TreeNode
+    :type L: int
+    :type R: int
+    :rtype: TreeNode
+    """
+    if root is None:
+        return None
+    if root.val > R:
+        return self.trimBST(root.left, L, R)
+    if root.val < L:
+        return self.trimBST(root.right, L, R)
+    root.left = self.trimBST(root.left, L, R)
+    root.right = self.trimBST(root.right, L, R)
+    return root
+
+
 def search(root, key):
     # returns the node with val equal to key in the BST rooted at root
     # else returns None if the key is not found
@@ -137,6 +160,37 @@ def delete(root, key):
             root.val = temp.val
             root.right = delete(root.right, temp.val)
     return root
+
+
+"""
+check if a BT is a BST
+good example of top-down recursion
+"""
+# approach1
+def isBST(root, minval, maxval):
+    if root is None:
+        return True
+    if root.val < minval or root.val > maxval:
+        return False
+    
+    ltreeOK = isBST(root.left, minval, root.val)
+    if ltreeOK is False:
+        return False
+    rtreeOK = isBST(root.right, root.val+1, maxval)
+    return rtreeOK
+
+# approach 2 - inorder traversal while updating previous seen value
+# initially called with prev = [-float('inf')]
+def check(self, root, prev):
+    if root:
+        if not self.check(root.left, prev):
+            return False
+        if root.val <= prev[0]:
+            return False
+        prev[0] = root.val
+        if not self.check(root.right, prev):
+            return False
+    return True
 
 
 """
@@ -392,6 +446,40 @@ def findclosestValueBST(node, k):
         return p
     else:
         return s
+
+
+"""
+find if 2 nodes in a BST sum to a target value
+reference: https://leetcode.com/problems/two-sum-iv-input-is-a-bst/description/
+"""
+def traverseInOrder(root, arr):
+    if root:
+        traverseInOrder(root.left, arr)
+        arr.append(root.val)
+        traverseInOrder(root.right, arr)
+
+def findTarget(root, k):
+    """
+    :type root: TreeNode
+    :type k: int
+    :rtype: bool
+    """
+    if root is None:
+        return False
+    arr = []
+    traverseInOrder(root, arr)
+    
+    n = len(arr)
+    i, j = 0, n-1
+    while i < j:
+        s = arr[i] + arr[j]
+        if s == k:
+            return True
+        elif s < k:
+            i += 1
+        else:
+            j -= 1
+    return False
 
 
 if __name__ == '__main__':
