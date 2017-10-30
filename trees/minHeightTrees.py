@@ -15,6 +15,15 @@ There can be only 1 or 2 nodes with minimum height trees.
 These nodes are the critical nodes in the sense that maximum distance and total distance to
 reach the a node(or all nodes) in the network will be minimum. Any sort of message propagation
 will be most efficient from these node(s).
+
+
+Runtime analysis:
+build the degree map: O(E)
+every node gets added and removed from the queue only once.
+when the node is in the front of the queue, its edges are examined. 
+so total time: O(E)
+
+linear time algorithm: O(E) + O(E)
 """
 
 from collections import Counter
