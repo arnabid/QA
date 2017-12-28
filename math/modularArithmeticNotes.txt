@@ -1,5 +1,6 @@
-(1) from any position anytime you take a steps; you are effectively taking a%c steps
+(1) From any position anytime you take a steps; you are effectively taking a%c steps
 
+(2) From any position, taking any step size if you repeat that k*c times you are back to the same position.
 modular addition
 ----------------
 (a + b) % c = ((a%c) + (b%c)) % c
@@ -22,7 +23,6 @@ modular multiplication
 LHS =  (a*b) % c = (a + a + a + ...btimes) % c = ((a%c) + (a%c) + ... btimes) % c - from point (1) above
 LHS = (a%c * b) % c
 So we proved we are taking step size of 'a%c' - b times
-From any position, taking any step size if you repeat that k*c times you are back to the same position.
 let b = k*c + r, where r = b%c
-so taking step size of 'a%c' b times is effectively taking 'a%c' - r times
+so taking step size of 'a%c' b times is effectively taking 'a%c' - r times - from point (2) above
 so, LHS = (a%c * b) % c = LHS = (a%c * b%c) % c = RHS
