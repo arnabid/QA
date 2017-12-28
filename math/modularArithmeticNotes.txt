@@ -29,3 +29,4 @@ so, LHS = (a%c * b) % c = LHS = (a%c * b%c) % c = RHS
 
 
 Next steps: fast exponentiationa nd fibonacci numbers
+----------
