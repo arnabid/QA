@@ -27,6 +27,5 @@ let b = k*c + r, where r = b%c
 so taking step size of 'a%c' b times is effectively taking 'a%c' - r times - from point (2) above
 so, LHS = (a%c * b) % c = LHS = (a%c * b%c) % c = RHS
 
-
-Next steps: fast exponentiationa nd fibonacci numbers
+Next steps: fast exponentiation and fibonacci numbers
 ----------
