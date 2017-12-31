@@ -37,6 +37,7 @@ def findCycle(head):
             return None
         if slowp == fastp:
             break
+    # loop exists
     if fastp:
         slowp = head
         while slowp != fastp:
