@@ -541,33 +541,42 @@ def copyRandomList1(head):
 """
 another solution w/o using extra space
 """
+
+class Node_Random(object):
+    def __init__(self, data = None):
+        self.val = data
+        self.next = None
+        self.random = None
+
+
 def copyRandomList2(head):
     if head is None:
         return None
-    res = ListNode(head.val)
+
+    res = Node_Random(head.val)
     rtmp = res
-    # traverse the original list; create the copy list
-    # set the next pointers in the copied list 
-    # set the random pointers in the copied list to the original list
-    # and the next pointers in the original list to the copied list
+    """
+    traverse the original list; create the copy list
+    set the next pointers in the copied list 
+    set the random pointers in the copied list to the original list
+    and the next pointers in the original list to the copied list
+    """
     while head:
-        rtmp.random = head
-        if head.next:
-            rtmp.next = ListNode(head.next.label)
         t = head.next
         head.next = rtmp
-        head = t
-        rtmp = rtmp.next
-    # traverse the copied list and set the random pointers accordingly
-    t = res
-    while t:
-        if t.random.random:
-            t.random = t.random.random.next
-        else:
-            t.random = None
-        t = t.next
-    return res
+        rtmp.random = head
+        if t:
+            rtmp.next = Node_Random(t.val)
+            rtmp = rtmp.next
+        head = head.next
 
+    # traverse the copied list and set the random pointers accordingly
+    rtmp = res
+    while rtmp:
+        if rtmp.random.random:
+            rtmp.random = rtmp.random.random.next
+        rtmp = rtmp.next
+    return res
 
 """
 Given a list, split it into two sublists — one for the front half, and one for the back half.
