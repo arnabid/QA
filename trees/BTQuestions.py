@@ -389,28 +389,30 @@ def maxSumIterative(root):
 
 
 """
-Binary Tree Maximum Path Sum
-reference: https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+LeetCode 124 - Binary Tree Maximum Path Sum
 """
-def helperSum(root, ans):
-    if root is None:
-        return 0
-    left = max(helperSum(root.left, ans), 0)
-    right = max(helperSum(root.right, ans), 0)
+class MaxPathSumSolution(object):
+    def __init__(self):
+        self.ans = -float('inf')
 
-    ans[0] = max(ans[0], root.val + left + right)
-    return max(left,right) + root.val
+    def maxPathSumUtil(self, root):
+        if root is None:
+            return 0
+        lv = max(self.maxPathSumUtil(root.left), 0)
+        rv = max(self.maxPathSumUtil(root.right), 0)
+        
+        self.ans = max(self.ans, root.val + lv + rv)
+        return max(lv, rv) + root.val
 
-def maxPathSum(root):
-    """
-    :type root: TreeNode
-    :rtype: int
-    """
-    if root is None:
-        return 0
-    ans = [-float('inf')]
-    helperSum(root, ans)
-    return ans[0]
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        self.maxPathSumUtil(root)
+        return self.ans
 
 
 def heightRecursive(root):
@@ -653,35 +655,48 @@ def printLevelOrderRecurse(level):
         printLevelOrderRecurse(nextlevel)
 
 
-ans = [0]
+"""
+LeetCode 687 - Longest Univalue Path
+"""
+class LongestUnivaluePathSolution:
+    def __init__(self):
+        self.ans = 0
 
-def findLongestUniValuePathUtil(root):
-	findLongestUniValuePath(root)
-	return ans[0]
+    def findLongestUniValuePathUtil(self, root):
+        if root is None:
+            return 0
 
-def findLongestUniValuePath(root):
-	if root is None:
-		return 0
+        lv, rv = 0, 0
 
-	lv = findLongestUniValuePath(root.left)
-	rv = findLongestUniValuePath(root.right)
+        res = 0
+        if root.left:
+            lv = self.findLongestUniValuePathUtil(root.left)
+            if root.val == root.left.val:
+                self.ans = max(self.ans, lv + 1)
+                res = max(res, lv + 1)
+        if root.right:
+            rv = self.findLongestUniValuePathUtil(root.right)
+            if root.val == root.right.val:
+                self.ans = max(self.ans, rv + 1)
+                res = max(res, rv + 1)
+        if root.left and root.right:
+            if root.val == root.left.val and root.val == root.right.val:
+                self.ans = max(self.ans, lv + rv + 2)
+                res = max(res, max(lv,rv) + 1)
+        return res
 
-	res = 0
-	if root.left:
-		if root.val == root.left.val:
-			ans[0] = max(ans[0], lv + 1)
-			res = max(res, lv + 1)
-	if root.right:
-		if root.val == root.right.val:
-			ans[0] = max(ans[0], rv + 1)
-			res = max(res, rv + 1)
-	if root.left and root.right:
-		if root.val == root.left.val and root.val == root.right.val:
-			ans[0] = max(ans[0], lv + rv + 2)
-			res = max(res, max(lv,rv) + 1)
-	return res
+    def longestUnivaluePath(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.findLongestUniValuePathUtil(root)
+        return self.ans
 
 
+"""
+LeetCode 652 - Find duplicate subtrees
+"""
 class FindDuplicateSubtreesSolution:
     def __init__(self):
         self.hm = {}
