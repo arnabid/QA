@@ -1,0 +1,11 @@
+1. Find duplicate subtrees
+reference: https://leetcode.com/problems/find-duplicate-subtrees/description/
+/Users/arnab/Documents/QA/trees/BTQuestions.py - LeetCode 652
+
+2. Longest Univalue Path
+https://leetcode.com/problems/longest-univalue-path/description/
+/Users/arnab/Documents/QA/trees/BTQuestions.py - LeetCode 687
+
+3. Binary Tree Maximum Path Sum
+https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+/Users/arnab/Documents/QA/trees/BTQuestions.py - LeetCode 124
