@@ -724,7 +724,15 @@ class FindDuplicateSubtreesSolution:
         :type root: TreeNode
         :rtype: List[TreeNode]
         """
-        self.findDuplicateSubtreesUtil(root)
+        if root is None:
+            return []
+        """
+        The entire tree cannot have a duplicate, suffices to search for duplicate
+        subtrees in the left and right subtrees of root node.
+        Every subtree is represented as a unique string.
+        """
+        self.findDuplicateSubtreesUtil(root.left)
+        self.findDuplicateSubtreesUtil(root.right)
         return self.ans
 
 
