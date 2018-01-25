@@ -5,7 +5,7 @@ Created on Sat Feb 13 12:32:44 2016
 @author: arnab
 """
 
-import Queue
+import queue
 from collections import Counter
 
 
@@ -653,17 +653,76 @@ def printLevelOrderRecurse(level):
         printLevelOrderRecurse(nextlevel)
 
 
+ans = [0]
+
+def findLongestUniValuePathUtil(root):
+	findLongestUniValuePath(root)
+	return ans[0]
+
+def findLongestUniValuePath(root):
+	if root is None:
+		return 0
+
+	lv = findLongestUniValuePath(root.left)
+	rv = findLongestUniValuePath(root.right)
+
+	res = 0
+	if root.left:
+		if root.val == root.left.val:
+			ans[0] = max(ans[0], lv + 1)
+			res = max(res, lv + 1)
+	if root.right:
+		if root.val == root.right.val:
+			ans[0] = max(ans[0], rv + 1)
+			res = max(res, rv + 1)
+	if root.left and root.right:
+		if root.val == root.left.val and root.val == root.right.val:
+			ans[0] = max(ans[0], lv + rv + 2)
+			res = max(res, max(lv,rv) + 1)
+	return res
+
+
+class FindDuplicateSubtreesSolution:
+    def __init__(self):
+        self.hm = {}
+        self.ans = []
+    
+    def findDuplicateSubtreesUtil(self, root):
+        if root is None:
+            return "#"
+        
+        lv = self.findDuplicateSubtreesUtil(root.left)
+        rv = self.findDuplicateSubtreesUtil(root.right)
+        
+        s = str(root.val) + lv + rv
+        if s in self.hm:
+            if self.hm[s][1] == 1:
+                self.hm[s][1] = 2
+                self.ans.append(root)            
+        else:
+            self.hm[s] = [root, 1]
+        return s
+        
+
+    def findDuplicateSubtrees(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[TreeNode]
+        """
+        self.findDuplicateSubtreesUtil(root)
+        return self.ans
+
+
 # Driver code
 if __name__ == '__main__':
-    root = Node(1)
+    root = Node(6)
     
-    root.left = Node(2)
-    root.right = Node(3)
+#    root.left = Node(4)
+#    root.right = Node(5)
+#    
+#    root.left.right = Node(1)
+#    root.left.left = Node(1)
+#    root.right.left = Node(5)
+#    root.right.right = Node(5)
     
-    root.left.right = Node(4)
-    root.left.left = Node(9)
-    root.right.left = Node(5)
-    root.right.right = Node(8)
-    
-    root.left.right.left = Node(6)
-    root.right.left.right = Node(7)
+    print (findLongestUniValuePathUtil(root))
