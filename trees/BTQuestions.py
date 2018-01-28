@@ -740,16 +740,69 @@ class FindDuplicateSubtreesSolution:
         return self.ans
 
 
+
+"""
+LeetCode 742 - Closest leaf in a Binary tree
+"""
+class FindClosestLeafSolution():
+    def __init__(self):
+        self.visited = set()
+        self.closestLeaf = {}
+
+    def findClosestLeafUtil(self, root):
+        if root.left is None and root.right is None:
+            self.closestLeaf[root] = 0
+            return 0
+        lv, rv = float('inf'), float('inf')
+        if root.left:
+            lv = self.findClosestLeafUtil(root.left)
+        if root.right:
+            rv = self.findClosestLeafUtil(root.right)
+        cLeaf = min(lv,rv) + 1
+        self.closestLeaf[root] = cLeaf
+        return cLeaf
+
+    def findPath(self, root, x):
+        if root is None:
+            return False
+        self.visited.add(root)
+        if root == x:
+            return True
+        if self.findPath(root.left, x):
+            return True
+        if self.findPath(root.right, x):
+            return True
+        self.visited.remove(root)
+        return False
+
+    def findClosestLeaf(self, root, x):
+        if root is None or x is None:
+            return None
+        # find the distance to the closest leaf for each node
+        self.findClosestLeafUtil(root)
+        
+        # find the path from the root to x
+        self.findPath(root, x)
+        
+        # find the min distance to a leaf from each node on the path
+        ans = float('inf')
+        for node in self.visited:
+            ans = min(ans, self.closestLeaf[node])
+        return ans
+
+
 # Driver code
 if __name__ == '__main__':
-    root = Node(6)
+    root = Node(1)
     
-#    root.left = Node(4)
-#    root.right = Node(5)
-#    
-#    root.left.right = Node(1)
+    root.left = Node(2)
+    root.right = Node(3)
+    
+    root.left.right = Node(4)
+    x = root.left
 #    root.left.left = Node(1)
 #    root.right.left = Node(5)
 #    root.right.right = Node(5)
     
-    print (findLongestUniValuePathUtil(root))
+    sol = FindClosestLeafSolution()
+    print (sol.findClosestLeaf(root, x))

@@ -15,10 +15,8 @@ complete this
 
 5. min Height trees
 
-6. closest leaf to a given node in a BT - can be solved using the approach in (5)
-can u solve using any other approach? do run-time analysis
-check the solution also in geeksforgeeks
-
+6. Closest leaf in a Binary Tree
+/Users/arnab/Documents/QA/trees/BTQuestions.py - LeetCode 742
 
 7. check if 2 trees are identical
 /Users/arnab/Documents/QA/trees/BTQuestions.py
