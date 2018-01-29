@@ -758,9 +758,8 @@ class FindClosestLeafSolution():
             lv = self.findClosestLeafUtil(root.left)
         if root.right:
             rv = self.findClosestLeafUtil(root.right)
-        cLeaf = min(lv,rv) + 1
-        self.closestLeaf[root] = cLeaf
-        return cLeaf
+        self.closestLeaf[root] = min(lv,rv) + 1
+        return self.closestLeaf[root]
 
     def findPath(self, root, x):
         if root is None:
