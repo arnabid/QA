@@ -746,7 +746,7 @@ LeetCode 742 - Closest leaf in a Binary tree
 """
 class FindClosestLeafSolution():
     def __init__(self):
-        self.visited = set()
+        self.visited = []
         self.closestLeaf = {}
 
     def findClosestLeafUtil(self, root):
@@ -764,14 +764,14 @@ class FindClosestLeafSolution():
     def findPath(self, root, x):
         if root is None:
             return False
-        self.visited.add(root)
+        self.visited.append(root)
         if root == x:
             return True
         if self.findPath(root.left, x):
             return True
         if self.findPath(root.right, x):
             return True
-        self.visited.remove(root)
+        self.visited.pop()
         return False
 
     def findClosestLeaf(self, root, x):
@@ -785,20 +785,28 @@ class FindClosestLeafSolution():
         
         # find the min distance to a leaf from each node on the path
         ans = float('inf')
+        hops = len(self.visited) - 1
         for node in self.visited:
-            ans = min(ans, self.closestLeaf[node])
+            print (node.val)
+            ans = min(ans, self.closestLeaf[node] + hops)
+            hops -= 1
+        print ("")
         return ans
 
 
 # Driver code
 if __name__ == '__main__':
-    root = Node(1)
+    root = Node(-1)
     
-    root.left = Node(2)
-    root.right = Node(3)
+    root.left = Node(0)
+    root.left.left = Node(1)
+    root.left.left.left = Node(2)
     
-    root.left.right = Node(4)
-    x = root.left
+    root.left.left.right = Node(3)
+    root.left.left.right.left = Node(4)
+    root.left.left.right.left.left = Node(4)
+    root.left.left.right.left.left.left = Node(6)
+    x = root.left.left.right
 #    root.left.left = Node(1)
 #    root.right.left = Node(5)
 #    root.right.right = Node(5)
