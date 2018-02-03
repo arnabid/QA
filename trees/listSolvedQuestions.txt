@@ -18,5 +18,11 @@ complete this
 6. Closest leaf in a Binary Tree
 /Users/arnab/Documents/QA/trees/BTQuestions.py - LeetCode 742
 
-7. check if 2 trees are identical
+7. Check if 2 trees are identical
 /Users/arnab/Documents/QA/trees/BTQuestions.py
+
+8. Find the nodes at a distance k from a given node in a binary tree
+/Users/arnab/Documents/QA/trees/kDistanceNodes.py
+
+9. Find the lowest common ancestor of 2 nodes in a binary tree
+/Users/arnab/Documents/QA/trees/lcaBinaryTree.py
