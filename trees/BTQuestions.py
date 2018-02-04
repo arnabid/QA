@@ -777,20 +777,20 @@ class FindClosestLeafSolution():
     def findClosestLeaf(self, root, x):
         if root is None or x is None:
             return None
-        # find the distance to the closest leaf for each node
+
+        # find the distance to the closest leaf for each node in the tree
+        # store that info in self.closestLeaf
         self.findClosestLeafUtil(root)
         
-        # find the path from the root to x
+        # find the path from the root to x; store that info in self.visited
         self.findPath(root, x)
         
-        # find the min distance to a leaf from each node on the path
+        # find the min distance to a leaf from each node on the path from root to x
         ans = float('inf')
         hops = len(self.visited) - 1
         for node in self.visited:
-            print (node.val)
             ans = min(ans, self.closestLeaf[node] + hops)
             hops -= 1
-        print ("")
         return ans
 
 
