@@ -4,6 +4,29 @@ Created on Sat Apr  9 08:55:12 2016
 
 @author: arnab
 """
+
+
+"""
+2 other approaches:
+start a bfs from each locker location and update label accordingly
+
+take all points on the same row and column of a landmark and put them in a queue
+while not q is empty do:
+    take each point out from the queue
+    process its neighbors
+    update label and put them in queue if not already present in queue
+
+Question: Is there a way to prove that each point in the grid is written and removed
+from the queue only once?
+
+Runtime complxity O(m*n*C); C = small constant
+
+instead of the method below where the run time complexity is O(m*n*L)
+L = number of landmarks
+
+"""
+
+
 import itertools
 
 def solution1(cityLength, cityWidth, lockerXCoordinates, lockerYCoordinates):
