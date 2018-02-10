@@ -26,3 +26,6 @@ complete this
 
 9. Find the lowest common ancestor of 2 nodes in a binary tree
 /Users/arnab/Documents/QA/trees/lcaBinaryTree.py
+
+10. Check if a binary tree can be partitioned into 2 equal parts
+/Users/arnab/Documents/QA/trees/BTQuestions.py - Leetcode 663

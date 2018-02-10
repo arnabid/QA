@@ -794,6 +794,25 @@ class FindClosestLeafSolution():
         return ans
 
 
+"""
+LeetCode 663 - Equal Tree Partition
+"""
+class EqualTreePartitionSolution():
+    def checkEqualTree(self, root):
+        sums = []
+
+        def dfs(v):
+            if v is None:
+                return 0
+            val = dfs(root.left) + dfs(root.right) + root.val
+            sums.append(val)
+            return val
+
+        total = dfs(root)
+        sums.pop()
+        return total // 2 in sums
+
+
 # Driver code
 if __name__ == '__main__':
     root = Node(-1)
