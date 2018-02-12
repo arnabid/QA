@@ -21,11 +21,20 @@ complete this
 7. Check if 2 trees are identical
 /Users/arnab/Documents/QA/trees/BTQuestions.py
 
-8. Find the nodes at a distance k from a given node in a binary tree
+8. Check if 2 trees are mirror images
+/Users/arnab/Documents/QA/trees/BTQuestions.py
+
+9. Check if a tree is symmetric
+/Users/arnab/Documents/QA/trees/BTQuestions.py
+
+10. Check if a tree is foldable
+/Users/arnab/Documents/QA/trees/BTQuestions.py
+
+10. Find the nodes at a distance k from a given node in a binary tree
 /Users/arnab/Documents/QA/trees/kDistanceNodes.py
 
-9. Find the lowest common ancestor of 2 nodes in a binary tree
+11. Find the lowest common ancestor of 2 nodes in a binary tree
 /Users/arnab/Documents/QA/trees/lcaBinaryTree.py
 
-10. Check if a binary tree can be partitioned into 2 equal parts
+12. Check if a binary tree can be partitioned into 2 equal parts
 /Users/arnab/Documents/QA/trees/BTQuestions.py - Leetcode 663

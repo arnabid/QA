@@ -813,6 +813,44 @@ class EqualTreePartitionSolution():
         return total // 2 in sums
 
 
+"""
+check if a tree is foldable
+
+eg: the tree below is foldable
+
+       10
+     /    \
+    7      15
+     \    /
+      9  11
+
+eg: the tree below is not foldable
+
+        10
+       /  \
+      7   15
+     /    /
+    5   11
+"""
+
+def isFoldableUtil(r1, r2):
+    if r1 is None and r2 is None:
+        return True
+
+    if r1 is None or r2 is None:
+        return False
+
+    return isFoldableUtil(r1.left, r2.right) and \
+    isFoldableUtil(r1.right, r2.left)
+
+
+def isFoldable(root):
+    if root is None:
+        return True
+
+    return isFoldableUtil(root.left, root.right)
+
+
 # Driver code
 if __name__ == '__main__':
     root = Node(-1)
