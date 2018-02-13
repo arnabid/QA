@@ -851,6 +851,23 @@ def isFoldable(root):
     return isFoldableUtil(root.left, root.right)
 
 
+"""
+trim all the leaf nodes in a tree
+"""
+def trimleaves(root):
+    if root is None:
+        return None
+
+    # current node is a leaf
+    if root.left is None and root.right is None:
+        root = None
+        return root
+
+    root.left = trimleaves(root.left)
+    root.right = trimleaves(root.right)
+    return root
+
+
 # Driver code
 if __name__ == '__main__':
     root = Node(-1)
