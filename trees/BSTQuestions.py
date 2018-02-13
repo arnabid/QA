@@ -51,11 +51,10 @@ def search(root, key):
 
 def searchIter(root, key):
     # iterative search procedure
-    if root is None:
-        return None
-    
-    while root and root.val != key:
-        if key < root.val:
+    while root:
+        if root.val == key:
+            return root
+        elif key < root.val:
             root = root.left
         else:
             root = root.right
