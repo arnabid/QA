@@ -50,3 +50,32 @@ if __name__ == '__main__':
         if l > 1:
             output.append(word)
     print (output)
+
+"""
+dictionary = set(["apple", "pear", "pie", "pearcream", "cream", "applepeaf"])
+
+
+def wb(s):
+    if s == "":
+        return 0
+
+    n, i= len(s), 1
+    count = 0
+    while i < n+1:
+        if s[:i] in dictionary:
+            if i == n:
+                count = 1
+            else:
+                count = 1 + wb(s[i:])
+            break
+        i += 1
+    return count
+
+if __name__ == '__main__':
+    output = []
+    for word in dictionary:
+        nwords = wb(word)
+        if nwords > 1:
+            output.append(word)
+    print (output)
+"""
