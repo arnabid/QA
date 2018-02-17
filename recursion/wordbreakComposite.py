@@ -16,15 +16,29 @@ dic = set(["a", "aa"])
 work out the code and see where the savings are achieved
 """
 
-dictionary = set(["apple", "pear", "pie", "cream", "applepie"])
+dictionary = set(["apple", "pear", "pie", "cream", "applepie", "pearpiecake"])
 
 # set of strings which cannot be broken down into 2 or more words
 # used for memoization while backtracking
-notValid = set()
+notValid = []
+
+def wordbreakVER(s):
+    n = len(s)
+    for i in range(1, n+1):
+        prefix = s[:i]
+        
+        if prefix in dictionary:
+            if i == n:
+                return 1
+            l = wordbreak(s[i:])
+            if l:
+                return l + 1
+    return 0
+
 
 def wordbreak(s):
     n = len(s)
-    for i in xrange(1, n+1):
+    for i in range(1, n+1):
         prefix = s[:i]
         
         if prefix in dictionary:
@@ -35,18 +49,21 @@ def wordbreak(s):
                 if l:
                     return l + 1
                 else:
-                    notValid.add(s[i:])
+                    notValid.append(s[i:])
+            else:
+                print ("used notValid")
     return 0
+
 
 if __name__ == '__main__':
     output = []
-
-    for word in dictionary:
         """
         # if l = 1; it is a simple word; 
         # if l > 1; it is a valid composite word
         """
         l = wordbreak(word)
         if l > 1:
+            print (l)
             output.append(word)
     print (output)
+    print (nvalid)
