@@ -419,10 +419,17 @@ class MaxPathSumSolution(object):
         return self.ans
 
 
+"""
+Find the height of a tree recursively
+"""
 def heightRecursive(root):
     # returns the height of the tree rooted at root
     if root is None:
-        return -1
+        return 0
+
+    # leaf node
+    if root.left is None and root.right is None:
+        return 0
 
     lh = heightRecursive(root.left)
     rh = heightRecursive(root.right)
@@ -865,6 +872,18 @@ def trimleaves(root):
 
     root.left = trimleaves(root.left)
     root.right = trimleaves(root.right)
+    return root
+
+
+"""
+delete a tree - in post order; delete children then parent
+"""
+def deleteTree(root):
+    if root is None:
+        return None
+    root.left = deleteTree(root.left)
+    root.right = deleteTree(root.right)
+    root = None
     return root
 
 
