@@ -13,20 +13,34 @@ If its divisible by 2, divide by 2. ( if n % 2 == 0 , then n = n / 2  )  ,
 Now the question is, given a positive integer n, find the minimum number 
 of steps that takes n to 1
 """
+from collections import Counter
 
+
+next = Counter({1:1})
 def sol(n):
     if n == 1:
         return 0
     
     steps = [0] * (n+1)
-    for i in xrange(2, n+1):
+    for i in range(2, n+1):
         steps[i] = steps[i-1] + 1
+        next[i] = i-1
         if i % 2 == 0:
-            steps[i] = min(steps[i], steps[i/2]+1)
+            if steps[i//2]+1 < steps[i]:
+                steps[i] = steps[i//2] + 1
+                next[i] = i//2
         if i % 3 == 0:
-            steps[i] = min(steps[i], steps[i/3]+1)
+            if steps[i//3]+1 < steps[i]:
+                steps[i]= steps[i//3]+1
+                next[i] = i//3
     return steps[n]
 
 if __name__ == '__main__':
-    n = int(raw_input())
-    print (sol(n))
+    n = int(input())
+    if n < 1:
+        raise ValueError("invalid input")
+    print ("Number of steps from {} to 1 = {}".format(n, sol(n)))
+    while n != 1:
+        print (n, end= "->")
+        n = next[n]
+    print (1)
