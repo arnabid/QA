@@ -7,55 +7,51 @@ Created on Fri Jul  7 17:04:35 2017
 
 """
 Find the nth Fibonacci number
+1 1 2 3 5 8 ....
 """
 
 """
 recursive solution
 """
 def fib(N):
-    if N < 0:
-        raise ValueError("invalid N")
-    elif N == 0 or N == 1:
+    if N == 1 or N == 2:
         return 1
     else:
-        return fib(N-2) + fib(N-1)
+        return fib(N-1) + fib(N-2)
 
 
 """
 recursive solution with memoization
 """
-buffer = [1,1]
 def fib_RM(N):
-    if N < 0:
-        raise ValueError("invalid N")
-    elif N < len(buffer):
+    buffer = [None] * (N+1)
+    return fib_RM_helper(N, buffer)
+
+def fib_RM_helper(N, buffer):
+    if buffer[N]:
         return buffer[N]
+    if N == 1 or N == 2:
+        res = 1
     else:
-        t = fib_RM(N-2) + fib_RM(N-1)
-        buffer.append(t)
-        return t
+        res = fib_RM_helper(N-1, buffer) + fib_RM_helper(N-2, buffer)
+        buffer[N] = res
+    return res
 
 
 """
 iterative solution
 """
 def fib_I(N):
-    if N < 0:
-        raise ValueError("invalid N")
-    elif N == 0 or N == 1:
+    if N == 1 or N == 2:
         return 1
-    else:
-        t2, t1 = 1, 1
-        res = 0
-        while N >= 2:
-            res = t2 + t1
-            t2 = t1
-            t1 = res
-            N -= 1
-        return res
+    buffer = [None] * (N+1)
+    buffer[1] = buffer[2] = 1
+    for i in range(3, N+1):
+        buffer[i] = buffer[i-1] + buffer[i-2]
+    return buffer[N]
 
 if __name__ == '__main__':
-    n = 10
+    n = 60
     
     # iterative solution
     print (fib_I(n))
