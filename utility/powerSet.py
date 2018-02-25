@@ -30,7 +30,9 @@ def helper(arr, ss, i):
 """
 iterative solution
 """
-def find_subsets2(arr, n, ps_size):
+def find_subsets2(arr):
+	n = len(arr)
+	ps_size = 2**n
 	for count in range(0, ps_size):
 		for j in range(0, n):
 			if count & (1 << j):
@@ -42,7 +44,4 @@ if __name__ == '__main__':
 	arr = [2,2,3]
 	find_subsets1(arr)
 
-	n = len(arr)
-	ps_size = 2**n
-
-	find_subsets2(arr, n, ps_size)
+	find_subsets2(arr)
