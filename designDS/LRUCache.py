@@ -10,7 +10,7 @@ get(key) : returns the value associated with key in the cache
 set(key, value): stores the key in the cache with the associated value
 
 
-The front node represents the element that was the most recently used
+The front node represents the element that was the most recently used.
 
 Eviction takes place at the end of the linked list; the last node represents the
 element that was least recently used.
@@ -43,7 +43,7 @@ class LRUCache():
 			self.end = node
 
 
-	# removes the node from the double linked list
+	# removes the node from its current position in the double linked list
 	def remove(self, node):
 		# node is front node
 		if node.prev is None:
@@ -79,7 +79,7 @@ class LRUCache():
 			self.remove(node)
 			self.setHead(node)
 		else:
-			if len(self.map) >= self.capacity:
+			if len(self.map) == self.capacity:
 				# removes the last node in the double linked list, eviction happens here
 				del self.map[self.end.key]
 				remove(self.end)
