@@ -24,8 +24,8 @@ class PriorityQueue(object):
         """ Add a new node or update the priority of an existing node """
         if node.key in self.entry_finder:
             self.remove(node)
-        self.count += 1
-        entry = [priority, self.count, node]
+        self.counter += 1
+        entry = [priority, self.counter, node]
         self.entry_finder[node.key] = entry
         heapq.heappush(self.pq, entry)
 
