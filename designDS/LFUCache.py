@@ -4,7 +4,10 @@ The "number of times" a node is used is the priority of that node in the Priorit
 When the PQ is full and a new element has to be added; room is made by evicting the element with
 the least priority (ie the element that was least frequently used)
 
-Each entry in the heap is a 2-element list: [priority, node]
+Each entry in the heap is a 3-element list: [priority, entry_count, node]
+The entry_count acts as a tie-breaker so that two nodes with the same priority(used same # times)
+are evicted in the same order they were added.
+
 entry_finder is a dictionary: node.key -> [node.count, node]
 
 """
@@ -15,12 +18,14 @@ class PriorityQueue(object):
         self.pq = [] # list of entries arranged in a heap
         self.entry_finder = {} # mapping of keys to entries
         self.REMOVED = '<removed-task>' # placeholder for a removed task
+        self.counter = 0
 
     def add(self, node, priority=1):
         """ Add a new node or update the priority of an existing node """
         if node.key in self.entry_finder:
             self.remove(node)
-        entry = [priority, node]
+        self.count += 1
+        entry = [priority, self.count, node]
         self.entry_finder[node.key] = entry
         heapq.heappush(self.pq, entry)
 
@@ -52,7 +57,7 @@ class LFUCache():
         self.capacity = 16
 
     def get(self, key):
-        _, node = self.PQ.entry_finder.get(key, None)
+        d1, d2, node = self.PQ.entry_finder.get(key, None) # d1, d2 -> dummy values
         if node:
             # this node was accessed, increment its count and add to PQ
             node.count += 1
@@ -63,7 +68,7 @@ class LFUCache():
 
     def set(self, key, val):
         if key in self.PQ.entry_finder:
-            _, node = self.PQ.entry_finder.get(key)
+            d1, d2, node = self.PQ.entry_finder.get(key)
             node.val = val
             node.count += 1
             self.PQ.add(node, node.count)
