@@ -4,6 +4,9 @@ add -> adds an item to the collection
 remove -> removes the specified item from the collection
 search -> returns the searched item from the collection if it exists; else returns Null
 getRandom -> returns a random item from the collection
+
+All operations have O(1) time complexity
+Space complecity: O(N); N = number of items in collection
 """
 
 class Item():
