@@ -23,29 +23,7 @@ PWD = "xyz"
 def containsPWD(s):
     return PWD in s
 
-def findPassword1(s):
-    n = len(s)
-    pwdFound = False
-    # advance i from the left till the substring contains password
-    for i in xrange(n):
-        if containsPWD(s[:i+1]):
-            pwdFound = True
-            break
-
-    # return None if the password does not exist in string s
-    if not pwdFound:
-        return None
-
-    # advance j from right to left starting from i till you get the actual password
-    for j in xrange(i,-1,-1):
-        if containsPWD(s[j:i+1]):
-            return s[j:i+1]
-
-
-"""
-preferred method
-"""
-def findPassword2(s):
+def findPassword(s):
     i, j = -1, len(s)
     
     # keep increasing i from the left till s[i...j] contains password
@@ -64,7 +42,7 @@ def findPassword2(s):
 
 if __name__ == '__main__':
     s = "xyzxyzxyz"
-    ans = findPassword2(s)
+    ans = findPassword(s)
     print (ans)
     print (ans == PWD)
 
