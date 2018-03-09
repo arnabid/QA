@@ -14,6 +14,9 @@ def find_subsets1(arr):
 	helper(arr, ss, 0)
 
 def helper(arr, ss, i):
+	"""
+	make a decision on item arr[i]; either select it or not
+	"""
 	if i == len(arr):
 		print_ss(ss)
 		return
