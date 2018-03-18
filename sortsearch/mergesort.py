@@ -37,7 +37,8 @@ def merge(arr, temp, low, mid, high):
         j += 1
         k += 1
     
-    for i in xrange(low, high+1):
+    #print (temp) -> understand the flow of merge sort algo.
+    for i in range(low, high+1):
         arr[i] = temp[i]
 
 def mergesort(arr, temp, low, high):
@@ -62,12 +63,13 @@ if __name__ == '__main__':
     random.seed()
     
     # generate test array
-    arr = [random.randint(1,20) for i in xrange(10)]
+    arr = [random.randint(1,20) for i in range(10)]
+    #arr = [5,2,1,6,9,7,4,3]
     print (arr)
     
     # sort test array and print result
     _mergesort(arr, 0, len(arr)-1)
     print (arr)
     
-    # print the number of inversions in the array
+    # number of inversions in the array
     print ("The number of inversions = {} ".format(inversions[0]))
