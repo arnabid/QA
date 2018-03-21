@@ -22,6 +22,9 @@ The total number of times the inner loop runs is equal to:
 the number of inversions in the array, a[i] > a[j]; i < j
 
 sort a k sorted array - O(nk)
+
+For a partially sorted array; the number of swaps is equal to the number of
+inversions in the array
 """
 import random
 
