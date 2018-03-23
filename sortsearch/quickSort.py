@@ -9,8 +9,10 @@ import random
 def quickSort(arr, l, r): # sort arr[l...r-1]
     if r - l <= 1:
         return
+    # pivot = arr[l]
+    # yellow - start index of part > pivot
     yellow = l+1
-    for green in xrange(l+1, r):
+    for green in range(l+1, r):
         if arr[green] <= arr[l]:
             arr[green], arr[yellow] = arr[yellow], arr[green]
             yellow += 1
@@ -25,7 +27,7 @@ if __name__ == '__main__':
     random.seed()
     
     # generate test array
-    arr = [random.randint(1,20) for i in xrange(10)]
+    arr = [random.randint(1,20) for i in range(10)]
     
     # create copy of test array
     res = list(arr)
