@@ -20,14 +20,17 @@ def allUnique(s, start, end):
     return True
 
 def bruteForcesol(s):
-    ans = 0
+    length = 0
+    start, end = 0, 0
     n = len(s)
     
     for i in xrange(n):
         for j in xrange(i+1,n+1):
             if allUnique(s, i, j):
-                ans = max(ans, j-i)
-    return ans
+                length = max(length, j-i)
+                start = i
+                end = j-i
+    return length, start, end
 
 
 def solVER2(s):
@@ -45,7 +48,7 @@ def solVER2(s):
 def solVER1(s):
     n = len(s)
     u = set()
-    i, j = 0, 0
+    j = 0
     ans = 0
     for i in xrange(n):
         while j < n and s[j] not in u:
