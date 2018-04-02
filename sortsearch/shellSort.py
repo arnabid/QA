@@ -7,7 +7,7 @@ Created on Mon Aug 14 23:34:46 2017
 
 """
 shell sort
-reference: 
+reference: sedgewick lectures
 https://www.youtube.com/watch?v=0sUVZlHrZGg&index=22&list=PLxc4gS-_A5VDXUIOPkJkwQKYiT2T1t0I8
 """
 
