@@ -13,7 +13,7 @@ def comb1(s):
 
 def comb1Util(prefix, s):
     print (prefix)
-    for i in xrange(len(s)):
+    for i in range(len(s)):
         comb1Util(prefix + s[i], s[i+1:])
 
 
@@ -24,10 +24,10 @@ def comb2Util(prefix, s, k):
     if k == 0:
         print (prefix)
         return
-    for i in xrange(len(s)):
+    for i in range(len(s)):
         comb2Util(prefix + s[i], s[i+1:], k-1)
 
 if __name__ == '__main__':
     s = "ABC"
-    comb1(s)
+    #comb1(s)
     comb2(s, 2)

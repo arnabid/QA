@@ -30,12 +30,14 @@ def fib_RM(N):
 def fib_RM_helper(N, buffer):
     if buffer[N]:
         return buffer[N]
+
     if N == 1 or N == 2:
         res = 1
     else:
         res = fib_RM_helper(N-1, buffer) + fib_RM_helper(N-2, buffer)
-        buffer[N] = res
-    return res
+
+    buffer[N] = res
+    return buffer[N]
 
 
 """
