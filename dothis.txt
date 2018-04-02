@@ -1,0 +1,52 @@
+find the median of a stream of numbers
+find the median of 2 sorted lists
+find the numbers from an array in a given range
+solve: https://www.hackerrank.com/challenges/lazy-white-falcon :path up to the common ancestor
+
+# check if s1 is a substring of s2
+longest substring w/o repeated chars
+# containsPWD - version2
+
+# number is a palindrome
+duplicate trees
+2 note keyboard
+# find the number in a rotated sorted array
+# interval scheduling
+minimizing lateness
+huffman codes
+# min Rooms - make notes on efficiency
+# duplicates in array
+bomber man - hackerrank
+jeanie's route - hackerrank
+cut the tree - hackerrank
+
+
+# minimum height trees
+# diameter of a general tree
+# diameter of BT
+# Binary Tree Maximum Path Sum
+# find all shortest paths using BFS
+find all paths in a BT that sum to k
+
+diameter of a graph
+number of nodes in a complete BT
+
+
+manhattan distance question
+point closest to a list of points
+closest pair of points
+scanning line algorithm - sedgewick
+
+
+# inserion sort, bubble sort, counting sort
+# counting inversions - bubble, insertion, merge
+fraudulent transactions question
+
+interval questions
+#1. find the max number of meetings
+#2. find the min number of rooms
+#3. merge intervals
+#4. number of intersections
+#5. busy times, idle times, max number of processes runnning concurrently
+6. minimizing lateness
+
