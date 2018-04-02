@@ -72,7 +72,7 @@ def preorderTraversal1(root):
     return pre_ordered_list
 
 
-def preorderTraversal12(root):
+def preorderTraversal2(root):
     stack = []
     while True:
         while root:

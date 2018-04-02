@@ -1,0 +1,5 @@
+1. find the LCA in a BST
+2. convert BST to greater tree
+3. check if 2 nodes in a BST sum to a target value
+4. find the largest BST in a BT
+5. check if a BT is a BST

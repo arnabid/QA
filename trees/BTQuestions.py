@@ -419,9 +419,24 @@ class MaxPathSumSolution(object):
         return self.ans
 
 
+# returns the children of a node; returns empty list if node is a leaf node
+def getChildren(node):
+    if node is None:
+        return None
+
+    children = []
+    if node.left:
+        children.append(node.left)
+    if node.right:
+        children.append(node.right)
+    return children
+
+
 """
-Find the height of a tree recursively
+4 different ways to find the height/depth of a tree
 """
+
+# normal recursion
 def heightRecursive(root):
     # returns the height of the tree rooted at root
     if root is None:
@@ -435,6 +450,58 @@ def heightRecursive(root):
     rh = heightRecursive(root.right)
     
     return max(lh,rh) + 1
+
+
+# recursive DFS
+def depthUtil(root):
+    if root is None:
+        return 0
+
+    maxd = [0]
+    def depth(v, ch):
+        if v.left is None and v.right is None:
+            maxd[0] = max(maxd[0], ch)
+        else:
+            for child in getChildren(v):
+                depth(child, ch+1)
+
+    depth(root, 0)
+    return maxd[0]
+
+
+# iterative DFS
+def depth(root):
+    if root is None:
+        return 0
+    maxd = 0
+    nodes = [(root,0)]
+    while nodes:
+        v,currDepth = nodes.pop()
+        if v.left is None and v.right is None:
+            maxd = max(maxd, currDepth)
+        else:
+            for child in getChildren(v):
+                nodes.append((child,currDepth+1))
+    return maxd
+
+
+# BFS
+def height(root):
+    if root is None:
+        return -1
+    
+    nodes = Queue.Queue()
+    nodes.put((root,0))
+    
+    maxh = 0
+    while not nodes.empty():
+        v, vh = nodes.get() # v - current node, vh - height of v
+        if v.left is None and v.right is None:
+            maxh = max(maxh, vh)
+        else:
+            for child in getChildren(v):
+                nodes.put((child,vh+1))
+    return maxh
 
 
 def isTreeBalanced(root):
@@ -453,51 +520,6 @@ def isTreeBalanced(root):
     
     isBalanced = lb and rb and abs(lh-rh) <= 1
     return max(lh, rh)+1, isBalanced
-
-    
-def getChildren(node):
-    # returns the children of a node; returns empty list if node is a leaf node
-    if node is None:
-        return None
-
-    children = []
-    if node.left:
-        children.append(node.left)
-    if node.right:
-        children.append(node.right)
-    return children
-
-
-def depthUtil(root):
-    if root is None:
-        return -1
-
-    maxd = [0]
-    def depth(v, ch):
-        if v.left is None and v.right is None:
-            maxd[0] = max(maxd[0], ch)
-        else:
-            for child in getChildren(v):
-                depth(child, ch+1)
-
-    depth(root, 0)
-    return maxd[0]
-
-
-def depth(root):
-    # returns the maximum depth of the tree rooted at root
-    if root is None:
-        return -1
-    maxd = 0
-    nodes = [(root,0)]
-    while nodes:
-        v,currDepth = nodes.pop()
-        if v.left is None and v.right is None:
-            maxd = max(maxd, currDepth)
-        else:
-            for child in getChildren(v):
-                nodes.append((child,currDepth+1))
-    return maxd
 
 
 """
@@ -536,24 +558,6 @@ def widthVER2(root):
                 nl.append(node.right)
         cl = nl
     return maxw
-
-
-def height(root):
-    if root is None:
-        return -1
-    
-    nodes = Queue.Queue()
-    nodes.put((root,0))
-    
-    maxh = 0
-    while not nodes.empty():
-        v, vh = nodes.get() # v - current node, vh - height of v
-        if v.left is None and v.right is None:
-            maxh = max(maxh, vh)
-        else:
-            for child in getChildren(v):
-                nodes.put((child,vh+1))
-    return maxh
 
 
 """

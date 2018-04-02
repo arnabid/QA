@@ -1,0 +1,6 @@
+Binary tree questions:
+
+1. Merge 2 BTs, each node = sum of merged nodes
+2. count the number of univalue subtrees in a BT
+3. find the LCA of 2 nodes in a BT
+4. clone a BT
