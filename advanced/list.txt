@@ -1,0 +1,7 @@
+1. sqrt decomposition
+2. binary indexed trees
+3. fenwick trees
+4. fast fourier transform
+5. union find
+6. segment trees
+van de boas trees
