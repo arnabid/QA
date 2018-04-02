@@ -5,8 +5,9 @@ Created on Tue Jun 27 08:04:57 2017
 @author: arnab
 """
 
-import Queue
+#import Queue
 from collections import Counter
+from collections import defaultdict
 
 """
 Topological sorting using BFS
@@ -67,14 +68,61 @@ def tpSortDFS(graph):
     stack.reverse()
     return stack
 
+starterNodes = set(['3', '1', '5'])
+nodesVisited = defaultdict(set)
+
+def findNodesVisited(root, graph):
+    stack = [(root,0)]
+    visited = Counter()
+    visited[root] = True
+    
+    while stack:
+        v, index = stack[-1]
+        if v in graph and index < len(graph[v]): # checking if any edge left to be explored
+            w = graph[v][index]
+            #print (v, w), - check # times each edge is traversed
+            stack[-1] = (v, index+1)
+            if not visited.get(w, False):
+                # visiting w for first time, next start DFS from w
+                # stack[] holds the ancestors of w at any point in time
+                for ancestor in stack:
+                    nodesVisited[ancestor[0]].add(w)
+                stack.append((w,0))
+                visited[w] = True
+
+        else:
+            # backtrack from v
+            stack.pop()
+            visited[v] = False
+
 
 if __name__ == '__main__':
+    '''
     graph = Counter()
     graph['a'] = ['b']
     graph['b'] = ['c']
     graph['d'] = ['b', 'e', 'f']
     graph['e'] = ['g']
     graph['f'] = ['g']
+    '''
+
+    graph = Counter()
+    graph['1'] = ['2', '5']
+    graph['2'] = ['4', '3']
+    graph['3'] = ['6']
+    graph['5'] = ['4', '6']
     
-    print (tpSortDFS(graph))
-    print (tpSortBFS(graph))
+    #print (tpSortDFS(graph))
+    #print (tpSortBFS(graph))
+
+
+    # find all the nodes visited from each node in a set
+    for node in starterNodes:
+        if node not in nodesVisited:
+            print (node, "Hello")
+            findNodesVisited(node, graph)
+        nodesVisited[node].add(node)
+    for n in range(1, 7):
+        nodesVisited[str(n)].add(str(n))
+    print (nodesVisited)
+

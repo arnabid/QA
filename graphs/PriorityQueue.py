@@ -2,7 +2,7 @@ import heapq
 import itertools
 """
 Priority Queue implementation:
-Each entry in the heap is a 3-element list: [priority, entry count, task]
+Each entry in the heap is a 3-element list: [priority, entry_count, task]
 The entry count acts as a tie-breaker so that two tasks with the same priority
 are returned in the same order they were added.
 

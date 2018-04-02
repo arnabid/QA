@@ -1,4 +1,4 @@
-from BuildGraph import BuildGraph
+from BuildUGraph import BuildUGraph
 
 """
 Check if a graph G is 2 edge connected.

@@ -1,0 +1,15 @@
+projects related to graphs
+==========================
+
+
+Kargers algo for min-cut
+
+distributed graph processing using the Apache Giraph framework
+
+some example use-cases:
+
+https://www.youtube.com/watch?v=bHVFOvNHH0I&t=544s - scalable collaborative filtering
+
+https://www.youtube.com/watch?v=QHkhyY9atkE - graph partitioning to solve facebook scale predictions
+
+https://www.youtube.com/watch?v=yI0vHfgK6oI&t=800s - Zen: Pinterest's Graph Storage Service
