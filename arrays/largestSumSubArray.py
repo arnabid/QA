@@ -27,5 +27,5 @@ def maxsubarray(arr):
     
     
 if __name__ == '__main__':
-    arr = map(int, raw_input().strip().split(" "))
+    arr = map(int, input().strip().split(" "))
     maxsubarray(arr)

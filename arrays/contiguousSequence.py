@@ -47,9 +47,10 @@ def solution(arr,k):
         if total == k:
             subSequences.append((back,front-1))
             longestSeq = max(longestSeq, front-back)
-        
+        """
         if total < k and front == n:
             break
+        """
         total -= arr[back]
     
     return subSequences, longestSeq
