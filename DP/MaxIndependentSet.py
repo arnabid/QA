@@ -20,5 +20,5 @@ def solution(ml):
     
 
 if __name__ == '__main__':
-    ml = []
+    ml = [5,3,6]
     print (solution(ml))

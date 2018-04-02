@@ -31,22 +31,20 @@ def solution(coins, k):
                     A[val] = mnwaysToval
                     parent[val] = val-c
 
-    number_of_coins = -1
-    if k in A:
-        number_of_coins = A[k]
-
     # find the coins used to get k
-    if number_of_coins != -1:
+    val = k
+    if val in A:
         coins_used = []
-        while parent[k] != k:
-            coins_used.append(k - parent[k])
-            k = parent[k]
-        coins_used.append(k)
+        while parent[val] != val:
+            coins_used.append(val - parent[val])
+            val = parent[val]
+        coins_used.append(val)
         print (coins_used)
-
-    return number_of_coins
+    
+    # return the min number of coins to make k; else return -1
+    return A.get(k, -1)
 
 if __name__ == '__main__':
-    coins = [4,2]
-    k = 17
+    coins = [2,3,7]
+    k = 11
     print (solution(coins,k))

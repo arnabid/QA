@@ -8,6 +8,9 @@ Created on Sun May  7 17:01:46 2017
 """
 Maximum size square sub-matrix with all 1s
 reference: http://www.geeksforgeeks.org/maximum-size-sub-matrix-with-all-1s-in-a-binary-matrix/
+
+s[i][j] represents size of the square sub-matrix with all 1s including arr[i][j]
+where arr[i][j] is the rightmost and bottommost entry in sub-matrix.
 """
 import random
 
