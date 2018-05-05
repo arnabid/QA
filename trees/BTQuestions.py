@@ -67,7 +67,7 @@ class CountUnivalueSolution:
     def __init__(self):
         self.count = 0
 
-    def countUtility(root):
+    def countUtility(self, root):
         if root is None:
             return True
 
@@ -93,7 +93,7 @@ class CountUnivalueSolution:
                 return True
         return False
 
-    def countUnivalSubtrees(root):
+    def countUnivalSubtrees(self, root):
         """
         :type root: TreeNode
         :rtype: int
@@ -121,7 +121,7 @@ def verticalOrder(root):
     mn, mx = [float('inf')], [-float('inf')]
     dmap = Counter()
     calculateHorzDistance(root, 0, dmap, mn, mx)
-    for i in xrange(mn[0], mx[0]+1):
+    for i in range(mn[0], mx[0]+1):
         print (dmap[i])
 
 
@@ -246,7 +246,7 @@ def findPathBFS(root, node):
         return []
     
     parent = Counter()
-    q = Queue.Queue()
+    q = queue.Queue()
     q.put(root)
     
     v = None
@@ -282,13 +282,12 @@ def findPathDFS(root, x, path):
         if findPathDFS(root.right, x, path):
             return True
         path.pop()
-        return False
-    else:
-        return False
+    return False
 
 
 """
 find the lca of 2 nodes x, y
+method1
 """
 def findLCA(root, x, y):
     """
@@ -313,6 +312,31 @@ def findLCA(root, x, y):
         j += 1
     
     return pathx[i-1]
+
+"""
+find the lca of 2 nodes p, q
+method2
+"""
+def lowestCommonAncestor(self, root, p, q):
+    """
+    :type root: TreeNode
+    :type p: TreeNode
+    :type q: TreeNode
+    :rtype: TreeNode
+    """
+    if root is None:
+        return None
+    if root == p or root == q:
+        return root
+    lLCA = self.lowestCommonAncestor(root.left, p, q)
+    rLCA = self.lowestCommonAncestor(root.right, p, q)
+    
+    if lLCA and rLCA:
+        return root
+    elif lLCA:
+        return lLCA
+    else:
+        return rLCA
 
 
 """
@@ -490,7 +514,7 @@ def height(root):
     if root is None:
         return -1
     
-    nodes = Queue.Queue()
+    nodes = queue.Queue()
     nodes.put((root,0))
     
     maxh = 0
@@ -530,11 +554,11 @@ def width(root):
         return 0
     
     maxw = 0
-    q = Queue.Queue()
+    q = queue.Queue()
     q.put(root)
     while not q.empty():
         maxw = max(maxw, q.qsize())
-        for _ in xrange(q.qsize()):
+        for _ in range(q.qsize()):
             v = q.get()
             if v.left:
                 q.put(v.left)
@@ -631,12 +655,12 @@ def levelOrder(root):
     """
     if root is None:
         return []
-    q = Queue.Queue()
+    q = queue.Queue()
     q.put(root)
     res = []
     while not q.empty():
         level = []
-        for _ in xrange(q.qsize()):
+        for _ in range(q.qsize()):
             v = q.get()
             if v.left:
                 q.put(v.left)
@@ -889,6 +913,23 @@ def deleteTree(root):
     root.right = deleteTree(root.right)
     root = None
     return root
+
+
+"""
+find if a node exists in a tree
+"""
+def find(root, x):
+    """
+    :type root: TreeNode
+    :type x: TreeNode
+    :rtype: boolean
+    """
+    if root is None:
+        return False
+    
+    if root == x or find(root.left, x) or find(root.right, x):
+        return True
+    return False
 
 
 # Driver code
