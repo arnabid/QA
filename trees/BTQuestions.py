@@ -972,9 +972,6 @@ if __name__ == '__main__':
     root.left.left.right.left.left = Node(4)
     root.left.left.right.left.left.left = Node(6)
     x = root.left.left.right
-#    root.left.left = Node(1)
-#    root.right.left = Node(5)
-#    root.right.right = Node(5)
     
     sol = FindClosestLeafSolution()
     print (sol.findClosestLeaf(root, x))
