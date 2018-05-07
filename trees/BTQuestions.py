@@ -935,28 +935,19 @@ def find(root, x):
 """
 Leetcode 814 - Binary Tree Pruning
 """
-class Solution(object):
-    def sol(self, root):
-        if root:
-            lr = self.sol(root.left)
-            rr = self.sol(root.right)
+def pruneTree(root):
+    """
+    :type root: TreeNode
+    :rtype: TreeNode
+    """
+    if root is None:
+        return None
+    root.left = pruneTree(root.left)
+    root.right = pruneTree(root.right)
+    if root.left is None and root.right is None and root.val == 0:
+        return None
+    return root
 
-            if lr:
-                root.left = None
-            if rr:
-                root.right  = None
-
-            return lr and rr and root.val == 0
-        return True
-
-    def pruneTree(self, root):
-        """
-        :type root: TreeNode
-        :rtype: TreeNode
-        """
-        if root is None or self.sol(root):
-            return None
-        return root
 
 
 # Driver code
