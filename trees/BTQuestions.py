@@ -932,6 +932,33 @@ def find(root, x):
     return False
 
 
+"""
+Leetcode 814 - Binary Tree Pruning
+"""
+class Solution(object):
+    def sol(self, root):
+        if root:
+            lr = self.sol(root.left)
+            rr = self.sol(root.right)
+
+            if lr:
+                root.left = None
+            if rr:
+                root.right  = None
+
+            return lr and rr and root.val == 0
+        return True
+
+    def pruneTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if root is None or self.sol(root):
+            return None
+        return root
+
+
 # Driver code
 if __name__ == '__main__':
     root = Node(-1)
