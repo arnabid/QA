@@ -317,7 +317,7 @@ def findLCA(root, x, y):
 find the lca of 2 nodes p, q
 method2
 """
-def lowestCommonAncestor(self, root, p, q):
+def lowestCommonAncestor(root, p, q):
     """
     :type root: TreeNode
     :type p: TreeNode
@@ -328,8 +328,8 @@ def lowestCommonAncestor(self, root, p, q):
         return None
     if root == p or root == q:
         return root
-    lLCA = self.lowestCommonAncestor(root.left, p, q)
-    rLCA = self.lowestCommonAncestor(root.right, p, q)
+    lLCA = lowestCommonAncestor(root.left, p, q)
+    rLCA = lowestCommonAncestor(root.right, p, q)
     
     if lLCA and rLCA:
         return root
@@ -946,6 +946,19 @@ def pruneTree(root):
     root.right = pruneTree(root.right)
     if root.left is None and root.right is None and root.val == 0:
         return None
+    return root
+
+"""
+Leetcode 226 - invert binary tree
+"""
+def invertTree(root):
+    """
+    :type root: TreeNode
+    :rtype: TreeNode
+    """
+    if root is None:
+        return None
+    root.left, root.right = invertTree(root.right), invertTree(root.left)
     return root
 
 

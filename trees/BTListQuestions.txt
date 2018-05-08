@@ -34,7 +34,7 @@ complete this
 /Users/arnab/Documents/QA/trees/kDistanceNodes.py
 
 11. Find the lowest common ancestor of 2 nodes in a binary tree
-/Users/arnab/Documents/QA/trees/lcaBinaryTree.py
+/Users/arnab/Documents/QA/trees/BTQuestions.py - Leetcode 236
 
 12. Check if a binary tree can be partitioned into 2 equal parts
 /Users/arnab/Documents/QA/trees/BTQuestions.py - Leetcode 663
@@ -42,10 +42,19 @@ complete this
 13. Trim all the leaf nodes in a binary tree
 /Users/arnab/Documents/QA/trees/BTQuestions.py
 
+14. Merge 2 binary trees
+/Users/arnab/Documents/QA/trees/BTQuestions.py - Leetcode 617
+
+15. Prune a binary tree
+/Users/arnab/Documents/QA/trees/BTQuestions.py - Leetcode 814
+
+16. Invert a binary tree
+/Users/arnab/Documents/QA/trees/BTQuestions.py - Leetcode 226
+
+
+
+
 
 Binary tree questions:
-
-1. Merge 2 BTs, each node = sum of merged nodes
 2. count the number of univalue subtrees in a BT
-3. find the LCA of 2 nodes in a BT
 4. clone a BT
