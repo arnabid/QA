@@ -18,7 +18,7 @@ from collections import Counter
 """
 key = n; value = next value from n towards 1
 """
-next = Counter({1:1})
+next = {1:1}
 def sol(n):
     if n == 1:
         return 0
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     n = int(input())
     if n < 1:
         raise ValueError("invalid input")
-    print ("Number of steps from {} to 1 = {}".format(n, sol(n)))
+    print ("Number of steps from {} to 1 is {}".format(n, sol(n)))
     while n != 1:
         print (n, end = "->")
         n = next[n]
