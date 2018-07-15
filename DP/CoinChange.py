@@ -12,23 +12,23 @@ from collections import Counter
 
 def solution(coins, k):
     # A -> map with key = monetary value and the value = min # coins to get to key
-    A, parent = Counter(coins), Counter()
+    A = Counter(coins)
     smallest_coin = min(coins)
     
     # no solution exists if k < smallest coin available
     if k < smallest_coin:
         return -1
+
+    # define the parent dictionary
+    parent = {c: c for c in coins}
     
-    for c in coins:
-        parent[c] = c
-    
-    for val in xrange(smallest_coin + 1, k + 1):
+    for val in range(smallest_coin + 1, k + 1):
         if val not in A:
-            mnwaysToval = float('inf')
+            nwaysToval = float('inf')
             for c in coins:
-                if val - c in A and A[val-c] + 1 < mnwaysToval:
-                    mnwaysToval = A[val-c] + 1
-                    A[val] = mnwaysToval
+                if val - c in A and A[val-c] + 1 < nwaysToval:
+                    nwaysToval = A[val-c] + 1
+                    A[val] = nwaysToval
                     parent[val] = val-c
 
     # find the coins used to get k
@@ -47,4 +47,4 @@ def solution(coins, k):
 if __name__ == '__main__':
     coins = [2,3,7]
     k = 11
-    print (solution(coins,k))
+    print ("Number of coins used = {}".format(solution(coins,k)))
