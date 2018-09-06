@@ -961,21 +961,41 @@ def invertTree(root):
     root.left, root.right = invertTree(root.right), invertTree(root.left)
     return root
 
+"""
+Leetcode 366 - Find leaves of binary tree
+"""
+from  collections import defaultdict
+class SolutionFindLeaves():
+    def findHeights(self, root, height):
+        if root is None: return -1
+        lh = self.findHeights(root.left, height)
+        rh = self.findHeights(root.right, height)
+        h = max(lh,rh) + 1
+        height[h].append(root.val)
+        return h
+
+    def findLeaves(self, root):
+        if root is None: return []
+        height = defaultdict(list)
+        self.findHeights(root, height)
+        k, ans = 0, []
+        while k in height:
+            ans.append(height[k])
+            k += 1
+        return ans
 
 
 # Driver code
 if __name__ == '__main__':
-    root = Node(-1)
+    root = Node(1)
     
-    root.left = Node(0)
-    root.left.left = Node(1)
-    root.left.left.left = Node(2)
+    root.left = Node(2)
+    root.left.left = Node(3)
+    root.left.right = Node(4)
     
-    root.left.left.right = Node(3)
-    root.left.left.right.left = Node(4)
-    root.left.left.right.left.left = Node(4)
-    root.left.left.right.left.left.left = Node(6)
-    x = root.left.left.right
+    root.right = Node(5)
+    root.right.left = Node(6)
+    root.right.left.right = Node(7)
     
-    sol = FindClosestLeafSolution()
-    print (sol.findClosestLeaf(root, x))
+    sol = SolutionFindLeaves()
+    print (sol.findLeaves(root))
