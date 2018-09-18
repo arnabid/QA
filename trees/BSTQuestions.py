@@ -14,7 +14,7 @@ class Node(object):
         self.val = key
 
 """
-trim BST
+trim BST -- ** good question **
 reference: https://leetcode.com/problems/trim-a-binary-search-tree/description/
 """
 
@@ -27,13 +27,14 @@ def trimBST(self, root, L, R):
     """
     if root is None:
         return None
-    if root.val > R:
-        return self.trimBST(root.left, L, R)
-    if root.val < L:
-        return self.trimBST(root.right, L, R)
     root.left = self.trimBST(root.left, L, R)
     root.right = self.trimBST(root.right, L, R)
-    return root
+    if root.val < L:
+        return root.right
+    elif root.val > R:
+        return root.left
+    else:
+        return root
 
 
 def search(root, key):
