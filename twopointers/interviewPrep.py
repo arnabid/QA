@@ -23,3 +23,10 @@ def pushkey(arr, key):
 			i += 1
 			j += 1
 	return arr
+
+
+"""
+remove duplicates from a sorted array
+reference: https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+"""
+
