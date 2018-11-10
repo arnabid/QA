@@ -32,8 +32,8 @@ def solDFS(grid):
     islands = 0
     visited = set()
     
-    for i in xrange(r):
-        for j in xrange(c):
+    for i in range(r):
+        for j in range(c):
             if grid[i][j] == 1 and (i,j) not in visited:
                 # start a DFS traversal from (i,j)
                 islands += 1
@@ -45,7 +45,7 @@ def solDFS(grid):
                     for k in xrange(4):
                         x = ii + X[k]
                         y = jj + Y[k]
-                        if x >= 0 and x < r and y >= 0 and y < c and \
+                        if 0 <= x < r and 0 <= y < c and \
                         grid[x][y] == 1 and (x,y) not in visited:
                             stack.append((x,y))
                             visited.add((x,y))
@@ -56,12 +56,12 @@ def solBFS(grid):
     islands = 0
     visited = set()
     
-    for i in xrange(r):
-        for j in xrange(c):
+    for i in range(r):
+        for j in range(c):
             if grid[i][j] == 1 and (i,j) not in visited:
                 # start a BFS traversal from (i,j)
                 islands += 1
-                q = Queue.Queue()
+                q = queue.Queue()
                 q.put((i,j))
                 visited.add((i,j))
                 
