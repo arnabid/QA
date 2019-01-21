@@ -9,14 +9,14 @@ def setZeros(arr):
     r = len(arr)
     c = len(arr[0])
     rs, cs = set(), set()
-    for i in xrange(r):
-        for j in xrange(c):
+    for i in range(r):
+        for j in range(c):
             if arr[i][j] == 0:
                 rs.add(i)
                 cs.add(j)
     
-    for i in xrange(c):
-        for j in xrange(c):
+    for i in range(c):
+        for j in range(c):
             if i in rs or j in cs:
                 arr[i][j] = 0
     
@@ -24,6 +24,6 @@ def setZeros(arr):
 
 if __name__ == '__main__':
     rows,cols = 4,4
-    arr = [[1 for i in xrange(cols)] for i in xrange(rows)]
+    arr = [[1 for i in range(cols)] for i in range(rows)]
     arr[0][0] = 0
     setZeros(arr)
