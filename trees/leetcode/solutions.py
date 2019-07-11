@@ -8,6 +8,33 @@ Created on Thu May 11 18:01:22 2017
 """
 Leetcode questions - Trees
 """
+from typing import List
+
+import math
+def pathInZigZagTree(self, label: int) -> List[int]:
+    # if the initial label is in an even row, replace it with the
+    # original(unswapped) label
+    r = math.floor(math.log(label, 2) + 1) # row number
+    if r % 2 == 0:
+        l, e = 2**(r-1), 2**r-1 # lower and upper limits of row
+        d = label - l
+        label = e - d
+    # form the result array with no swapping
+    ans = [label]
+    while label != 1:
+        label = label // 2
+        ans.append(label)
+        
+    # change the swapped elements in the array
+    # starting index idx
+    idx = len(ans) % 2
+    while idx < len(ans):
+        label = ans[idx]
+        r = math.floor(math.log(label, 2) + 1)
+        l, e = 2**(r-1), 2**r-1
+        ans[idx] = e - label + l
+        idx += 2
+    return ans[::-1]
 
 """
 Sum of left leaves
