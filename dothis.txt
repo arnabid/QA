@@ -27,6 +27,7 @@ cut the tree - hackerrank
 # Binary Tree Maximum Path Sum
 # find all shortest paths using BFS
 find all paths in a BT that sum to k
+zig-zag tree
 
 diameter of a graph
 number of nodes in a complete BT
