@@ -10,10 +10,10 @@ ans = [[0] * C for _ in A]
 # count the number of neighbors of each cell including the cell itself
 for r in range(R):
     for c in range(C):
-        count = 0
+        nei = 0
         for nr in (r-1, r, r+1):
             for nc in (c-1, c, c+1):
                 if 0 <= nr < R and 0 <= nc < C:
-                    count += 1
-        ans[r][c] = count
+                    nei += 1
+        ans[r][c] = nei
 print (ans)
