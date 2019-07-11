@@ -13,7 +13,7 @@ Notes:
 There can be only 1 or 2 nodes with minimum height trees.
 
 These nodes are the critical nodes in the sense that maximum distance and total distance to
-reach the a node(or all nodes) in the network will be minimum. Any sort of message propagation
+reach a node (or all nodes) in the network will be minimum. Any sort of message propagation
 will be most efficient from these node(s).
 
 
@@ -27,15 +27,15 @@ linear time algorithm: O(E) + O(E)
 """
 
 from collections import Counter
-import Queue
+import queue
 
 def findMinHeightTrees(graph):
-	n = len(graph)
+    n = len(graph)
     degree = Counter()
-    q = Queue.Queue()
+    q = queue.Queue()
     # build the degree map and put the leaves in the queue
     for node in graph:
-        degree[node] = len(graph(node))
+        degree[node] = len(graph[node])
         if degree[node] == 1:
         	q.put(node)
 
@@ -52,3 +52,43 @@ def findMinHeightTrees(graph):
     while not q.empty():
         res.append(q.get())
     return res
+
+
+from collections import deque
+from collections import Counter
+def diameter(self, root):
+    self.q = deque()
+    label = Counter()
+    degree = Counter()
+    def dfs(root, par=None):
+        if root.left is None and root.right is None:
+            self.q.append((root))
+            label[root] = 1
+        root.par = par
+        if root.left:
+            degree[root] += 1
+            degree[root.left] += 1
+            dfs(root.left)
+        if root.right:
+            degree[root] += 1
+            degree[root.right] += 1
+            dfs(root.right)
+    dfs(root)
+    ans = 0
+    while n > 2:
+        for _ in range(len(q)):
+            node = q.popleft()
+            n -= 1
+            for nei in (node.par, node.left, node.right):
+                if nei:
+                    ans = max(ans, label[node] + label[nei] + 1)
+                    if label[node] > label[nei]:
+                        label[nei] = label[node] + 1
+                    degree[nei] -= 1
+                    if degree[nei] == 1:
+                        q.append(nei)
+    if n == 2:
+        return ans + 1
+    return ans
+
+

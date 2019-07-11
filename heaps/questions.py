@@ -9,6 +9,7 @@ import heapq
 
 def findKthlargest(arr, k):
     """
+    kth biggest number
     This can easily be modified to find the median; k = ceil(n/2)
     """
     n = len(arr)
@@ -16,7 +17,7 @@ def findKthlargest(arr, k):
     
     heapq.heapify(heap)
     
-    for i in xrange(k, n):
+    for i in range(k, n):
         if arr[i] > heap[0]:
             heapq.heapreplace(heap, arr[i])
     
@@ -37,7 +38,7 @@ def sortNearlySorted(arr, k):
     heapq.heapify(heap)
     
     # step2 - pop and push the remaining elements
-    for i in xrange(k+1, n):
+    for i in range(k+1, n):
         ans.append(heapq.heapreplace(heap, arr[i]))
     
     # step3 - empty the heap
@@ -50,6 +51,7 @@ def sortNearlySorted(arr, k):
 if __name__ == '__main__':
     
     arr = [56, 2, 6, 12, 8, 34, 10, 3, 9]
+    #arr = [2,5,10,3,4]
     k = 3
     
     #sortNearlySorted(arr, k)

@@ -1,5 +1,5 @@
 """
-1. max depth of a BT - maximum number of hops to a leaf node
+1. depth of a BT - maximum number of hops to a leaf node
 """
 def mxDepth(root):
 	if root is None: return -1

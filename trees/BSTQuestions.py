@@ -137,6 +137,21 @@ def insert(root, node):
         p.right = node
     return root
 
+"""
+insert into a bst - recursive solution
+"""
+class Solution:
+    def insertIntoBST(self, root: 'TreeNode', val: 'int') -> 'TreeNode':
+        def insert(root, val):
+            if root is None:
+                return TreeNode(val)
+            if val < root.val:
+                root.left = insert(root.left, val)
+            else:
+                root.right = insert(root.right, val)
+            return root
+        return insert(root, val)
+
 
 """
 deletes a node in a BST
@@ -212,12 +227,16 @@ def sortedArrayToBST(arr, start, end):
 """
 modify each node val = sum of all nodes >= itself
 """
-def sumGreater(root, count):
-    if root:
-        sumGreater(root.right, count)
-        count[0] += root.val
-        root.val = count[0]
-        sumGreater(root.left, count)
+class Solution(object):
+    def solution(self, root):
+        self.count = 0
+        def sumGreater(root):
+            if root:
+                sumGreater(root.right)
+                self.count += root.val
+                root.val = self.count
+                sumGreater(root.left)
+        sumGreater(root)
 
 
 """

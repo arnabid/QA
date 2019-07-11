@@ -31,7 +31,34 @@ class Codec:
         self.arr.append(root.val)
         self.serialize(root.left)
         self.serialize(root.right)
+
+    def serializeBFS(self, root):
+        """Encodes a tree to a single string.
         
+        :type root: TreeNode
+        :rtype: List
+        """
+        # return empty list is root is None
+        if root is None:
+            return
+
+        stack = [root]
+        while stack:
+            nlevel = []
+            nlEmpty = True
+            for node in stack:
+                if node:
+                    self.arr.append(node.val)
+                    if node.left or node.right:
+                        nlEmpty = False
+                    nlevel.append(node.left)
+                    nlevel.append(node.right)
+                else:
+                    self.arr.append(None)
+            if not nlEmpty:
+                stack = nlevel
+            else:
+                stack = []
 
     def deserialize(self):
         """Decodes your encoded data to tree.
@@ -47,3 +74,17 @@ class Codec:
         root.left = self.deserialize()
         root.right = self.deserialize()
         return root
+
+# Driver code
+if __name__ == '__main__':
+    root = Node(1)
+    root.left = Node(2)
+    root.right = Node(3)
+    root.right.left = Node(4)
+    root.right.right = Node(5)
+    root.right.right.left = Node(6)
+
+    codec = Codec()
+    codec.serializeBFS(root)
+    print (codec.arr)
+

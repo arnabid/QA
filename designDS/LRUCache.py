@@ -82,7 +82,7 @@ class LRUCache():
 			if len(self.map) == self.capacity:
 				# removes the last node in the double linked list, eviction happens here
 				del self.map[self.end.key]
-				remove(self.end)
+				self.remove(self.end)
 			node = Node(key, val)
 			self.map[key] = node
 			self.setHead(node)

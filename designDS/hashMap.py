@@ -3,7 +3,8 @@ design a hashmap or dictionary
 """
 
 class Item():
-	def __init__(self, key = None, val = None):
+	def __init__(self, key, val = None):
+		assert key is not None, "key of item cannot be null"
 		self.key = key
 		self.val = val
 		self.next = None
@@ -16,8 +17,8 @@ class HashMap():
 
 
 	def get(self, key):
-		hash = abs(hash(key)) % self.size
-		item = self.arr[hash]
+		h = abs(hash(key)) % self.size
+		item = self.arr[h]
 		while item:
 			if item.key == key:
 				return item.val
@@ -26,8 +27,8 @@ class HashMap():
 
 
 	def set(self, key, val):
-		hash = abs(hash(key)) % self.size
-		item = self.arr[hash]
+		h = abs(hash(key)) % self.size
+		item = self.arr[h]
 		if item:
 			prev = None
 			while item:
@@ -38,18 +39,18 @@ class HashMap():
 				item = item.next
 			prev.next = Item(key, val)
 		else:
-			self.arr[hash] = Item(key, val)
+			self.arr[h] = Item(key, val)
 
 
 	def remove(self, key):
-		hash = abs(hash(key)) % self.size
-		item = self.arr[hash]
+		h = abs(hash(key)) % self.size
+		item = self.arr[h]
 
 		prev = None
 		while item:
 			if item.key == key:
 				if prev is None:
-					self.arr[hash] = item.next
+					self.arr[h] = item.next
 				else:
 					prev.next = item.next
 				item.next = None

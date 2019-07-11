@@ -44,6 +44,32 @@ def findMedianFast(A, B, sa, ea, sb, eb):
         sb = sb + (eb-sb)/2
     return findMedianFast(A, B, sa, ea, sb, eb)
 
+
+def findMedian(A, B):
+    """ returns the median of 2 sorted arrays A and B of size n by using merge step"""
+    n = len(A)
+    
+    i, j = 0, 0
+    first, second = 0, 0
+    while i < n or j < n:
+        if A[i] <= B[j]:
+            if i + j == n - 1:
+                first = A[i]
+            elif i + j == n:
+                second = A[i]
+                break
+            i += 1
+        else:
+            if i + j == n - 1:
+                first = B[i]
+            elif i + j == n:
+                second = B[i]
+                break
+            j += 1
+
+    print first, second
+    return (first + second)/2.0
+
 def findMedian(A, B):
     """ returns the median of 2 sorted arrays A and B of size n by using merge step"""
     n = len(A)

@@ -19,3 +19,4 @@ def findMinK(piles, H):
 		else:
 			l = k + 1
 	return l
+

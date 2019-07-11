@@ -5,7 +5,7 @@ Created on Sun Aug  6 10:31:44 2017
 @author: arnab
 """
 from collections import Counter
-import Queue
+import queue
 
 """
 find all the shortest paths between s and t in G
@@ -16,7 +16,7 @@ def findAllShortestPaths(graph, start, end):
     label[start] = 0
     parent[start] = []
     
-    q = Queue.Queue()
+    q = queue.Queue()
     q.put(start)
     while not q.empty():
         v = q.get()
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     graph['g'] = ['j','c']
     graph['i'] = ['f','t']
     graph['h'] = ['d','e','t']
-    graph['j'] = ['g','k']
+    graph['j'] = ['g','k', 't']
     graph['k'] = ['j','t']
     graph['t'] = ['h','i','j','k']
     

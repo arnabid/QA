@@ -8,6 +8,7 @@ Created on Fri Aug  4 08:03:47 2017
 """
 find the duplicates in array; 1 ≤ a[i] ≤ n (n = size of array)
 reference: https://leetcode.com/problems/find-all-duplicates-in-an-array/description/
+solution: https://leetcode.com/problems/find-all-duplicates-in-an-array/discuss/218682/Python-Negative-Notation
 """
 
 def findDuplicates(arr):
@@ -15,11 +16,12 @@ def findDuplicates(arr):
     :type nums: List[int]
     :rtype: List[int]
     """
-    if not arr:
-        return []
     res = []
-    for i in xrange(len(arr)):
-        if arr[abs(arr[i])-1] < 0:
+    n = len(arr)
+    for i in range(n):
+        index = abs(arr[i]) - 1
+        if arr[index] > 0:
+            arr[index] = -arr[index]
+        elif arr[index] < 0:
             res.append(abs(arr[i]))
-        arr[abs(arr[i])-1] *= -1
     return res

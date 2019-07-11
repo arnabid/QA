@@ -890,29 +890,24 @@ def isFoldable(root):
 trim all the leaf nodes in a tree
 """
 def trimleaves(root):
-    if root is None:
-        return None
+    if root:
+        # current node is a leaf
+        if root.left is None and root.right is None:
+            return None
 
-    # current node is a leaf
-    if root.left is None and root.right is None:
-        root = None
+        root.left = trimleaves(root.left)
+        root.right = trimleaves(root.right)
         return root
-
-    root.left = trimleaves(root.left)
-    root.right = trimleaves(root.right)
-    return root
 
 
 """
 delete a tree - in post order; delete children then parent
 """
 def deleteTree(root):
-    if root is None:
+    if root:
+        root.left = deleteTree(root.left)
+        root.right = deleteTree(root.right)
         return None
-    root.left = deleteTree(root.left)
-    root.right = deleteTree(root.right)
-    root = None
-    return root
 
 
 """
@@ -983,6 +978,54 @@ class SolutionFindLeaves():
             ans.append(height[k])
             k += 1
         return ans
+
+
+"""
+Leetcode 968. Binary Tree Cameras
+"""
+class Solution(object):
+    def minCameraCover(self, root):
+        self.ans = 0
+        covered = {None}
+
+        def dfs(node, par = None):
+            if node:
+                dfs(node.left, node)
+                dfs(node.right, node)
+
+                if (par is None and node not in covered or
+                        node.left not in covered or node.right not in covered):
+                    self.ans += 1
+                    covered.update({node, par, node.left, node.right})
+
+        dfs(root)
+        return self.ans
+
+
+"""
+distance between 2 nodes in a binary tree
+"""
+from collections import deque
+class Solution(object):
+    def findDistance(self, root, n1, n2):
+        # Do DFS
+        def dfs(node, par = None):
+            if node:
+                node.par = par
+                dfs(node.left, node)
+                dfs(node.right, node)
+        dfs(root)
+        # start BFS
+        q = deque([(n1, 0)])
+        visited = {n1}
+        while q:
+            node, d = q.popleft()
+            if node == n2:
+                return d
+            for w in (node.par, node.left, node.right):
+                if w and w not in visited:
+                    q.append((w, d+1))
+                    visited.add(w)
 
 
 # Driver code

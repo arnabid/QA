@@ -36,8 +36,13 @@ iterative solution
 def find_subsets2(arr):
 	n = len(arr)
 	ps_size = 2**n
-	for count in range(0, ps_size):
-		for j in range(0, n):
+	"""
+	there are 2**n subsets, n positions (marked with n bits)
+	for example the 7th position will be marked as 111 and
+	then 7 & (every position will be 1) so every element will be included
+	"""
+	for count in range(ps_size):
+		for j in range(n):
 			if count & (1 << j):
 				print (arr[j], end=",")
 		print ("")

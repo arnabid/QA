@@ -24,20 +24,16 @@ def fib(N):
 recursive solution with memoization
 """
 def fib_RM(N):
-    buffer = [None] * (N+1)
-    return fib_RM_helper(N, buffer)
+    arr = [None] * (N+1)
+    arr[1] = arr[2] = 1
+    return fib_RM_helper(N, arr)
 
 def fib_RM_helper(N, buffer):
-    if buffer[N]:
-        return buffer[N]
+    if arr[N]:
+        return arr[N]
 
-    if N == 1 or N == 2:
-        res = 1
-    else:
-        res = fib_RM_helper(N-1, buffer) + fib_RM_helper(N-2, buffer)
-
-    buffer[N] = res
-    return buffer[N]
+    arr[N] = fib_RM_helper(N-1, arr) + fib_RM_helper(N-2, arr)
+    return arr[N]
 
 
 """
@@ -46,11 +42,11 @@ iterative solution
 def fib_I(N):
     if N == 1 or N == 2:
         return 1
-    buffer = [None] * (N+1)
-    buffer[1] = buffer[2] = 1
+    arr = [None] * (N+1)
+    arr[1] = arr[2] = 1
     for i in range(3, N+1):
-        buffer[i] = buffer[i-1] + buffer[i-2]
-    return buffer[N]
+        arr[i] = arr[i-1] + arr[i-2]
+    return arr[N]
 
 if __name__ == '__main__':
     n = 60

@@ -44,7 +44,30 @@ class KDistanceNodes:
                         visited.add(w)
         while not q.empty():
             print (q.get().data)
-        
+
+
+from collections import deque
+class Solution(object):
+    def findDistanceK(self, root, n1, k):
+        # Do DFS
+        def dfs(node, par = None):
+            if node:
+                node.par = par
+                dfs(node.left, node)
+                dfs(node.right, node)
+        dfs(root)
+        # start BFS
+        q = deque([(n1, 0)])
+        visited = {n1}
+        while q:
+            if q[0][1] == k:
+                return [node.val for node, d in q]
+            node, d = q.popleft()
+            for w in (node.par, node.left, node.right):
+                if w and w not in visited:
+                    q.append((w, d+1))
+                    visited.add(w)
+
 
 if __name__ == '__main__':
     root = Node(20)

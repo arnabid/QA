@@ -24,20 +24,22 @@ def containsPWD(s):
     return PWD in s
 
 def findPassword(s):
-    i, j = -1, len(s)
+    i, j = 0, len(s)
     
     # keep increasing i from the left till s[i...j] contains password
-    while containsPWD(s[i+1:j]):
+    while containsPWD(s[i:]):
         i += 1
+    i -= 1
+
+    # edge case - string does not contain the password
+    if i == -1:
+        return ""
     
     # keep decreasing j from the right till s[i...j] conatains password
     while containsPWD(s[i:j]):
         j -= 1
     
-    if i >= 0:
-        return s[i:j+1]
-    else:
-        return None
+    return s[i:j+1]
 
 
 if __name__ == '__main__':

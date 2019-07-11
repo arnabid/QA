@@ -1,6 +1,8 @@
 List of questions
 =================
 
+1. coin change
+
 break the chain in 3 pieces to get min cost
 min coins to get a given value
 max subset in a set with the condition that no two elements are adjacent

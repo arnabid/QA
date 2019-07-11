@@ -22,17 +22,39 @@ Explanation :
 	press switch 1 : [1 1 0 1]
 	press switch 2 : [1 1 1 0]
 	press switch 3 : [1 1 1 1]
+
+Solution:
+count the number of flips:
+if even: bulb does not change state
+if odd: bulb changes state
 """
+
+def sol(arr):
+    n = len(arr)
+    flips = 0
+    for i in range(n):
+        if flips % 2 == 0:
+            # this bulb will remain in 0 state after x even flips
+            if arr[i] == 0:
+                flips += 1
+        else:
+            # this bulb will become zero after x odd flips
+            if arr[i] == 1:
+                flips += 1
+        arr[i] = 1
+    return arr, flips
 
 def bulbs(arr):
     n = len(arr)
     flips = 0
-    for i in xrange(n):
-        if not (flips % 2 ^ arr[i]):
+    for i in range(n):
+        if not ((flips % 2) ^ arr[i]):
             flips += 1
         arr[i] = 1
     return arr, flips
 
 if __name__ == '__main__':
-    arr = [0,1,0,1]
+    arr = [1,1,0,1,0,0,1,0]
+    tmp = [1,1,0,1,0,0,1,0]
     print (bulbs(arr))
+    print (sol(tmp))

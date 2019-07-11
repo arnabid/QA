@@ -14,7 +14,9 @@ class Node:
 		self.left = None
 		self.right = None
 
-
+"""
+3 variations of BFS
+"""
 def nodesatK1(root, k):
 	q = deque([root])
 	for _d in range(k):
@@ -55,16 +57,28 @@ def nodesatK3(root, k):
 	return [node.val for node in clevel]
 
 
+"""
+DFS
+"""
+def nodesatK4(root, k, ans, level):
+	if root:
+		if level == k:
+			ans.append(root.val)
+			return
+		nodesatK4(root.left, k, ans, level+1)
+		nodesatK4(root.right, k, ans, level+1)
+
 
 """
 Annote parent of each node in a binary tree
 using BFS/DFS
 """
-def annotateParent1(root, par = None):
-	if root:
-		root.par = par
-		annotateParent1(root.left, root)
-		annotateParent1(root.right, root)
+def annotateParent1(node, par = None):
+	if node:
+		node.par = par
+		annotateParent1(node.left, node)
+		annotateParent1(node.right, node)
+
 
 def annotateParent2(root):
 	q = deque([root])
@@ -87,8 +101,8 @@ if __name__ == '__main__':
     root.left.right = Node(12)
     root.left.right.left = Node(10)
     root.left.right.right = Node(14)
-    k = 10000
-    print (nodesatK3(root, k))
-    root.par = None
-    print (root.par)
+    k = 4
+    ans = []
+    nodesatK4(root, k, ans, 0)
+    print (ans)
 

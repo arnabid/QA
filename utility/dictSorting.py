@@ -22,3 +22,5 @@ sorted(d.items(), key=lambda x:x[1])
 
 # To get a list of tuples sorted by key
 sorted(d.items(), key=lambda x:x[0])
+
+

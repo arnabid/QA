@@ -1,19 +1,17 @@
-import math 
+import math
+from matplotlib import pyplot as plt
  
-# Method to find the divisors
+# Method to find the second largest divisor of n 
 def findDivisors(n) :
-    l1 = [1]
-    for i in range(2, int(math.sqrt(n) + 1)) :
-        if (n % i == 0) : 
-            # Check if divisors are equal
-            if (n / i == i) :
-                l1.append(i)
-            else :
-                l1 += [i, n//i]
-                break
-    return l1[-1]
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            return n//i
+        i += 1
+    return 1
 
 
+# Solution class
 class Solution:
     def __init__(self):
         self.mp = {1:0}
@@ -21,8 +19,8 @@ class Solution:
 
     def minSteps(self, n):
         """
-        :type n: int
-        :rtype: int
+        #:type n: int
+        #:rtype: int
         """
         self.steps.append(n)
         if n in self.mp:
@@ -43,6 +41,16 @@ class Solution:
         print (self.steps[::-1])
 
 if __name__ == '__main__':
+    #print (findDivisors(20))
+    x = range(1,101)
     sol = Solution()
-    sol.minStepsUtil(343)        
+    y = []
+    for ix in x:
+        sol = Solution()
+        y.append(sol.minSteps(ix))
+    print (y)
+    plt.plot(y, x)
+    plt.show()
+
+
         

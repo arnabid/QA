@@ -12,11 +12,10 @@ reference: https://www.careercup.com/question?id=5721957644369920
 """
 
 def sortStack(stack):
-    if not stack:
-        return 
-    p = stack.pop()
-    sortStack(stack)
-    insertInOrder(stack, p)
+    if stack:
+        p = stack.pop()
+        sortStack(stack)
+        insertInOrder(stack, p)
 
 
 def insertInOrder(stack, element):

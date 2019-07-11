@@ -67,8 +67,6 @@ union of the four intervals [1, 3], [2, 4.5], [6, 9], and [7, 8] is 6.5
 """
 
 def merge(meetings):
-    if not meetings:
-        return []
     meetings.sort(key = lambda x: x[0])
     final_meetings = [meetings[0]]
     total = 0

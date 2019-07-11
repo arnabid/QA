@@ -12,15 +12,15 @@ time = O(n)
 space = O(k); k = # distinct elements in array; worst case k = n
 """
 def findMode(arr):
-    c, maxfreq = Counter(), 0
-    for x in arr:
-        c[x] += 1
-        if c[x] > maxfreq:
-            maxfreq = c[x]
-    
+    c, maxfreq = Counter(arr), 0
+    ans = []
     for key in c:
-        if c[key] == maxfreq:
-            print (key),
+        if c[key] > maxfreq:
+            maxfreq = c[key]
+            ans = [key]
+        elif c[key] == maxfreq:
+            ans.append(key)
+    print (ans)
 
 def findMode2(arr):
     n = len(arr)
@@ -28,7 +28,7 @@ def findMode2(arr):
     
     # find the maxfreq
     count, maxfreq = 0, 0
-    for i in xrange(n):
+    for i in range(n):
         count += 1
         if i < n-1 and arr[i] != arr[i+1]:
             maxfreq = max(maxfreq, count)
@@ -37,7 +37,7 @@ def findMode2(arr):
     
     # print all the elements in arr that have freq count = maxfreq
     count = 0
-    for i in xrange(n):
+    for i in range(n):
         count += 1
         if i < n-1 and arr[i] != arr[i+1]:
             if count == maxfreq:
@@ -45,10 +45,10 @@ def findMode2(arr):
             count = 0
     
     if count == maxfreq:
-        print arr[-1]
+        print (arr[-1])
 
 if __name__ == '__main__':
-    arr = [1,2,2,3,3,3,4,4,4,4]
+    arr = [1,2,2,3,3,3,3,4,4,4,4]
     findMode(arr)
     print("")
     findMode2(arr)
