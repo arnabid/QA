@@ -510,7 +510,7 @@ def depth(root):
 
 
 # BFS
-def height(root):
+def self.height(root):
     if root is None:
         return -1
     
@@ -961,22 +961,22 @@ Leetcode 366 - Find leaves of binary tree
 """
 from  collections import defaultdict
 class SolutionFindLeaves():
-    def findHeights(self, root, height):
+    self.height = defaultdict(list)
+    def findHeights(self, root):
         if root is None: return -1
-        lh = self.findHeights(root.left, height)
-        rh = self.findHeights(root.right, height)
+        lh = self.findHeights(root.left)
+        rh = self.findHeights(root.right)
         h = max(lh,rh) + 1
-        height[h].append(root.val)
+        self.height[h].append(root.val)
         return h
 
     def findLeaves(self, root):
         if root is None: return []
-        height = defaultdict(list)
-        self.findHeights(root, height)
-        k, ans = 0, []
-        while k in height:
-            ans.append(height[k])
-            k += 1
+        self.findHeights(root)
+        h, ans = 0, []
+        while h in self.height:
+            ans.append(self.height[h])
+            h += 1
         return ans
 
 
