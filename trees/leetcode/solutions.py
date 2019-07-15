@@ -10,6 +10,48 @@ Leetcode questions - Trees
 """
 from typing import List
 
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+"""
+Delete Nodes And Return Forest
+reference: https://leetcode.com/problems/delete-nodes-and-return-forest/
+"""
+class Solution:
+    def delNodes(self, root: TreeNode, to_delete: List[int]) -> List[TreeNode]:
+        if root is None: return []
+        self.forest = []
+        to_delete = set(to_delete)
+        
+        # returns True if root is to be deleted
+        def dfs(root):
+            if root:
+                if dfs(root.left):
+                    root.left = None
+                if dfs(root.right):
+                    root.right = None
+                if root.val in to_delete:
+                    if root.left:
+                        self.forest.append(root.left)
+                    if root.right:
+                        self.forest.append(root.right)
+                    return True
+            return False
+        
+        if not dfs(root):
+            self.forest.append(root)
+        return self.forest
+
+
+"""
+Path In Zigzag Labelled Binary Tree
+reference: https://leetcode.com/problems/path-in-zigzag-labelled-binary-tree/
+"""
 import math
 def pathInZigZagTree(self, label: int) -> List[int]:
     # if the initial label is in an even row, replace it with the
@@ -35,6 +77,7 @@ def pathInZigZagTree(self, label: int) -> List[int]:
         ans[idx] = e - label + l
         idx += 2
     return ans[::-1]
+
 
 """
 Sum of left leaves
