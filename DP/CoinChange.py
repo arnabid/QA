@@ -11,7 +11,9 @@ number of coins to get a value k """
 from collections import Counter
 
 def solution(coins, k):
-    # A -> map with key = monetary value and the value = min # coins to get to key
+    # A -> map{K: V}
+    # K = monetary value
+    # V = min # coins to get to key
     A = Counter(coins)
     smallest_coin = min(coins)
     
