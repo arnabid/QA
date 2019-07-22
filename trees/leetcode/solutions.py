@@ -20,6 +20,29 @@ class TreeNode:
 
 
 """
+Insufficient Nodes in Root to Leaf Paths
+https://leetcode.com/problems/insufficient-nodes-in-root-to-leaf-paths/
+"""
+class Solution:
+    def sufficientSubset(self, root: TreeNode, limit: int) -> TreeNode:
+        def dfs(root, total):
+            if root:
+                total += root.val
+                if root.left is None and root.right is None:
+                    if total < limit:
+                        return None
+                    else:
+                        return root
+                root.left = dfs(root.left, total)
+                root.right = dfs(root.right, total)
+                if root.left or root.right:
+                    return root
+                else:
+                    return None
+        return dfs(root, 0)
+
+
+"""
 Save the tree by cutting the subtrees rooted at a rotten node.
 The rotten nodes have value -1.
 """
