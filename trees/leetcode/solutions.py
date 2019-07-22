@@ -20,6 +20,22 @@ class TreeNode:
 
 
 """
+Save the tree by cutting the subtrees rooted at a rotten node.
+The rotten nodes have value -1.
+"""
+class Solution(object):
+    def cutSubtrees(self, root: TreeNode) -> TreeNode:
+        def dfs(root):
+            if root:
+                if root.val == -1:
+                    return None
+                root.left = dfs(root.left)
+                root.right = dfs(root.right)
+                return root
+        dfs(root)
+
+
+"""
 Lowest Common Ancestor of Deepest Leaves
 reference: https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
 """
