@@ -18,6 +18,34 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
+"""
+Lowest Common Ancestor of Deepest Leaves
+reference: https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
+"""
+class Solution(object):
+    def lcaDeepestLeaves(self, root: TreeNode) -> TreeNode:
+        def dfs(root):
+            if root is None: return (-1, None)
+            if root.left is None and root.right is None:
+                return (0, root)
+            lh, lr = dfs(root.left)
+            rh, rr = dfs(root.right)
+            if lr is None:
+                return (rh+1, rr)
+            elif rr is None:
+                return (lh+1, lr)
+            else:
+                if lh == rh:
+                    return (lh+1, root)
+                elif lh > rh:
+                    return (lh+1, lr)
+                else:
+                    return (rh+1, rr)
+        _, lcadl = dfs(root)
+        return lcadl
+
+
 """
 Delete Nodes And Return Forest
 reference: https://leetcode.com/problems/delete-nodes-and-return-forest/
