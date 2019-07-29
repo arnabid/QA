@@ -16,6 +16,38 @@ class Node(object):
         self.right = None
         self.val = key
 
+
+"""
+1. check if 2 trees are identical
+reference:
+https://leetcode.com/problems/same-tree/
+"""
+def isIdentical(root1, root2):
+    if root1 is None and root2 is None:
+        return True
+    elif root1 is None or root2 is None:
+        return False
+    else:
+        return (root1.val == root2.val and
+        isIdentical(root1.left, root2.left) and
+        isIdentical(root1.right, root2.right))
+
+
+"""
+check if a binary tree r2 is a subtree of another tree r1
+assumption: r2 is not null
+reference:
+https://leetcode.com/problems/subtree-of-another-tree/
+"""
+def isSubtree(r1, r2):
+    if r1:
+        if (isSubtree(r1.left, r2) or
+            isSubtree(r1.right, r2) or
+            isIdentical(r1, r2)):
+                return True
+    return False
+
+
 """
 Find the second minimum element in a binary heap
 reference: https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/description/
@@ -180,37 +212,6 @@ def diameterOfBinaryTree(root):
     helper(root, ans)
     return ans[0]
 
-
-"""
-check if a binary tree is a subtree of another tree
-reference:
-http://www.geeksforgeeks.org/check-if-a-binary-tree-is-subtree-of-another-binary-tree/
-"""
-def isSubtree(r1, r2):
-    if r2 is None:
-        return True
-    if r1 is None:
-        return False
-    
-    if isIdentical(r1, r2):
-        return True
-    
-    return isSubtree(r1.left, r2) or isSubtree(r1.right, r2)
-
-
-"""
-check if 2 trees are identical
-"""
-def isIdentical(root1, root2):
-    if root1 is None and root2 is None:
-        return True
-    
-    if root1 is None or root2 is None:
-        return False
-    
-    return root1.val == root2.val and \
-    isIdentical(root1.left, root2.left) and \
-    isIdentical(root1.right, root2.right)
 
 
 """
