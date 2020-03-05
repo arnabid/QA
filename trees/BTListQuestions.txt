@@ -1,3 +1,44 @@
+==================================
+Master list of all tree questions
+==================================
+
+1. Check if 2 trees are identical
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+2. Check if a tree is symmetric
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+3. Count the number of nodes in a binary tree
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+4. Find the deepest leaf node
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+5. Find the lca of the deepest leaves in a binary tree
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+6. Find the height/depth of a binary tree
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+7. find all the leaves of a binary tree
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+8. find all the deepest and shallowest leaves of a binary tree
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+9. find the minimum height of a binary tree
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+10. check if a binary tree is balanced
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+11. merge two binary trees
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
+11. find all the leaves of a tree, starting from the deepest to the shallowest
+(i.e) first batch of leaves, then prune, then next batch of leaves and so on
+/Users/arnab/repos/QA/trees/BTQuestions.py
+
 1. Find duplicate subtrees
 reference: https://leetcode.com/problems/find-duplicate-subtrees/description/
 /Users/arnab/Documents/QA/trees/BTQuestions.py - LeetCode 652
@@ -18,14 +59,12 @@ complete this
 6. Closest leaf in a Binary Tree
 /Users/arnab/Documents/QA/trees/BTQuestions.py - LeetCode 742
 
-7. Check if 2 trees are identical
-/Users/arnab/Documents/QA/trees/BTQuestions.py
+
 
 8. Check if 2 trees are mirror images
 /Users/arnab/Documents/QA/trees/BTQuestions.py
 
-9. Check if a tree is symmetric
-/Users/arnab/Documents/QA/trees/BTQuestions.py
+
 
 10. Check if a tree is foldable
 /Users/arnab/Documents/QA/trees/BTQuestions.py

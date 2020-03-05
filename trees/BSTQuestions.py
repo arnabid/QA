@@ -7,7 +7,7 @@ Created on Wed Mar 16 12:44:17 2016
 
 """ Binary Search Tree questions"""
 
-class Node(object):
+class TreeNode:
     def __init__(self, key):
         self.left = None
         self.right = None
@@ -18,23 +18,17 @@ trim BST -- ** good question **
 reference: https://leetcode.com/problems/trim-a-binary-search-tree/description/
 """
 
-def trimBST(self, root, L, R):
-    """
-    :type root: TreeNode
-    :type L: int
-    :type R: int
-    :rtype: TreeNode
-    """
-    if root is None:
-        return None
-    root.left = self.trimBST(root.left, L, R)
-    root.right = self.trimBST(root.right, L, R)
-    if root.val < L:
-        return root.right
-    elif root.val > R:
-        return root.left
-    else:
-        return root
+class Solution:
+    def trimBST(self, root: TreeNode, L: int, R: int) -> TreeNode:
+        if root:
+            if root.val < L:
+                return self.trimBST(root.right, L, R)
+            elif root.val > R:
+                return self.trimBST(root.left, L, R)
+            else:
+                root.left = self.trimBST(root.left, L, R)
+                root.right = self.trimBST(root.right, L, R)
+                return root
 
 
 def search(root, key):

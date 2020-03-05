@@ -10,7 +10,7 @@ from collections import Counter
 
 
 # A class that represents an individual node in a Binary Tree
-class Node(object):
+class TreeNode:
     def __init__(self, key):
         self.left = None
         self.right = None
@@ -34,7 +34,7 @@ def isIdentical(root1, root2):
 
 
 """
-check if a binary tree r2 is a subtree of another tree r1
+2. check if a binary tree r2 is a subtree of another tree r1
 assumption: r2 is not null
 reference:
 https://leetcode.com/problems/subtree-of-another-tree/
@@ -46,6 +46,191 @@ def isSubtree(r1, r2):
             isIdentical(r1, r2)):
                 return True
     return False
+
+
+"""
+3. count the number of nodes in a binary tree
+"""
+def count(root: TreeNode) -> int:
+    if root:
+        return count(root.left) + count(root.right) + 1
+    else:
+        return 0
+
+
+"""
+4. find the deepest leaf node in a binary tree
+If multiple solutions exist, return any possible solution.
+"""
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        def dfs(root):
+            if root:
+                lh, ln = dfs(root.left)
+                rh, rn = dfs(root.right)
+                if ln is None and rn is None:
+                    return 1, root
+                elif ln is None or rh > lh:
+                    return rh+1, rn
+                elif rn is None or lh >= rh:
+                    return lh+1, ln
+            else:
+                return 0, None
+        _, node = dfs(root)
+        if node:
+            return node.val
+
+
+"""
+5. find the lca of the deepest leaves in a binary tree
+reference:
+https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
+"""
+class Solution(object):
+    def lcaDeepestLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        def dfs(root):
+            if root:
+                lh, lr = dfs(root.left)
+                rh, rr = dfs(root.right)
+                if lr is None and rr is None:
+                    return (1, root)
+                elif lr is None:
+                    return (rh+1, rr)
+                elif rr is None:
+                    return (lh+1, lr)
+                else:
+                    if lh == rh:
+                        return (lh+1, root)
+                    elif lh > rh:
+                        return (lh+1, lr)
+                    else:
+                        return (rh+1, rr)
+            else:
+                return 0, None
+        _, lcadl = dfs(root)
+        if lcadl:
+            return lcadl
+
+
+"""
+6. find the height of a binary tree, with the root node at level 0
+"""
+def height(root: TreeNode) -> int:
+    if root:
+        return max(height(root.left), height(root.right)) + 1
+    else:
+        return -1
+
+
+"""
+7. find all the leaves of a binary tree
+"""
+class Solution(object):
+    def findAllLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None: return 0
+        self.ans = []
+        def dfs(root, h):
+            if root:
+                if root.left is None and root.right is None:
+                    self.ans.append(root.val)
+                dfs(root.left)
+                dfs(root.right)
+        dfs(root)
+        return self.ans
+
+
+"""
+8. find all the deepest and shallowest leaves of a binary tree
+"""
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        self.heights = defaultdict(list)
+        self.minh, self.maxh = float('inf'), -float('inf')
+        def dfs(root, h):
+            if root:
+                if root.left is None and root.right is None:
+                    self.heights[h] += [root.val]
+                    self.minh = min(self.minh, h)
+                    self.maxh = max(self.maxh, h)
+                dfs(root.left, h+1)
+                dfs(root.right, h+1)
+                
+        dfs(root, 0)
+        print(self.heights[self.minh])
+        print(self.heights[self.maxh])
+        return None
+
+
+"""
+9. find the minimum height of a binary tree
+reference:
+https://leetcode.com/problems/minimum-depth-of-binary-tree/
+"""
+class Solution(object):
+    def minDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None: return 0
+        self.ans = float('inf')
+        def dfs(root, h):
+            if root:
+                if root.left is None and root.right is None:
+                    self.ans = min(self.ans, h)
+                dfs(root.left, h+1)
+                dfs(root.right, h+1)
+        dfs(root, 1)
+        return self.ans
+
+
+"""
+10. check if a binary tree is balanced
+reference:
+https://leetcode.com/problems/balanced-binary-tree/
+"""
+class Solution(object):            
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        def check(root):
+            if root is None:
+                return -1, True
+            lh, lb = check(root.left)
+            if lb is False: return lh, lb
+            rh, rb = check(root.right)
+            if rb is False: return rh, rb
+            return max(lh, rh) + 1, lb and rb and abs(lh - rh) < 2
+
+        _, isBalanced = check(root)
+        return isBalanced
+
+
+"""
+11. merge 2 binary trees
+reference:
+https://leetcode.com/problems/merge-two-binary-trees/#/description
+"""
+def mergeTrees(t1, t2):
+    if t1 is None:
+        return t2
+    elif t2 is None:
+        return t1
+    else:
+        t1.val = t1.val + t2.val
+        t1.left = mergeTrees(t1.left, t2.left)
+        t1.right = mergeTrees(t1.right, t2.right)
+        return t1
 
 
 """
@@ -75,20 +260,6 @@ def findSecondMinimumValue(self, root):
     if ans[0] < float('inf'):
         return ans[0]
     return -1
-
-"""
-Merge 2 BTs
-reference: https://leetcode.com/problems/merge-two-binary-trees/#/description
-"""
-def mergeTrees(t1, t2):
-    if t1 is None:
-        return t2
-    if t2 is None:
-        return t1
-    root = Node(t1.val + t2.val)
-    root.left = mergeTrees(t1.left, t2.left)
-    root.right = mergeTrees(t1.right, t2.right)
-    return root
 
 
 """
