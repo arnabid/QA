@@ -15,3 +15,30 @@ def moveZeroes(nums: List[int]) -> None:
         if nums[i] != 0:
             nums[insert_pos], nums[i] = nums[i], nums[insert_pos]
             insert_pos += 1
+
+
+
+"""
+Dutch flag sorting - without using the sort routine and in one pass
+Reference: https://leetcode.com/problems/sort-colors/
+l = insertion point of 0 (beginning of array)
+h = insertion point of 2 (end of the array)
+m = current index being evaluated
+insight: only 2 position indices needed to sort 3 colors
+"""
+
+def sortColors(self, nums: List[int]) -> List[int]:
+    n = len(nums)
+    l, m, h = 0, 0, n-1
+    while m <= h:
+        if nums[m] == 0:
+            nums[l], nums[m] = nums[m], nums[l]
+            l += 1
+            m += 1
+        elif nums[m] == 2:
+            nums[h], nums[m] = nums[m], nums[h]
+            h -= 1
+        else:
+            m += 1
+    return nums
+
