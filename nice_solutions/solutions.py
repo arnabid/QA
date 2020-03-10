@@ -1,9 +1,9 @@
 """
-Move zeros to the right of an array
+Move zeros to the right of an array while maintaining the relative ordering
+of the non-zero elements in the array.
 Reference: https://leetcode.com/problems/move-zeroes/
-solution description: Do not use 2 pointers and swap values; difficult to understand 
-maintain insert_position index;
-if arr[i] != 0; arr[insert_position] = arr[i]
+solution description: maintain insert_position index;
+if arr[i] != 0; swap (insert_position, i)
 increment i, increment insert_position
 """
 
@@ -15,7 +15,6 @@ def moveZeroes(nums: List[int]) -> None:
         if nums[i] != 0:
             nums[insert_pos], nums[i] = nums[i], nums[insert_pos]
             insert_pos += 1
-
 
 
 """
